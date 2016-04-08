@@ -1,4 +1,4 @@
-package boceto_tp1_ayp2;
+package tp1;
 
 public class Domicilio {
 	
