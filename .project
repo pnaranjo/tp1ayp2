@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
+	<name>tp1</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+=======
 	<name>tp1ayp2</name>
 	<comment></comment>
 	<projects>
@@ -7,5 +22,6 @@
 	<buildSpec>
 	</buildSpec>
 	<natures>
+>>>>>>> branch 'master' of https://github.com/pnaranjo/tp1ayp2
 	</natures>
 </projectDescription>
