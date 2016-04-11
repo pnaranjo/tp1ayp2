@@ -1,8 +1,8 @@
 package tp1;
 
-import boceto_TP.Cliente;
-import boceto_TP.Domicilio;
-import boceto_TP.PersonaFisicaException;
+//import boceto_TP.Cliente;
+//import boceto_TP.Domicilio;
+//import boceto_TP.PersonaFisicaException;
 
 public class PersonaFisica extends Cliente {
 	

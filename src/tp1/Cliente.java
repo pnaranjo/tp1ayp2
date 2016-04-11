@@ -1,5 +1,7 @@
 package tp1;
 
+import java.util.Objects;
+
 public abstract class Cliente {
 	
 	private final String nombre;
@@ -77,5 +79,26 @@ public abstract class Cliente {
 	public void deshabilitar(){
 		habilitado = false;
 	}	
+/*
+    @Override
+    public int hashCode() {        
+        return (int) (this.cuit + this.nombre.length());
+        
+    }*//*
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (this.cuit != other.cuit) {
+            return false;
+        }
+        return true;
+    }
+        */
 }
