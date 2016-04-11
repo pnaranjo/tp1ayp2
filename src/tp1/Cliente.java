@@ -79,12 +79,12 @@ public abstract class Cliente {
 	public void deshabilitar(){
 		habilitado = false;
 	}	
-/*
+
     @Override
     public int hashCode() {        
-        return (int) (this.cuit + this.nombre.length());
+        return (int) (long) this.cuit;
         
-    }*//*
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -100,5 +100,5 @@ public abstract class Cliente {
         }
         return true;
     }
-        */
+     
 }

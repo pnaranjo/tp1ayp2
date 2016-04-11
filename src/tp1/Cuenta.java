@@ -48,12 +48,11 @@ public abstract class Cuenta  {
          Integer datoSaldo = (int)(double) cbu;
          return "CBU:".concat(String.valueOf(cbu)).concat("Saldo:").concat(String.valueOf(saldo));
     }
-
+    
     @Override
     public int hashCode() {
         return (int) (long) cbu;
     }
-
     
 
     @Override
@@ -62,10 +61,12 @@ public abstract class Cuenta  {
             return true;
         }
         if (obj == null || getClass() != obj.getClass()) {
+            System.out.println("Cuenta duplicada");
             return false;
         }
         final Cuenta other = (Cuenta) obj;
         if (this.cbu != other.cbu) {
+            System.out.println("Cuenta duplicada");
             return false;
         }
         return true;

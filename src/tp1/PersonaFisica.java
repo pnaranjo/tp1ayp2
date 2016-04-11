@@ -90,6 +90,31 @@ public class PersonaFisica extends Cliente {
 	public String getProfesion() {
 		return profesion;
 	}
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.numeroDeDocumento;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PersonaFisica other = (PersonaFisica) obj;
+        if (this.numeroDeDocumento != other.numeroDeDocumento) {
+            return false;
+        }
+        return true;
+    }
 	}
 
 			
