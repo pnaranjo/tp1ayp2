@@ -34,7 +34,6 @@ public class Ventanilla {
 			if(true/*.isEnabled()*/){
 				
 				
-				
 				//tipo moneda coincida con cuenta
 				if(true/*c.getTipoCuenta*/){
 					
