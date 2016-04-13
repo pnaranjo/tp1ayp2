@@ -1,5 +1,5 @@
 package tp1;
 
-public class CuentaComun {
-
+public class CuentaComun extends Cuenta {
+       
 }
