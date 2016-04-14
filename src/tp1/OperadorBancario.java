@@ -1,47 +1,16 @@
 package tp1;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
-public class OperadorBancario /*implements Iterable<Cuenta> */{
+public class OperadorBancario{
 
-    public static HashSet<Cuenta> portfolioDeCuentas;
+    public static Map<Cuenta, Cuenta> portfolioDeCuentas;
 
-    public static HashSet<Cliente> portfolioDeClientes;
+    public static Map<Cliente, Long> portfolioDeClientes;
 
     public OperadorBancario() {
-        portfolioDeCuentas = new HashSet<Cuenta>();
-        portfolioDeClientes = new HashSet<Cliente>();
+        portfolioDeCuentas = new HashMap<Cuenta, Cuenta>();
+        portfolioDeClientes = new HashMap<Cliente, Long>();
     }
 }
-/*
-    @Override
-    public Iterator<Cuenta> iterator() {
-        Iterator it = new IteratorCuenta();
-    }
-
-    protected class IteratorCuenta implements Iterator<Cuenta> {
-        protected int posicionHash;
-        
-        public IteratorCuenta(){
-            posicionHash = 0;
-        }
-        @Override
-        public boolean hasNext() {
-            boolean result;
-        
-            if(posicionHash < portfolioDeCuentas.size()){
-                result = true;
-            } else{ result = false;}
-            return result;
-            }
-
-        @Override
-        public Cuenta next() {
-            posicionHash++;
-            return Cuenta;
-        }
-
-    }
-}
-*/

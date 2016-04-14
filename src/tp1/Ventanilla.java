@@ -5,66 +5,47 @@ import tp1.Cuenta;
 
 public class Ventanilla {
 
-	enum tipoMoneda {
-		PESOS, DOLARES
-	}
+	enum tipoMonedaPermitida { PESOS, DOLARES }
 
 	public Ventanilla() {
-		// TODO Auto-generated constructor stub
 	}
-
-	/*
-	 * Se denomina depósito en efectivo al acto de entregar al Banco una suma de
-	 * dinero en efectivo para acreditarlo a una Cuenta bancaria (sumarlo al
-	 * saldo de la misma). La operación se puede realizar si la cuenta destino
-	 * está habilitada y solo permite depósitos en la moneda nominal. Es decir
-	 * en una cuenta en pesos solo se podrá realizar depósitos en pesos y en una
-	 * cuenta en dólares, solo depósitos en dólares.
-	 */
 
 	// tipo moneda solo permite pesos o dolares
-	public void depositoEnEfectivo(long cuenta, double montoADepositar, String tipoMoneda){
-		long cuentaADepositar = cuenta;
-	    try{
-	    	
-		//buscar cuenta	
-		if(buscarCuenta(cuenta)){
-			//ver cuenta habilitada
-			
-			if(true/*.isEnabled()*/){
-				
-				
-				//tipo moneda coincida con cuenta
-				if(true/*c.getTipoCuenta*/){
-					
-					
-					//sumar monto al saldo
-					if(montoADepositar > 0){
-						//c.acreditar(cuenta, montoADepositar);
-						//toString de ticket Deposito OK
+	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
+		try {	
+			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
+				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
+				return;
+			}		
+			Cuenta c = null;
+			if (OperadorBancario.portfolioDeCuentas.containsValue(cbu)) {
+				// TODO aca tedria que tener c.setCbu para poder tomar obj c con el get
+				c = OperadorBancario.portfolioDeCuentas.get(cbu);
+				if (c.isEnabled()) {
+					if (tipoDeCA(c).equals(tipoMoneda)) {
+						if (montoADepositar > 0) {
+							c.acreditar(cbu, montoADepositar);
+							toString(cbu, montoADepositar, c.getSaldo());
+						}
+						System.out.println("monto erroneo");
 					}
+					System.out.println("tipo de moneda erroneo");
 				}
+				System.out.println("la cuenta no pertenece al banco");
 			}
+		} catch (Exception e) {
+		System.out.println(e);
 		}
-		}catch(Exception e){
-			
-		}
-	    
-		
+	}
+	
+	public String toString(Long cbu, double monto, double saldo){
+		return "Operacion Satisfactoria /n se deposito en cuenta: "+cbu+" $"+monto+
+				"/n quedando un saldo de: $"+saldo;
 	}
 
-	public boolean buscarCuenta(long cuenta) {
-		while (!OperadorBancario.portfolioDeCuentas.isEmpty()) {
-			if (OperadorBancario.portfolioDeCuentas.iterator().hasNext()) {
-				Cuenta c = OperadorBancario.portfolioDeCuentas.iterator()
-						.next();
-				if (c.getCbu() == cuenta) {
-					return true;
-				}
-				OperadorBancario.portfolioDeCuentas.iterator().next();
-			}
-		}
-		return false;
+	private String tipoDeCA(Cuenta c){
+		if(c instanceof CajaDeAhorroEnPesos) return "PESOS";
+		return "DOLARES";
 	}
 
 	public void extraccionEfectivoCA(long cliente, long cuenta,
