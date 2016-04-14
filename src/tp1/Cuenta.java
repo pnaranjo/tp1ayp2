@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Cuenta  {
 
-    //private final long cbu = 0;
-    protected long cbu = 0;  //estan bien los protected???
+	  
     private double saldo;
     private ArrayList<Transaccion> historial;   
     protected boolean enabled;
@@ -16,9 +15,7 @@ public abstract class Cuenta  {
     	this.enabled = false;
     	historial = new ArrayList<Transaccion>();
     }
-    public long getCbu() {
-        return cbu;
-    }
+    
 
     public double getSaldo() {
         return saldo;
@@ -28,8 +25,8 @@ public abstract class Cuenta  {
         return historial;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isEnabled() {        
+    	return enabled;
     }
     
     public void setEnable(){
@@ -47,13 +44,23 @@ public abstract class Cuenta  {
         
     }
     
-    public String toString(){
-        
-         Integer datoCbu = (int)(long) cbu;
-         Integer datoSaldo = (int)(double) cbu;
-         return "CBU:".concat(String.valueOf(cbu)).concat("Saldo:").concat(String.valueOf(saldo));
+    public void debitarCostos(double costos){
+    	saldo -= costos;
     }
     
+    public String estadoCuenta(){
+    	String estado;
+    	if(isEnabled() == true)
+    		estado = "Habilitada";
+    	else
+    		estado = "Deshabilitada";
+    	return estado;
+    }
+    
+    public String toString(){      
+         return "Saldo:".concat(String.valueOf(saldo)).concat("Estado:").concat(estadoCuenta());
+    }
+    /*
     @Override
     public int hashCode() {
         return (int) (long) cbu;
@@ -75,7 +82,7 @@ public abstract class Cuenta  {
             return false;
         }
         return true;
-    }
+    }*/
     
     
 }
