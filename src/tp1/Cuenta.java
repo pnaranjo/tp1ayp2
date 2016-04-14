@@ -1,4 +1,4 @@
-package tp1;
+	package tp1;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,12 @@ public abstract class Cuenta  {
     private ArrayList<Transaccion> historial;   
     protected boolean enabled;
     
-    
+    public Cuenta(double saldo){
+    	
+    	this.saldo = saldo;
+    	this.enabled = false;
+    	historial = new ArrayList<Transaccion>();
+    }
     public long getCbu() {
         return cbu;
     }
