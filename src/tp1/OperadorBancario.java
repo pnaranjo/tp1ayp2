@@ -5,12 +5,13 @@ import java.util.Map;
 
 public class OperadorBancario{
 
-    public static Map<Cuenta, Cuenta> portfolioDeCuentas;
+    public static Map<Long,Cuenta > portfolioDeCuentas;
 
-    public static Map<Cliente, Long> portfolioDeClientes;
+    public static Map<Long, Cliente> portfolioDeClientes;
 
     public OperadorBancario() {
-        portfolioDeCuentas = new HashMap<Cuenta, Cuenta>();
-        portfolioDeClientes = new HashMap<Cliente, Long>();
+        portfolioDeCuentas = new HashMap<Long, Cuenta>();
+        portfolioDeClientes = new HashMap<Long, Cliente>();
     }
+    
 }
