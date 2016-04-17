@@ -10,7 +10,12 @@ public abstract class Cuenta  {
     private ArrayList<Transaccion> historial;   
     protected boolean enabled;
     
-    
+    public Cuenta(double saldo){
+    	
+    	this.saldo = saldo;
+    	this.enabled = false;
+    	historial = new ArrayList<Transaccion>();
+    }
     public long getCbu() {
         return cbu;
     }
@@ -73,4 +78,5 @@ public abstract class Cuenta  {
     }
     
     
+}
 }
