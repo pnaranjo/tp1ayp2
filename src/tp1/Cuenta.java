@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public abstract class Cuenta  {
 
     //private final long cbu = 0;
-    protected long cbu = 0;  //estan bien los protected???
-    private double saldo;
-    private ArrayList<Transaccion> historial;   
+    //estan bien los protected???
+    protected double saldo;
+    protected ArrayList<Transaccion> historial;   
     protected boolean enabled;
     
     public Cuenta(double saldo){
@@ -15,9 +15,6 @@ public abstract class Cuenta  {
     	this.saldo = saldo;
     	this.enabled = false;
     	historial = new ArrayList<Transaccion>();
-    }
-    public long getCbu() {
-        return cbu;
     }
 
     public double getSaldo() {
@@ -47,7 +44,7 @@ public abstract class Cuenta  {
         
     }
     
-    public String toString(){
+ /*   public String toString(){
         
          Integer datoCbu = (int)(long) cbu;
          Integer datoSaldo = (int)(double) cbu;
@@ -59,7 +56,6 @@ public abstract class Cuenta  {
         return (int) (long) cbu;
     }
     
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -76,7 +72,6 @@ public abstract class Cuenta  {
         }
         return true;
     }
+*/    
     
-    
-}
 }

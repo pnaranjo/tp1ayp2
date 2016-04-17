@@ -9,18 +9,18 @@ public class CuentaCorriente extends Cuenta {
     private double montoSobreGiro,montoParaAbrirCuenta = 10000;
     static final double comision = 0.03;
             
-    public CuentaCorriente(HashSet<Cliente> titulares,double montoSobreGiro1) {
-        cbu =10;
+    public CuentaCorriente(double saldo, HashSet<Cliente> titulares,double montoSobreGiro1) {
+        super(saldo);
         this.titulares = new HashSet<Cliente>(titulares);         
         this.montoSobreGiro = montoSobreGiro1;
         enabled = false;
     }
     
-    public CuentaCorriente(HashSet<Cliente> titulares,double montoSobreGiro,double montoDeposito) {
+    public CuentaCorriente(double saldo, HashSet<Cliente> titulares,double montoSobreGiro,double montoDeposito) {
+    	super(saldo);
         if(montoDeposito < montoParaAbrirCuenta){
             throw new Error(" El monto necesario para abrir cuenta debe ser mayor o igual a 10.000");
         }
-        cbu++;
         this.titulares = new HashSet<Cliente>(titulares);                 
         this.montoSobreGiro = montoSobreGiro;
         enabled = true;
