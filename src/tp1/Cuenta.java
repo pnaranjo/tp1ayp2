@@ -44,7 +44,11 @@ public abstract class Cuenta  {
         
     }
     
- /*   public String toString(){
+ /*  Esto lo comente porque da error ya que CBU no pertenece a Cuenta sino a CuentaComun.
+  *  No se si es necesario lo de abajo, ya que ahora usamos HashMap
+  *  
+  *  
+  *   public String toString(){
         
          Integer datoCbu = (int)(long) cbu;
          Integer datoSaldo = (int)(double) cbu;

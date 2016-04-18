@@ -11,4 +11,6 @@ public class CuentaEspecial extends Cuenta {
 		public String getTipoDeMoneda(){
 			return tipoDeMoneda;
 		}
+		
 }
+
