@@ -1,8 +1,5 @@
 package tp1;
 
-//import boceto_TP.Cliente;
-//import boceto_TP.Domicilio;
-//import boceto_TP.PersonaFisicaException;
 import tp1.Cliente;
 import tp1.Domicilio;
 import tp1.PersonaFisicaException;
@@ -37,20 +34,20 @@ public class PersonaFisica extends Cliente {
 	}
 	
 	//Constructor para PersonaFisica con estado Viudo, Divorciado o soltero. 
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) throws PersonaFisicaException {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) {
 		super (nombre, cuit, domicilio, telefono, habilitado);
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
 		this.profesion = profesion;
 		try {
 			if ((estadoCivil.equals("Casado")) || (estadoCivil.equals("Casada")) || (estadoCivil.equals("casado")) || (estadoCivil.equals("casada"))) {
-				throw new PersonaFisicaException("El campo <<CONYUGUE>> está incompleto.");
+				throw new PersonaFisicaException("Campo <<CONYUGUE>> faltante.");
 			} else {
 				this.estadoCivil = estadoCivil;
 			}
 	
 		}catch (Exception e){
-			System.out.println("Excepción por campo <<CONYUGUE>> faltante.");
+			System.out.println("Campo <<CONYUGUE>> faltante.");
 			/*
 			 * Acá habría que hacer algún tipo de LOG
 			 * para dejar asentado que hubo un error???
@@ -71,6 +68,11 @@ public class PersonaFisica extends Cliente {
 		this.estadoCivil = estadoCivil; 
 	}
 	
+	public void setEstadoCivilCasado(String estadoCivil, String conyugue){
+		this.estadoCivil = estadoCivil; 
+		this.conyugue = conyugue;
+	}
+		
 	public String getEstadoCivil() {
 		return estadoCivil;
 	}
