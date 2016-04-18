@@ -10,7 +10,13 @@ public class Ventanilla {
 	public Ventanilla() {
 	}
 
+	private String getTipoDeCA(Cuenta c){
+		if(c instanceof CajaDeAhorroEnPesos) return "PESOS";
+		return "DOLARES";
+	}
+	
 	// tipo moneda solo permite pesos o dolares
+//TODO agregar leyendas y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		try {	
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
@@ -19,43 +25,40 @@ public class Ventanilla {
 			}		
 			Cuenta c = null;
 			if (OperadorBancario.portfolioDeCuentas.containsValue(cbu)) {
-				// TODO aca tedria que tener c.setCbu para poder tomar obj c con el get
 				c = OperadorBancario.portfolioDeCuentas.get(cbu);
 				if (c.isEnabled()) {
-					if (tipoDeCA(c).equals(tipoMoneda)) {
+					if (getTipoDeCA(c).equals(tipoMoneda)) {
 						if (montoADepositar > 0) {
 							c.acreditar(cbu, montoADepositar);
 							toString(cbu, montoADepositar, c.getSaldo());
 						}
-						System.out.println("monto erroneo");
 					}
-					System.out.println("tipo de moneda erroneo");
 				}
-				System.out.println("la cuenta no pertenece al banco");
 			}
 		} catch (Exception e) {
 		System.out.println(e);
 		}
 	}
 	
+	//TODO ver de usarlo para todos los meotodos
 	public String toString(Long cbu, double monto, double saldo){
 		return "Operacion Satisfactoria /n se deposito en cuenta: "+cbu+" $"+monto+
 				"/n quedando un saldo de: $"+saldo;
 	}
 
-	private String tipoDeCA(Cuenta c){
-		if(c instanceof CajaDeAhorroEnPesos) return "PESOS";
-		return "DOLARES";
-	}
-
-	public void extraccionEfectivoCA(long cliente, long cuenta,
-			double montoDeExtraccion, String motivo) {
-		// ver cuenta habilitada
-		// ver que cliente sea titular de la cuenta
-		// restar monto al saldo y ver que no exeda lo disponible
-		// crear un movimiento
-		// toString de ticket extraccion OK, si cuenta no habilitada devolver
-		// extraccion KO
+	
+	//TODO agregar leyendas y texto de salida
+	public void extraccionEfectivoCA(long cliente, long cbu,
+			double montoDeExtraccion, String motivo){
+		Cuenta c = null;
+		if (OperadorBancario.portfolioDeCuentas.containsValue(cbu)) {
+		CajaDeAhorro ca = (CajaDeAhorroEnPesos) OperadorBancario.portfolioDeCuentas.get(cbu);
+			if (ca.isEnabled()) {				
+				if(ca.getTitulares().contains(cliente)){
+					ca.debitar("Debito", montoDeExtraccion, motivo);
+				}
+			}
+		}
 
 	}
 
@@ -72,20 +75,44 @@ public class Ventanilla {
 		// toString con ok o ko
 	}
 
-	// lista los ultimos n movimientos de la cuenta
-	public String listarMovimientos(long cuenta, int ultimosNMovimientos) {
-		// ver cuenta habilitada
-		// recorrer cuenta los ultimos n movimientos
-
-		return null;
+	
+	public String listarMovimientos(long cbu, int ultimosNMovimientos) {
+		Cuenta c = null;
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
+			c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if(!c.getHistorial().isEmpty()){
+				String historial = "";
+				
+				int nAListar;
+				if(c.getHistorial().size() >= ultimosNMovimientos){
+					nAListar = ultimosNMovimientos;
+				}else{
+					nAListar = c.getHistorial().size();
+					System.out.println("no hay tantos movimientos, se listaran " + c.getHistorial().size());
+					
+				}
+					for(int i = 0; i< nAListar ; i++){
+						historial += c.getHistorial().get(i) + "/n";	
+					}
+					return historial;
+			}
+		}
+		return "cuenta inexistente";
 	}
 
-	// lista todos los movimientos de la cuenta
-	public String listarMovimientos(long cuenta) {
-		// ver cuenta habilitada
-		// recorrer toda la cuenta
-
-		return null;
+	public String listarMovimientos(long cbu) {
+		Cuenta c = null;
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
+			c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if(!c.getHistorial().isEmpty()){
+				String historial = "";
+				for(int i = 0; i< c.getHistorial().size() ; i++){
+					historial += c.getHistorial().get(i) + "/n";	
+				}
+				return historial;
+			}
+		}
+		return "cuenta inexistente";
 	}
 
 }
