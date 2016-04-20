@@ -34,26 +34,19 @@ public class PersonaFisica extends Cliente {
 	}
 	
 	//Constructor para PersonaFisica con estado Viudo, Divorciado o soltero. 
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) throws Exception {
 		super (nombre, cuit, domicilio, telefono, habilitado);
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
 		this.profesion = profesion;
-		try {
+		
 			if ((estadoCivil.equals("Casado")) || (estadoCivil.equals("Casada")) || (estadoCivil.equals("casado")) || (estadoCivil.equals("casada"))) {
 				throw new PersonaFisicaException("Campo <<CONYUGUE>> faltante.");
 			} else {
 				this.estadoCivil = estadoCivil;
 			}
 	
-		}catch (Exception e){
-			System.out.println("Campo <<CONYUGUE>> faltante.");
-			/*
-			 * Acá habría que hacer algún tipo de LOG
-			 * para dejar asentado que hubo un error???
-			 * 
-			 */
-			}
+		
 		}
 	
 	public String getTipoDeDocumento() {

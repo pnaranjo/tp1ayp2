@@ -1,19 +1,12 @@
 package pruebas_TP1;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import tp1.*;
 
 public class PruebaPersonaFisica {
 	
-	/*
-	 * The ExpectedException rule allows you to verify 
-	 * that your code throws a specific exception.
-	 */
-	@Rule public ExpectedException thrown= ExpectedException.none();
 	
 	String codigoPostal1 = "1426";
 	String direccion = "Las Heras 2532";
@@ -54,13 +47,13 @@ public class PruebaPersonaFisica {
 
 	
 	@Test
-	public void personaHabilitadaViuda() {
+	public void personaHabilitadaViuda() throws Exception {
 		PersonaFisica persona3 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Viudo");
 		Assert.assertTrue(persona3.isEnabled());		
 	}
 	
 	@Test
-	public void personaNoHabilitadaViuda() {
+	public void personaNoHabilitadaViuda() throws Exception {
 		boolean habilitado = false;
 		PersonaFisica persona3 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Viudo");
 		Assert.assertFalse(persona3.isEnabled());		
@@ -68,14 +61,11 @@ public class PruebaPersonaFisica {
 		
 	
 	/*
-	 * Estoy haciendo mal el manejo de excepciones!!!
-	 * VERIFICAR!!!!
+	 * Tira una Excepción 
 	 */
-	@Test (expected = Exception.class)
-	public void excepcionPersonaCasadaSinConyugue() {
+	@Test(expected = Exception.class)
+	public void excepcionPersonaCasadaSinConyugue() throws Exception {
 		
-		//thrown.expect(PersonaFisicaException.class);
-	    //thrown.expectMessage("Campo <<CONYUGUE>> faltante.");
 		new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado");
 	}
 

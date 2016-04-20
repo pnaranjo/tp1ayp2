@@ -36,6 +36,11 @@ public abstract class Cliente {
 		this.habilitado = true;
 	}
 
+
+	//TODO public String toString(){
+	//
+	//
+	
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
 	}
