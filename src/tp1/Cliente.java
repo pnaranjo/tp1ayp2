@@ -37,9 +37,10 @@ public abstract class Cliente {
 	}
 
 
-	//TODO public String toString(){
-	//
-	//
+	public String toString(){		
+		return ("Nombre y Apellido: " +nombre+ " CUIT: " +cuit+ " Domicilio: " 
+				+domicilio.toString()+ " Telefono: " + telefono + (habilitado?" Cliente habilitado.":" Cliente NO habilitado"));
+	}
 	
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;

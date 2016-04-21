@@ -45,7 +45,7 @@ public class PruebaDomicilio {
 		}
 	
 	@Test
-	public void setDireccionCambiaLaDireccion() {
+	public void pruebaSetDireccionCambiaLaDireccion() {
 		
 		Domicilio domicilio1 = new Domicilio(direccion, codigoPostal1, localidad, provincia);
 		String direccionNueva = "Av. de Mayo 555";
@@ -55,7 +55,7 @@ public class PruebaDomicilio {
 		}
 	
 	@Test
-	public void setCodigoPostal() {
+	public void pruebaSetCodigoPostal() {
 		
 		Domicilio domicilio1 = new Domicilio(direccion, codigoPostal1, localidad, provincia);
 		String cpNuevo = "C1425ASO";
@@ -64,7 +64,7 @@ public class PruebaDomicilio {
 		}
 	
 	@Test
-	public void setLocalidad() {
+	public void pruebaSetLocalidad() {
 		
 		Domicilio domicilio1 = new Domicilio(direccion, codigoPostal1, localidad, provincia);
 		String locNueva = "Capital Federal";
@@ -73,12 +73,20 @@ public class PruebaDomicilio {
 		}
 	
 	@Test
-	public void setProvincia() {
+	public void pruebaSetProvincia() {
 		
 		Domicilio domicilio1 = new Domicilio(direccion, codigoPostal1, localidad, provincia);
 		String provNueva = "Neuquen";
 		domicilio1.setProvincia(provNueva);
 		Assert.assertEquals(provNueva, domicilio1.getProvincia());
+		}
+	
+	@Test
+	public void pruebaToString() {
+		
+		Domicilio domicilio1 = new Domicilio(direccion, codigoPostal1, localidad, provincia);
+		String resultado = domicilio1.toString();
+		Assert.assertEquals(resultado, "Dirección: Las Heras 2532 Código Postal: 1426 Localidad: Capital Provincia: CABA");
 		}
 
 	

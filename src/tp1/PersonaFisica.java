@@ -23,6 +23,7 @@ public class PersonaFisica extends Cliente {
 		this.conyugue = "";
 	}
 	
+	//Constructor para cliente Casado/a
 	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) {
 		super (nombre, cuit, domicilio, telefono, habilitado);
 		
@@ -84,6 +85,12 @@ public class PersonaFisica extends Cliente {
 	
 	public String getProfesion() {
 		return profesion;
+	}
+	
+	public String toString() {
+		
+		return (super.toString() + " Tipo de documento: " +tipoDeDocumento+ " Número de documento: " +numeroDeDocumento+ 
+				                   " Profesión: " +profesion+ " Estado civil: " +estadoCivil+ (conyugue != null ? (" Cónyugue: " +conyugue):""));
 	}
 
     @Override

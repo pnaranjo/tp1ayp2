@@ -68,5 +68,26 @@ public class PruebaPersonaFisica {
 		
 		new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado");
 	}
+	
+	@Test
+	public void pruebaToStringConPersonaFisicaCasado() {
+		
+		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
+		String resultado = persona2.toString();
+		Assert.assertEquals(resultado, 
+"Nombre y Apellido: Juan Perez CUIT: 20228833449 Domicilio: Dirección: Las Heras 2532 Código Postal: 1426 Localidad: Capital Provincia: CABA Telefono: 48329944 Cliente habilitado. Tipo de documento: PASAPORTE Número de documento: 22883344 Profesión: Horticultor Estado civil: Casado Cónyugue: Romina Albornoz"
+);
+		}
+	
+	@Test
+	public void pruebaStringConPersonaNoHabilitadaViuda() throws Exception {
+		boolean habilitado = false;
+		PersonaFisica persona3 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Viudo");
+		String resultado = persona3.toString();
+		System.out.println(resultado);
+		Assert.assertEquals(resultado, 
+"Nombre y Apellido: Juan Perez CUIT: 20228833449 Domicilio: Dirección: Las Heras 2532 Código Postal: 1426 Localidad: Capital Provincia: CABA Telefono: 48329944 Cliente NO habilitado Tipo de documento: PASAPORTE Número de documento: 22883344 Profesión: Horticultor Estado civil: Viudo");
+	
+	}
 
 }
