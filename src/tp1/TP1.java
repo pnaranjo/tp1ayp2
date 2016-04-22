@@ -4,9 +4,11 @@ package tp1;
 import java.util.HashSet;
 import java.util.Set;
 
+import Excepciones.ExceptionNumeroDeDocumentoNoValido;
+
 public class TP1 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExceptionNumeroDeDocumentoNoValido {
         /*Transaccion T1 = new Transaccion("debito", 500, "adelanto", "primera observacion");
         Transaccion T2 = new Transaccion("credito", 1500, "adelanto", "primera observacion");
         

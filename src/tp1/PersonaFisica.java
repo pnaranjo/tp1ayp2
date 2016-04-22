@@ -1,8 +1,9 @@
 package tp1;
 
+import Excepciones.ExceptionNumeroDeDocumentoNoValido;
+import Excepciones.PersonaFisicaException;
 import tp1.Cliente;
 import tp1.Domicilio;
-import tp1.PersonaFisicaException;
 
 public class PersonaFisica extends Cliente {
 	
@@ -13,8 +14,10 @@ public class PersonaFisica extends Cliente {
 	private String conyugue;
 	
 	//Constructor para cliente HABILITADO y SOLTERO/A
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, String tipoDeDocumento, int numeroDeDocumento, String profesion) {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, String tipoDeDocumento, int numeroDeDocumento, String profesion) throws ExceptionNumeroDeDocumentoNoValido {
 		super (nombre, cuit, domicilio, telefono, true);
+		
+		validarDocumento(numeroDeDocumento);
 		
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
@@ -24,8 +27,10 @@ public class PersonaFisica extends Cliente {
 	}
 	
 	//Constructor para cliente Casado/a
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) throws ExceptionNumeroDeDocumentoNoValido {
 		super (nombre, cuit, domicilio, telefono, habilitado);
+		
+		validarDocumento(numeroDeDocumento);
 		
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
@@ -37,6 +42,7 @@ public class PersonaFisica extends Cliente {
 	//Constructor para PersonaFisica con estado Viudo, Divorciado o soltero. 
 	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) throws Exception {
 		super (nombre, cuit, domicilio, telefono, habilitado);
+		validarDocumento(numeroDeDocumento);
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
 		this.profesion = profesion;
@@ -46,9 +52,18 @@ public class PersonaFisica extends Cliente {
 			} else {
 				this.estadoCivil = estadoCivil;
 			}
-	
-		
 		}
+	
+	/*
+	 * El documento debe ser válido.
+	 * El número de El DNI debe ser > 1000000
+	 */
+	private void validarDocumento(int documento) throws ExceptionNumeroDeDocumentoNoValido{
+		
+		if (documento < 1000000) {
+			throw new ExceptionNumeroDeDocumentoNoValido("Número de documento inválido");
+		}	
+	}
 	
 	public String getTipoDeDocumento() {
 		return tipoDeDocumento;

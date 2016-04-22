@@ -13,6 +13,7 @@ public abstract class Cliente {
 	
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) {
 		this.nombre = nombre;
+		//validarCuit()
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
@@ -21,6 +22,7 @@ public abstract class Cliente {
 	}
 	
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado) {
+		//validarCuit()
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
@@ -29,11 +31,32 @@ public abstract class Cliente {
 	}
 	
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono) {
+		//validarCuit()
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 		this.habilitado = true;
+	}
+
+
+
+	
+	/*
+	 * El cuit debe ser válido.
+	 * El número de CUIT no debe estar repetido.
+	 */
+	private void validarCuit(Long cuit) {
+		
+	//TODO 
+		// El Nº de cuit NO lleva guiones ni separadores.
+		//si es existente tirar Exception
+		//Si el cliente es persona física, el CUIT tiene que comenzar con 2
+		//Si el cliente es persona jurídica, el CUIT tiene que comenzar con 3
+		//El  Nº debe ser mayor a 20000000010 y <= que 39999999999 
+		//Ejemplo: 20225333409
+		// probar Nº de cuit No válido.
+		
 	}
 
 

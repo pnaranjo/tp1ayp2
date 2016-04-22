@@ -3,6 +3,7 @@ package pruebas_TP1;
 import org.junit.Assert;
 import org.junit.Test;
 
+import Excepciones.ExceptionNumeroDeDocumentoNoValido;
 import tp1.*;
 
 public class PruebaPersonaFisica {
@@ -25,7 +26,7 @@ public class PruebaPersonaFisica {
 	 * Una PersonaFisica creada sin CONYUGUE ni ESTADO_CIVIL es "Soltero/a" por defecto.
 	 */
 	@Test
-	public void personaFisicaSinConyugueEsSolteroPorDefault() {
+	public void personaFisicaSinConyugueEsSolteroPorDefault() throws ExceptionNumeroDeDocumentoNoValido {
 		
 		PersonaFisica persona1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, tipoDeDocumento, numeroDeDocumento, profesion);
 		Assert.assertEquals(persona1.getEstadoCivil(), "Soltero/a");		
@@ -33,13 +34,13 @@ public class PruebaPersonaFisica {
 
 
 	@Test
-	public void personaHabilitadaCasada() {
+	public void personaHabilitadaCasada() throws ExceptionNumeroDeDocumentoNoValido {
 		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
 		Assert.assertTrue(persona2.isEnabled());		
 	}
 	
 	@Test
-	public void personaNoHabilitadaCasada() {
+	public void personaNoHabilitadaCasada() throws ExceptionNumeroDeDocumentoNoValido {
 		habilitado = false;
 		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
 		Assert.assertFalse(persona2.isEnabled());		
@@ -70,7 +71,7 @@ public class PruebaPersonaFisica {
 	}
 	
 	@Test
-	public void pruebaToStringConPersonaFisicaCasado() {
+	public void pruebaToStringConPersonaFisicaCasado() throws ExceptionNumeroDeDocumentoNoValido {
 		
 		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
 		String resultado = persona2.toString();
@@ -84,7 +85,6 @@ public class PruebaPersonaFisica {
 		boolean habilitado = false;
 		PersonaFisica persona3 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Viudo");
 		String resultado = persona3.toString();
-		System.out.println(resultado);
 		Assert.assertEquals(resultado, 
 "Nombre y Apellido: Juan Perez CUIT: 20228833449 Domicilio: Dirección: Las Heras 2532 Código Postal: 1426 Localidad: Capital Provincia: CABA Telefono: 48329944 Cliente NO habilitado Tipo de documento: PASAPORTE Número de documento: 22883344 Profesión: Horticultor Estado civil: Viudo");
 	
