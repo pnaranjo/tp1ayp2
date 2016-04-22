@@ -1,5 +1,6 @@
 package tp1;
 
+import Excepciones.ExceptionCuitNoValido;
 import Excepciones.ExceptionNumeroDeDocumentoNoValido;
 import Excepciones.PersonaFisicaException;
 import tp1.Cliente;
@@ -14,7 +15,7 @@ public class PersonaFisica extends Cliente {
 	private String conyugue;
 	
 	//Constructor para cliente HABILITADO y SOLTERO/A
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, String tipoDeDocumento, int numeroDeDocumento, String profesion) throws ExceptionNumeroDeDocumentoNoValido {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, String tipoDeDocumento, int numeroDeDocumento, String profesion) throws ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido {
 		super (nombre, cuit, domicilio, telefono, true);
 		
 		validarDocumento(numeroDeDocumento);
@@ -27,7 +28,7 @@ public class PersonaFisica extends Cliente {
 	}
 	
 	//Constructor para cliente Casado/a
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) throws ExceptionNumeroDeDocumentoNoValido {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) throws ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido {
 		super (nombre, cuit, domicilio, telefono, habilitado);
 		
 		validarDocumento(numeroDeDocumento);
@@ -63,6 +64,17 @@ public class PersonaFisica extends Cliente {
 		if (documento < 1000000) {
 			throw new ExceptionNumeroDeDocumentoNoValido("Número de documento inválido");
 		}	
+	}
+	
+	@Override
+	protected void validarNumeroDeCuitPorTipoDeCliente(Long cuit) throws ExceptionCuitNoValido {
+		
+		while(cuit>10) {
+			cuit /= 10;
+		}
+		if (cuit != 2){
+			throw new ExceptionCuitNoValido("El número de cuit debe comenzar con 3 para Persona Física.");
+		}		
 	}
 	
 	public String getTipoDeDocumento() {

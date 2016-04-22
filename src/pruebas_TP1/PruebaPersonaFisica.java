@@ -3,11 +3,13 @@ package pruebas_TP1;
 import org.junit.Assert;
 import org.junit.Test;
 
+import Excepciones.ExceptionCuitNoValido;
 import Excepciones.ExceptionNumeroDeDocumentoNoValido;
 import tp1.*;
 
 public class PruebaPersonaFisica {
 	
+	OperadorBancario banco = new OperadorBancario();	
 	
 	String codigoPostal1 = "1426";
 	String direccion = "Las Heras 2532";
@@ -26,7 +28,7 @@ public class PruebaPersonaFisica {
 	 * Una PersonaFisica creada sin CONYUGUE ni ESTADO_CIVIL es "Soltero/a" por defecto.
 	 */
 	@Test
-	public void personaFisicaSinConyugueEsSolteroPorDefault() throws ExceptionNumeroDeDocumentoNoValido {
+	public void personaFisicaSinConyugueEsSolteroPorDefault() throws ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido {
 		
 		PersonaFisica persona1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, tipoDeDocumento, numeroDeDocumento, profesion);
 		Assert.assertEquals(persona1.getEstadoCivil(), "Soltero/a");		
@@ -34,13 +36,13 @@ public class PruebaPersonaFisica {
 
 
 	@Test
-	public void personaHabilitadaCasada() throws ExceptionNumeroDeDocumentoNoValido {
+	public void personaHabilitadaCasada() throws ExceptionCuitNoValido, ExceptionNumeroDeDocumentoNoValido {
 		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
 		Assert.assertTrue(persona2.isEnabled());		
 	}
 	
 	@Test
-	public void personaNoHabilitadaCasada() throws ExceptionNumeroDeDocumentoNoValido {
+	public void personaNoHabilitadaCasada() throws ExceptionCuitNoValido, ExceptionNumeroDeDocumentoNoValido {
 		habilitado = false;
 		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
 		Assert.assertFalse(persona2.isEnabled());		
@@ -71,7 +73,7 @@ public class PruebaPersonaFisica {
 	}
 	
 	@Test
-	public void pruebaToStringConPersonaFisicaCasado() throws ExceptionNumeroDeDocumentoNoValido {
+	public void pruebaToStringConPersonaFisicaCasado() throws Exception {
 		
 		PersonaFisica persona2 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado ,tipoDeDocumento, numeroDeDocumento, profesion, "Casado", "Romina Albornoz");
 		String resultado = persona2.toString();

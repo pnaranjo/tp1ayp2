@@ -1,6 +1,6 @@
 package tp1;
 
-import java.util.Objects;
+import Excepciones.*;
 
 public abstract class Cliente {
 	
@@ -11,9 +11,9 @@ public abstract class Cliente {
 	private boolean habilitado;
 	private String otrosDatos;
 	
-	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) {
+	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) throws ExceptionCuitNoValido {
+		validarCuit(cuit);
 		this.nombre = nombre;
-		//validarCuit()
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
@@ -21,8 +21,8 @@ public abstract class Cliente {
 		this.otrosDatos = otrosDatos;
 	}
 	
-	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado) {
-		//validarCuit()
+	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado) throws ExceptionCuitNoValido {
+		validarCuit(cuit);
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
@@ -30,8 +30,8 @@ public abstract class Cliente {
 		this.habilitado = habilitado;
 	}
 	
-	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono) {
-		//validarCuit()
+	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono) throws ExceptionCuitNoValido {
+		validarCuit(cuit);
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
@@ -43,21 +43,27 @@ public abstract class Cliente {
 
 	
 	/*
-	 * El cuit debe ser válido.
-	 * El número de CUIT no debe estar repetido.
+	 * pre: El cuit debe ser válido: debe ser >= 20000000010 y <= que 39999999999 
+	 * pre: El número de CUIT no debe estar repetido.
+	 * 		El Nº de cuit NO se escribe con guiones ni separadores.
+	 * 		Si el cliente es persona física, el CUIT tiene que comenzar con 2
+	 * 		
 	 */
-	private void validarCuit(Long cuit) {
+	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {		
+		//si es existente, arroja una excepción.
 		
-	//TODO 
-		// El Nº de cuit NO lleva guiones ni separadores.
-		//si es existente tirar Exception
-		//Si el cliente es persona física, el CUIT tiene que comenzar con 2
-		//Si el cliente es persona jurídica, el CUIT tiene que comenzar con 3
-		//El  Nº debe ser mayor a 20000000010 y <= que 39999999999 
-		//Ejemplo: 20225333409
-		// probar Nº de cuit No válido.
+		if (OperadorBancario.portfolioDeClientes.containsKey(cuit)){
+			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
+		}		
 		
+		if (cuit < 20000000010L || cuit > 39999999999L){
+			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
+		}	
+		
+		validarNumeroDeCuitPorTipoDeCliente(cuit);		
 	}
+	
+	protected abstract void validarNumeroDeCuitPorTipoDeCliente(Long cuit) throws ExceptionCuitNoValido;
 
 
 	public String toString(){		

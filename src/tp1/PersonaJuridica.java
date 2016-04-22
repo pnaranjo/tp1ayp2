@@ -1,22 +1,25 @@
 package tp1;
 
+import Excepciones.ExceptionCuitNoValido;
+
 public class PersonaJuridica extends Cliente{
 	
 	private final String fechaContratoSocial;
 
-	public PersonaJuridica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String fechaContratoSocial) {
+	public PersonaJuridica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String fechaContratoSocial) throws ExceptionCuitNoValido
+	{
 		
 		super (nombre, cuit, domicilio, telefono, habilitado);
 		this.fechaContratoSocial = fechaContratoSocial;
 	}
 	
-	public PersonaJuridica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String fechaContratoSocial, String otrosDatos) {
+	public PersonaJuridica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String fechaContratoSocial, String otrosDatos) throws ExceptionCuitNoValido {
 		
 		super (nombre, cuit, domicilio, telefono, habilitado, otrosDatos);
 		this.fechaContratoSocial = fechaContratoSocial;
 	}
 	
-	public PersonaJuridica(String nombre, long cuit, Domicilio domicilio, int telefono, String fechaContratoSocial) {
+	public PersonaJuridica(String nombre, long cuit, Domicilio domicilio, int telefono, String fechaContratoSocial) throws ExceptionCuitNoValido {
 		
 		super (nombre, cuit, domicilio, telefono);
 		this.fechaContratoSocial = fechaContratoSocial;
@@ -28,6 +31,21 @@ public class PersonaJuridica extends Cliente{
 	
 	public String toString() {
 		return (super.toString() + " Fecha del contrato social: " + fechaContratoSocial);
+	}
+
+	/*
+	 * pre: Si el cliente es persona jurídica, el CUIT tiene que comenzar con 3
+	 */
+	@Override
+	protected void validarNumeroDeCuitPorTipoDeCliente(Long cuit) throws ExceptionCuitNoValido {
+		
+		while(cuit>10) {
+			cuit /= 10;
+		}
+		System.out.println(cuit);
+		if (cuit != 3){
+			throw new ExceptionCuitNoValido("El número de cuit debe comenzar con 3 para Persona Jurídica.");
+		}		
 	}
 
 }
