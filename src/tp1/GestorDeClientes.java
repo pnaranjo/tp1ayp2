@@ -1,19 +1,39 @@
 package tp1;
 
 import Excepciones.ExceptionCuitNoEncontrado;
+import Excepciones.ExceptionCuitNoValido;
 
 public class GestorDeClientes {
 	
-	
-	public void alta(Cliente cliente) {
+	/*
+	 * Pre: El cliente no debe existir en el sistema
+	 * Post: el cliente es agregado al sistema
+	 */
+	public void alta(Cliente cliente) throws ExceptionCuitNoValido {
 		
-		OperadorBancario.portfolioDeClientes.put(cliente.getCuit(), cliente);
+		long cuit = cliente.getCuit();
+		validarCuit(cuit);
+		OperadorBancario.portfolioDeClientes.put(cuit, cliente);
 		
 	}
 	
+	
+	/*
+	 * post: si es existente, arroja una excepción.
+	 */
+	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {		 
+				
+		if (OperadorBancario.portfolioDeClientes.containsKey(cuit)){
+			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
+		}		
+	}
+	
+	/*
+	 * post: el cliente es removido del sistema
+	 */
 	public void baja(Cliente cliente) {
 		OperadorBancario.portfolioDeClientes.remove(cliente);
-	}
+	} 
 	
 	
 	/*

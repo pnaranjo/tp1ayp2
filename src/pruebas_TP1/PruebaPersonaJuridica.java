@@ -61,6 +61,7 @@ public class PruebaPersonaJuridica {
 		asociacion2 = new PersonaJuridica("Asociación Inválida", cuitPersonaFisica, domicilio1, telefono, false, fechaDelContratoSocial2, otrosDatos);
 	}
 	
+		
 	/*
 	 * Asociación HABILITADA creada con datos válidos.
 	 * post: isEnabled() debe devolver true
