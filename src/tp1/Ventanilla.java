@@ -15,23 +15,39 @@ public class Ventanilla {
 		return "DOLARES";
 	}
 	
-	// tipo moneda solo permite pesos o dolares
-//TODO agregar leyendas y texto de salida
+	private String getTipoDeCuenta(Cuenta c){
+		if(c instanceof CajaDeAhorroEnPesos){
+			return "CajaDeAhorroEnPesos";
+		}else if(c instanceof CajaDeAhorroEnDolares){
+			return "CajaDeAhorroEnDolares";
+		}
+		return "CuentaCorriente";
+	}
+	
+	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		try {	
+			Cuenta c = null;
+			
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
 				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
 				return;
-			}		
-			Cuenta c = null;
-			if (OperadorBancario.portfolioDeCuentas.containsValue(cbu)) {
+			}
+			
+			if (montoADepositar > 0){
+				System.out.println("el monto tiene que ser mayor a 0");
+				return;
+			}
+			
+			if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
 				c = OperadorBancario.portfolioDeCuentas.get(cbu);
 				if (c.isEnabled()) {
-					if (getTipoDeCA(c).equals(tipoMoneda)) {
-						if (montoADepositar > 0) {
-							c.acreditar(cbu, montoADepositar);
-							toString(cbu, montoADepositar, c.getSaldo());
-						}
+					if(getTipoDeCuenta(c).equals("CuentaCorriente") && tipoMoneda.equals("PESOS")){
+						c.acreditar(cbu, montoADepositar);
+						//toString();
+					}else if (getTipoDeCA(c).equals(tipoMoneda)) {
+						c.acreditar(cbu, montoADepositar);
+						//toString();		
 					}
 				}
 			}
@@ -40,39 +56,71 @@ public class Ventanilla {
 		}
 	}
 	
-	//TODO ver de usarlo para todos los meotodos
-	public String toString(Long cbu, double monto, double saldo){
-		return "Operacion Satisfactoria /n se deposito en cuenta: "+cbu+" $"+monto+
-				"/n quedando un saldo de: $"+saldo;
-	}
 
 	
-	//TODO agregar leyendas y texto de salida
-	public void extraccionEfectivoCA(long cliente, long cbu,
-			double montoDeExtraccion, String motivo){
-		Cuenta c = null;
-		if (OperadorBancario.portfolioDeCuentas.containsValue(cbu)) {
-		CajaDeAhorro ca = (CajaDeAhorroEnPesos) OperadorBancario.portfolioDeCuentas.get(cbu);
+	//TODO agregar exception y texto de salida
+	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo){
+		CajaDeAhorro ca = null;
+		if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
+			Cuenta c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if(getTipoDeCuenta(c).equals("CuentaCorriente")){
+				System.out.println("extracciones solo se permiten de Caja de Ahorro");
+				return;
+			}
+			ca = (CajaDeAhorroEnPesos) c;
 			if (ca.isEnabled()) {				
 				if(ca.getTitulares().contains(cliente)){
 					ca.debitar("Debito", montoDeExtraccion, motivo);
+					//toString();
 				}
 			}
 		}
 
 	}
 
-	public void transferencia(long cliente, long cuentaOrigen,
-			long cuentaDestino, double montoTransferencia, String motivo) {
+	//TODO agregar exception y texto de salida
+	public void transferencia(long cliente, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) {
+		
 		// ver ambas cuentas habilitadas
+		Cuenta cOrigen = null;
+		Cuenta cDestino = null;
+		
+		//cuenta origen
+		if (OperadorBancario.portfolioDeCuentas.containsKey(cbuOrigen)) {
+			cOrigen = OperadorBancario.portfolioDeCuentas.get(cbuOrigen);
+			if (!cOrigen.isEnabled()) {
+				return;
+			}
+		}
+
+		//cuenta destino
+		if (OperadorBancario.portfolioDeCuentas.containsValue(cbuDestino)) {
+			cDestino = OperadorBancario.portfolioDeCuentas.get(cbuDestino);
+			if (!cDestino.isEnabled()) {
+				return;
+			}
+		}
+		
 		// que cliente sea titular cuenta de origen
+		
+		
 		// monto transferencia (con retenciones y etc...) no exede limite
+		
+		
+		
+		
 		// disponible de origen
+		
 		// si existe un cambio de divisa agregarlo al comentario del ticket con
+		
 		// el cambio vigente
+		
 		// hacer la conversion
+		
 		// depositar en destino
-		// toString con ok o ko
+		
+		
+		// toString();
 	}
 
 	
