@@ -1,13 +1,13 @@
 package tp1;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CuentaCorriente extends Cuenta {
+public class CuentaCorriente extends CuentaComun {
     private final Set titulares;
-    private double montoSobreGiro,montoParaAbrirCuenta = 10000;
+    private double montoSobreGiro, montoParaAbrirCuenta = 10000;
     static final double comision = 0.03;
+    static long cbu;
             
     public CuentaCorriente(double saldo, HashSet<Cliente> titulares,double montoSobreGiro1) {
         super(saldo);
@@ -23,6 +23,7 @@ public class CuentaCorriente extends Cuenta {
         }
         this.titulares = new HashSet<Cliente>(titulares);                 
         this.montoSobreGiro = montoSobreGiro;
+        cbu = super.getCbu();
         enabled = true;
     }
     
