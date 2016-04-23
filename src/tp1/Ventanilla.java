@@ -85,9 +85,10 @@ public class Ventanilla {
 		if(cOrigen.tieneComoCliente(cuitCliente)){
 			cOrigen.debitar(montoTransferencia); //+ ver regla de monto por transferencia o movimiento
 			cDestino.acreditar(montoTransferencia);
-			Transaccion transaccion;
-			//transaccion.
-			
+			Transaccion transCOrigen = new Transaccion("Transferencia", montoTransferencia, motivo, ("a cuenta " + cDestino.getCbu())); // si fue dolar a pesos o viceversa poner observacion 
+			cOrigen.historial.add(transCOrigen);
+			Transaccion transCDestino = new Transaccion("Transferencia", montoTransferencia, motivo, ("de cuenta " + cOrigen.getCbu())); // si fue dolar a pesos o viceversa poner observacion 
+			cOrigen.historial.add(transCDestino);
 		}
 	}
 
