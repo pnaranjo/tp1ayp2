@@ -75,7 +75,7 @@ public class PersonaFisica extends Cliente {
 		if (cuit != 2){
 			throw new ExceptionCuitNoValido("El número de cuit debe comenzar con 3 para Persona Física.");
 		}		
-	}
+	} 
 	
 	public String getTipoDeDocumento() {
 		return tipoDeDocumento;
@@ -115,9 +115,12 @@ public class PersonaFisica extends Cliente {
 	}
 	
 	public String toString() {
-		
-		return (super.toString() + " Tipo de documento: " +tipoDeDocumento+ " Número de documento: " +numeroDeDocumento+ 
-				                   " Profesión: " +profesion+ " Estado civil: " +estadoCivil+ (conyugue != null ? (" Cónyugue: " +conyugue):""));
+		return ("Nombre y Apellido: " + super.getNombre()+ " CUIT: " +super.getCuit()+ " Domicilio: " 
+				+super.getDomicilio().toString()+ " Telefono: " + super.getTelefono() 
+				+(super.isEnabled()?" Cliente habilitado.":" Cliente NO habilitado") + " Tipo de documento: " 
+				+tipoDeDocumento+ " Número de documento: " +numeroDeDocumento+ 
+				" Profesión: " +profesion+ " Estado civil: " 
+				+estadoCivil+ (conyugue != null ? (" Cónyugue: " +conyugue):""));
 	}
 
     @Override

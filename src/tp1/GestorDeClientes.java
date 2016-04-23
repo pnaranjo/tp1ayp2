@@ -32,7 +32,7 @@ public class GestorDeClientes {
 	 * post: el cliente es removido del sistema
 	 */
 	public void baja(Cliente cliente) {
-		OperadorBancario.portfolioDeClientes.remove(cliente);
+		OperadorBancario.portfolioDeClientes.remove(cliente.getCuit());
 	} 
 	
 	

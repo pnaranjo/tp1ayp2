@@ -30,7 +30,10 @@ public class PersonaJuridica extends Cliente{
 	}
 	
 	public String toString() {
-		return (super.toString() + " Fecha del contrato social: " + fechaContratoSocial);
+		return ("Razón Social: " + super.getNombre()+ " CUIT: " +super.getCuit()+ " Domicilio: " 
+				+super.getDomicilio().toString()+ " Telefono: " + super.getTelefono() 
+				+(super.isEnabled()?" Cliente habilitado.":" Cliente NO habilitado") 
+				+ " Fecha del contrato social: " + fechaContratoSocial);
 	}
 
 	/*

@@ -62,10 +62,7 @@ public abstract class Cliente {
 	protected abstract void validarNumeroDeCuitPorTipoDeCliente(Long cuit) throws ExceptionCuitNoValido;
 
 
-	public String toString(){		
-		return ("Nombre y Apellido: " +nombre+ " CUIT: " +cuit+ " Domicilio: " 
-				+domicilio.toString()+ " Telefono: " + telefono + (habilitado?" Cliente habilitado.":" Cliente NO habilitado"));
-	}
+	abstract public String toString();
 	
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
