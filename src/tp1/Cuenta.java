@@ -9,12 +9,14 @@ public abstract class Cuenta  {
     protected double saldo;
     protected ArrayList<Transaccion> historial;   
     protected boolean enabled;
+    protected String tipoCuenta;
     
     public Cuenta(double saldo){
     	
     	this.saldo = saldo;
     	this.enabled = false;
     	historial = new ArrayList<Transaccion>();
+    	this.tipoCuenta = "Cuenta";  //TODO extederlo al resto de las clases hijas
     }
 
     public double getSaldo() {
@@ -36,46 +38,13 @@ public abstract class Cuenta  {
         enabled = false;
     }
     
-    public void transferir(long cbu,double monto,String moneda){
+    public void acreditar(double monto){
         
     }
     
-    public void acreditar(long cbu,double monto){
-        
+    //TODO extederlo al resto de las clases hijas
+    public String getTipoCuenta(){
+    	return tipoCuenta;
     }
-    
- /*  Esto lo comente porque da error ya que CBU no pertenece a Cuenta sino a CuentaComun.
-  *  No se si es necesario lo de abajo, ya que ahora usamos HashMap
-  *  
-  *  
-  *   public String toString(){
-        
-         Integer datoCbu = (int)(long) cbu;
-         Integer datoSaldo = (int)(double) cbu;
-         return "CBU:".concat(String.valueOf(cbu)).concat("Saldo:").concat(String.valueOf(saldo));
-    }
-    
-    @Override
-    public int hashCode() {
-        return (int) (long) cbu;
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            System.out.println("Cuenta duplicada");
-            return false;
-        }
-        final Cuenta other = (Cuenta) obj;
-        if (this.cbu != other.cbu) {
-            System.out.println("Cuenta duplicada");
-            return false;
-        }
-        return true;
-    }
-*/    
-    
+      
 }

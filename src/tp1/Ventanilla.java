@@ -10,20 +10,6 @@ public class Ventanilla {
 	public Ventanilla() {
 	}
 
-	private String getTipoDeCA(Cuenta c){
-		if(c instanceof CajaDeAhorroEnPesos) return "PESOS";
-		return "DOLARES";
-	}
-	
-	private String getTipoDeCuenta(Cuenta c){
-		if(c instanceof CajaDeAhorroEnPesos){
-			return "CajaDeAhorroEnPesos";
-		}else if(c instanceof CajaDeAhorroEnDolares){
-			return "CajaDeAhorroEnDolares";
-		}
-		return "CuentaCorriente";
-	}
-	
 	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		try {	
@@ -42,13 +28,7 @@ public class Ventanilla {
 			if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
 				c = OperadorBancario.portfolioDeCuentas.get(cbu);
 				if (c.isEnabled()) {
-					if(getTipoDeCuenta(c).equals("CuentaCorriente") && tipoMoneda.equals("PESOS")){
-						c.acreditar(cbu, montoADepositar);
-						//toString();
-					}else if (getTipoDeCA(c).equals(tipoMoneda)) {
-						c.acreditar(cbu, montoADepositar);
-						//toString();		
-					}
+					c.acreditar(montoADepositar);		
 				}
 			}
 		} catch (Exception e) {
@@ -63,11 +43,11 @@ public class Ventanilla {
 		CajaDeAhorro ca = null;
 		if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
 			Cuenta c = OperadorBancario.portfolioDeCuentas.get(cbu);
-			if(getTipoDeCuenta(c).equals("CuentaCorriente")){
+			if(c.getTipoCuenta().equals("CuentaCorriente")){
 				System.out.println("extracciones solo se permiten de Caja de Ahorro");
 				return;
 			}
-			ca = (CajaDeAhorroEnPesos) c;
+			ca = (CajaDeAhorro) c;
 			if (ca.isEnabled()) {				
 				if(ca.getTitulares().contains(cliente)){
 					ca.debitar("Debito", montoDeExtraccion, motivo);
@@ -79,48 +59,36 @@ public class Ventanilla {
 	}
 
 	//TODO agregar exception y texto de salida
-	public void transferencia(long cliente, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) {
+	public void transferencia(long cuitCliente, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) {
 		
-		// ver ambas cuentas habilitadas
-		Cuenta cOrigen = null;
-		Cuenta cDestino = null;
-		
-		//cuenta origen
-		if (OperadorBancario.portfolioDeCuentas.containsKey(cbuOrigen)) {
-			cOrigen = OperadorBancario.portfolioDeCuentas.get(cbuOrigen);
-			if (!cOrigen.isEnabled()) {
-				return;
-			}
-		}
-
-		//cuenta destino
-		if (OperadorBancario.portfolioDeCuentas.containsValue(cbuDestino)) {
-			cDestino = OperadorBancario.portfolioDeCuentas.get(cbuDestino);
-			if (!cDestino.isEnabled()) {
+		CuentaComun cDestino = null;
+		CuentaComun cOrigen = null;
+				
+		//obtengo las cuentas y me fijo que esten habilitadas
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbuOrigen)){
+			cOrigen = (CuentaComun)OperadorBancario.portfolioDeCuentas.get(cbuOrigen);
+			if(!cOrigen.isEnabled()){
+				System.out.println("cuenta no hablitada");
 				return;
 			}
 		}
 		
-		// que cliente sea titular cuenta de origen
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbuDestino)){
+			cDestino = (CuentaComun)OperadorBancario.portfolioDeCuentas.get(cbuDestino);
+			if(!cDestino.isEnabled()){
+				System.out.println("cuenta no hablitada");
+				return;
+			}
+		}
 		
-		
-		// monto transferencia (con retenciones y etc...) no exede limite
-		
-		
-		
-		
-		// disponible de origen
-		
-		// si existe un cambio de divisa agregarlo al comentario del ticket con
-		
-		// el cambio vigente
-		
-		// hacer la conversion
-		
-		// depositar en destino
-		
-		
-		// toString();
+		// verificar que cliente sea titular cuenta de origen
+		if(cOrigen.tieneComoCliente(cuitCliente)){
+			cOrigen.debitar(montoTransferencia); //+ ver regla de monto por transferencia o movimiento
+			cDestino.acreditar(montoTransferencia);
+			Transaccion transaccion;
+			//transaccion.
+			
+		}
 	}
 
 	
