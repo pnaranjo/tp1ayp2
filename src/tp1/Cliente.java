@@ -8,19 +8,19 @@ public abstract class Cliente {
 	private final long cuit;
 	private Domicilio domicilio;
 	private int telefono;
-	private boolean habilitado;
+	private boolean activo;
 	private String otrosDatos;
 	
 	/*
 	 * Constructor para cliente con otrosDatos
 	 */
-	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) throws ExceptionCuitNoValido {
+	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean activo, String otrosDatos) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
-		this.habilitado = habilitado;
+		this.activo = activo;
 		this.otrosDatos = otrosDatos;
 	}
 	
@@ -33,7 +33,7 @@ public abstract class Cliente {
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
-		this.habilitado = habilitado;
+		this.activo = habilitado;
 	}
 
 	/*
@@ -45,7 +45,7 @@ public abstract class Cliente {
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
-		this.habilitado = true;
+		this.activo = true;
 	}
 
 
@@ -105,15 +105,15 @@ public abstract class Cliente {
 	}
 	
 	public boolean isEnabled() {
-		return habilitado;
+		return activo;
 	}
 	
 	public void habilitar() {
-		habilitado = true;
+		activo = true;
 	}
 	
 	public void deshabilitar(){
-		habilitado = false;
+		activo = false;
 	}	
 
     @Override
