@@ -84,8 +84,8 @@ public class PruebaPersonaJuridica {
 	}
 	
 	@Test
-	public void testDeshabilitar() {
-		asociacionDeOrtopedia.deshabilitar();
+	public void testDesactivar() {
+		asociacionDeOrtopedia.desactivar();
 		Assert.assertFalse(asociacionDeOrtopedia.isEnabled());
 	}
 	
@@ -95,8 +95,8 @@ public class PruebaPersonaJuridica {
 	}
 	
 	@Test
-	public void testHabilitar() {
-		asociacion2.habilitar();
+	public void testactivar() {
+		asociacion2.activar();
 		Assert.assertTrue(asociacion2.isEnabled());
 	}
 	

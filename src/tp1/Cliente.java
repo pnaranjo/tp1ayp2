@@ -108,11 +108,11 @@ public abstract class Cliente {
 		return activo;
 	}
 	
-	public void habilitar() {
+	public void activar() {
 		activo = true;
 	}
 	
-	public void deshabilitar(){
+	public void desactivar(){
 		activo = false;
 	}	
 

@@ -125,7 +125,7 @@ public class PruebaGestorDeClientes {
 	public void testStringToStringPersonaFisica() throws ExceptionCuitNoValido {
 		gestorDeClientes.alta(susanita);
 		String s = susanita.toString();
-		Assert.assertEquals("Nombre y Apellido: Susana Rodríguez CUIT: 27332457539 Domicilio: Dirección: Calle 11 1351 Código Postal: 1900 Localidad: La Plata Provincia: Buenos Aires Telefono: 4217804 Cliente habilitado. Tipo de documento: Libreta Cívica Número de documento: 9456234 Profesión: Radióloga Estado civil: Soltero/a Cónyugue: ", s);
+		Assert.assertEquals("Nombre y Apellido: Susana Rodríguez CUIT: 27332457539 Domicilio: Dirección: Calle 11 1351 Código Postal: 1900 Localidad: La Plata Provincia: Buenos Aires Telefono: 4217804 Cliente activo. Tipo de documento: Libreta Cívica Número de documento: 9456234 Profesión: Radióloga Estado civil: Soltero/a Cónyugue: ", s);
 	}
 	
 	/*
@@ -173,26 +173,26 @@ public class PruebaGestorDeClientes {
 		}
 	
 	/*
-	 * testear deshabilitar() 
+	 * testear desactivar() 
 	 */
 	@Test
-	public void testDeshabilitarPersonaJuridica() throws ExceptionCuitNoValido {
+	public void testDesactivarPersonaJuridica() throws ExceptionCuitNoValido {
 		gestorDeClientes.alta(asociacion3);
-		//Deshabilitar
-		asociacion3.deshabilitar();
+		//Desactivar
+		asociacion3.desactivar();
 		Assert.assertFalse(asociacion3.isEnabled());
 		}
 	
 	/*
-	 * testear habilitar()
+	 * testear activar()
 	 */
 	@Test 
-	public void testHabilitar() throws ExceptionCuitNoValido {
+	public void testactivar() throws ExceptionCuitNoValido {
 		asociacion2 = new PersonaJuridica("Asociación de Piscicultura", 
 				cuit, domicilio1, telefono, false, fechaDelContratoSocial2, otrosDatos);
 		gestorDeClientes.alta(asociacion2);
 		Assert.assertFalse(asociacion2.isEnabled());
-		asociacion2.habilitar();
+		asociacion2.activar();
 		Assert.assertTrue(asociacion2.isEnabled());
 	}
 	
