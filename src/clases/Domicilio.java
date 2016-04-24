@@ -1,4 +1,4 @@
-package tp1;
+package clases;
 
 public class Domicilio {
 	

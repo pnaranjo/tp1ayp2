@@ -1,10 +1,10 @@
-package tp1;
+package clases;
 
-import Excepciones.ExceptionCuitNoValido;
-import Excepciones.ExceptionNumeroDeDocumentoNoValido;
-import Excepciones.PersonaFisicaException;
-import tp1.Cliente;
-import tp1.Domicilio;
+import clases.Cliente;
+import clases.Domicilio;
+import excepciones.ExceptionCuitNoValido;
+import excepciones.ExceptionNumeroDeDocumentoNoValido;
+import excepciones.PersonaFisicaException;
 
 public class PersonaFisica extends Cliente {
 	

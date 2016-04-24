@@ -1,9 +1,10 @@
-package pruebas_TP1;
+package tests;
 
 import org.junit.Test;
 import org.junit.Assert;
 
-import tp1.*;
+import clases.*;
+
 
 public class PruebaDomicilio {
 	

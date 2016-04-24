@@ -1,7 +1,7 @@
-package tp1;
+package clases;
 
-import tp1.OperadorBancario;
-import tp1.Cuenta;
+import clases.Banco;
+import clases.Cuenta;
 
 public class Ventanilla {
 
@@ -25,8 +25,8 @@ public class Ventanilla {
 				return;
 			}
 			
-			if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
-				c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if (Banco.portfolioDeCuentas.containsKey(cbu)) {
+				c = Banco.portfolioDeCuentas.get(cbu);
 				if (c.isEnabled()) {
 					c.acreditar(montoADepositar);		
 				}
@@ -41,8 +41,8 @@ public class Ventanilla {
 	//TODO agregar exception y texto de salida
 	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo){
 		CajaDeAhorro ca = null;
-		if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
-			Cuenta c = OperadorBancario.portfolioDeCuentas.get(cbu);
+		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
+			Cuenta c = Banco.portfolioDeCuentas.get(cbu);
 			if(c.getTipoCuenta().equals("CuentaCorriente")){
 				System.out.println("extracciones solo se permiten de Caja de Ahorro");
 				return;
@@ -65,16 +65,16 @@ public class Ventanilla {
 		CuentaComun cOrigen = null;
 				
 		//obtengo las cuentas y me fijo que esten habilitadas
-		if(OperadorBancario.portfolioDeCuentas.containsKey(cbuOrigen)){
-			cOrigen = (CuentaComun)OperadorBancario.portfolioDeCuentas.get(cbuOrigen);
+		if(Banco.portfolioDeCuentas.containsKey(cbuOrigen)){
+			cOrigen = (CuentaComun)Banco.portfolioDeCuentas.get(cbuOrigen);
 			if(!cOrigen.isEnabled()){
 				System.out.println("cuenta no hablitada");
 				return;
 			}
 		}
 		
-		if(OperadorBancario.portfolioDeCuentas.containsKey(cbuDestino)){
-			cDestino = (CuentaComun)OperadorBancario.portfolioDeCuentas.get(cbuDestino);
+		if(Banco.portfolioDeCuentas.containsKey(cbuDestino)){
+			cDestino = (CuentaComun)Banco.portfolioDeCuentas.get(cbuDestino);
 			if(!cDestino.isEnabled()){
 				System.out.println("cuenta no hablitada");
 				return;
@@ -103,8 +103,8 @@ public class Ventanilla {
 	
 	public String listarMovimientos(long cbu, int ultimosNMovimientos) {
 		Cuenta c = null;
-		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
-			c = OperadorBancario.portfolioDeCuentas.get(cbu);
+		if(Banco.portfolioDeCuentas.containsKey(cbu)){
+			c = Banco.portfolioDeCuentas.get(cbu);
 			if(!c.getHistorial().isEmpty()){
 				String historial = "";
 				
@@ -127,8 +127,8 @@ public class Ventanilla {
 
 	public String listarMovimientos(long cbu) {
 		Cuenta c = null;
-		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
-			c = OperadorBancario.portfolioDeCuentas.get(cbu);
+		if(Banco.portfolioDeCuentas.containsKey(cbu)){
+			c = Banco.portfolioDeCuentas.get(cbu);
 			if(!c.getHistorial().isEmpty()){
 				String historial = "";
 				for(int i = 0; i< c.getHistorial().size() ; i++){

@@ -1,7 +1,7 @@
-package tp1;
+package clases;
 
-import Excepciones.ExceptionCuitNoEncontrado;
-import Excepciones.ExceptionCuitNoValido;
+import excepciones.ExceptionCuitNoEncontrado;
+import excepciones.ExceptionCuitNoValido;
 
 public class GestorDeClientes {
 	
@@ -13,7 +13,7 @@ public class GestorDeClientes {
 		
 		long cuit = cliente.getCuit();
 		validarCuit(cuit);
-		OperadorBancario.portfolioDeClientes.put(cuit, cliente);
+		Banco.portfolioDeClientes.put(cuit, cliente);
 		
 	}
 	
@@ -23,7 +23,7 @@ public class GestorDeClientes {
 	 */
 	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {		 
 				
-		if (OperadorBancario.portfolioDeClientes.containsKey(cuit)){
+		if (Banco.portfolioDeClientes.containsKey(cuit)){
 			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
 		}		
 	}
@@ -45,7 +45,7 @@ public class GestorDeClientes {
 		//TODO if (OperadorBancario.portfolioDeCuentas.
 		// while (!hayCuentaActiva) {traeme todas las cuentas en que esté este cliente y decime si alguna está activa}
 		if (!hayCuentaActiva){
-			OperadorBancario.portfolioDeClientes.remove(cliente.getCuit());
+			Banco.portfolioDeClientes.remove(cliente.getCuit());
 			}
 	
 	} 
@@ -56,15 +56,15 @@ public class GestorDeClientes {
 	 * El cuit es el identificador único.
 	 */
 	public boolean esClienteExistente(Cliente cliente) {
-		return OperadorBancario.portfolioDeClientes.containsKey(cliente.getCuit());
+		return Banco.portfolioDeClientes.containsKey(cliente.getCuit());
 		
 	}
 	
 	public Cliente buscarConCuit (long cuit) throws ExceptionCuitNoEncontrado{
 		
 		Cliente resultado;	
-		if(OperadorBancario.portfolioDeClientes.containsKey(cuit)){
-			resultado =  OperadorBancario.portfolioDeClientes.get(cuit);
+		if(Banco.portfolioDeClientes.containsKey(cuit)){
+			resultado =  Banco.portfolioDeClientes.get(cuit);
 			return resultado;
 		}
 	

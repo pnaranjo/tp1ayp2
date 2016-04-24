@@ -1,6 +1,6 @@
-package tp1;
+package clases;
 
-import Excepciones.*;
+import excepciones.*;
 
 public abstract class Cliente {
 	
@@ -114,27 +114,6 @@ public abstract class Cliente {
 	
 	public void desactivar(){
 		activo = false;
-	}	
-
-    @Override
-    public int hashCode() {        
-        return (int) (long) this.cuit;
-        
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cliente other = (Cliente) obj;
-        if (this.cuit != other.cuit) {
-            return false;
-        }
-        return true;
-    }
+	}
      
 }

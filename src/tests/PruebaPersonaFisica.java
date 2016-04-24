@@ -1,15 +1,16 @@
-package pruebas_TP1;
+package tests;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import Excepciones.ExceptionCuitNoValido;
-import Excepciones.ExceptionNumeroDeDocumentoNoValido;
-import tp1.*;
+import clases.*;
+import excepciones.ExceptionCuitNoValido;
+import excepciones.ExceptionNumeroDeDocumentoNoValido;
+
 
 public class PruebaPersonaFisica {
 	
-	OperadorBancario banco = new OperadorBancario();	
+	Banco banco = new Banco();	
 	
 	String codigoPostal1 = "1426";
 	String direccion = "Las Heras 2532";

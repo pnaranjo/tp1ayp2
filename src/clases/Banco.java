@@ -1,9 +1,9 @@
-package tp1;
+package clases;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OperadorBancario{
+public class Banco{
 
 
     public static Map<Long,Cuenta > portfolioDeCuentas;
@@ -13,7 +13,7 @@ public class OperadorBancario{
     public static final double costoDeMantemientoPesos = 30;
     public static final double costoDeMantemientoDolares = 2;
     
-    public OperadorBancario() {
+    public Banco() {
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
     }

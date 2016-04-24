@@ -1,4 +1,4 @@
-package tp1;
+package clases;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 public class ProcesadorBatch {
 	
-	Iterator<Entry<Long, Cuenta>> it = OperadorBancario.portfolioDeCuentas.entrySet().iterator();
+	Iterator<Entry<Long, Cuenta>> it = Banco.portfolioDeCuentas.entrySet().iterator();
 	CuentaComun cuenta = null;
 	CuentaEspecial cuentaCobroMantenimientoPesos;
 	CuentaEspecial cuentaCobroMantenimientoDolares;
@@ -89,7 +89,7 @@ public class ProcesadorBatch {
 	public void erroresMatenenimiento(long cbu, String tipoCuenta, double monto, String motivo){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String ruta = "/home/erroresMatenenimiento_"+ dateFormat.format(date) +".txt";
+		String ruta = "/temp/erroresMatenenimiento_"+ dateFormat.format(date) +".txt";
 		
 		try{
 			File archivo = new File(ruta);

@@ -1,6 +1,6 @@
-package tp1;
+package clases;
 
-import Excepciones.ExceptionCuitNoValido;
+import excepciones.ExceptionCuitNoValido;
 
 public class PersonaJuridica extends Cliente{
 	
