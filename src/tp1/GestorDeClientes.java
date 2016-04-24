@@ -29,9 +29,16 @@ public class GestorDeClientes {
 	}
 	
 	/*
-	 * post: el cliente es removido del sistema
+	 * pre: el cliente existe en el sistema
+	 * 		el cliente NO está asociado a ninguna cuenta ACTIVA.
+	 * post: el cliente es removido del sistema. 
 	 */
 	public void baja(Cliente cliente) {
+		
+		boolean hayCuentaActiva = false;
+		
+		//TODO if (OperadorBancario.portfolioDeCuentas.
+		// while (!hayCuentaActiva) {traeme todas las cuentas en que esté este cliente y decime si alguna está activa}
 		OperadorBancario.portfolioDeClientes.remove(cliente.getCuit());
 	} 
 	
