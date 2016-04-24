@@ -1,11 +1,10 @@
 package tp1;
 
-//import boceto_TP.Cliente;
-//import boceto_TP.Domicilio;
-//import boceto_TP.PersonaFisicaException;
+import Excepciones.ExceptionCuitNoValido;
+import Excepciones.ExceptionNumeroDeDocumentoNoValido;
+import Excepciones.PersonaFisicaException;
 import tp1.Cliente;
 import tp1.Domicilio;
-import tp1.PersonaFisicaException;
 
 public class PersonaFisica extends Cliente {
 	
@@ -16,8 +15,10 @@ public class PersonaFisica extends Cliente {
 	private String conyugue;
 	
 	//Constructor para cliente HABILITADO y SOLTERO/A
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, String tipoDeDocumento, int numeroDeDocumento, String profesion) {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, String tipoDeDocumento, int numeroDeDocumento, String profesion) throws ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido {
 		super (nombre, cuit, domicilio, telefono, true);
+		
+		validarDocumento(numeroDeDocumento);
 		
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
@@ -26,8 +27,11 @@ public class PersonaFisica extends Cliente {
 		this.conyugue = "";
 	}
 	
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) {
+	//Constructor para cliente Casado/a
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil, String conyugue) throws ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido {
 		super (nombre, cuit, domicilio, telefono, habilitado);
+		
+		validarDocumento(numeroDeDocumento);
 		
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
@@ -37,27 +41,41 @@ public class PersonaFisica extends Cliente {
 	}
 	
 	//Constructor para PersonaFisica con estado Viudo, Divorciado o soltero. 
-	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) throws PersonaFisicaException {
+	public PersonaFisica(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado,String tipoDeDocumento, int numeroDeDocumento, String profesion, String estadoCivil) throws Exception {
 		super (nombre, cuit, domicilio, telefono, habilitado);
+		validarDocumento(numeroDeDocumento);
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
 		this.profesion = profesion;
-		try {
+		
 			if ((estadoCivil.equals("Casado")) || (estadoCivil.equals("Casada")) || (estadoCivil.equals("casado")) || (estadoCivil.equals("casada"))) {
-				throw new PersonaFisicaException("El campo <<CONYUGUE>> está incompleto.");
+				throw new PersonaFisicaException("Campo <<CONYUGUE>> faltante.");
 			} else {
 				this.estadoCivil = estadoCivil;
 			}
-	
-		}catch (Exception e){
-			System.out.println("Excepción por campo <<CONYUGUE>> faltante.");
-			/*
-			 * Acá habría que hacer algún tipo de LOG
-			 * para dejar asentado que hubo un error???
-			 * 
-			 */
-			}
 		}
+	
+	/*
+	 * El documento debe ser válido.
+	 * El número de El DNI debe ser > 1000000
+	 */
+	private void validarDocumento(int documento) throws ExceptionNumeroDeDocumentoNoValido{
+		
+		if (documento < 1000000) {
+			throw new ExceptionNumeroDeDocumentoNoValido("Número de documento inválido");
+		}	
+	}
+	
+	@Override
+	protected void validarNumeroDeCuitPorTipoDeCliente(Long cuit) throws ExceptionCuitNoValido {
+		
+		while(cuit>10) {
+			cuit /= 10;
+		}
+		if (cuit != 2){
+			throw new ExceptionCuitNoValido("El número de cuit debe comenzar con 3 para Persona Física.");
+		}		
+	} 
 	
 	public String getTipoDeDocumento() {
 		return tipoDeDocumento;
@@ -71,6 +89,11 @@ public class PersonaFisica extends Cliente {
 		this.estadoCivil = estadoCivil; 
 	}
 	
+	public void setEstadoCivilCasado(String estadoCivil, String conyugue){
+		this.estadoCivil = estadoCivil; 
+		this.conyugue = conyugue;
+	}
+		
 	public String getEstadoCivil() {
 		return estadoCivil;
 	}
@@ -89,6 +112,15 @@ public class PersonaFisica extends Cliente {
 	
 	public String getProfesion() {
 		return profesion;
+	}
+	
+	public String toString() {
+		return ("Nombre y Apellido: " + super.getNombre()+ " CUIT: " +super.getCuit()+ " Domicilio: " 
+				+super.getDomicilio().toString()+ " Telefono: " + super.getTelefono() 
+				+(super.isEnabled()?" Cliente habilitado.":" Cliente NO habilitado") + " Tipo de documento: " 
+				+tipoDeDocumento+ " Número de documento: " +numeroDeDocumento+ 
+				" Profesión: " +profesion+ " Estado civil: " 
+				+estadoCivil+ (conyugue != null ? (" Cónyugue: " +conyugue):""));
 	}
 
     @Override

@@ -4,9 +4,12 @@ package tp1;
 import java.util.HashSet;
 import java.util.Set;
 
+import Excepciones.ExceptionCuitNoValido;
+import Excepciones.ExceptionNumeroDeDocumentoNoValido;
+
 public class TP1 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido {
         /*Transaccion T1 = new Transaccion("debito", 500, "adelanto", "primera observacion");
         Transaccion T2 = new Transaccion("credito", 1500, "adelanto", "primera observacion");
         
@@ -14,7 +17,7 @@ public class TP1 {
         System.out.println(T1.toString());
         System.out.println(T2.toString());*/
         Domicilio domicilio = new Domicilio("bla", "bla2", "bla3", "bla4");
-        OperadorBancario galicia = new OperadorBancario();        
+        //OperadorBancario galicia = new OperadorBancario();        
         
         
     Cliente c = new PersonaFisica("rodri", 1234, domicilio, 42424421, "asd", 13423, "desarrollador");
@@ -32,8 +35,8 @@ public class TP1 {
     //galicia.portfolioDeCuentas.add(new CuentaCorriente((HashSet<Cliente>) titulares, 100));
     //galicia.portfolioDeCuentas.add(new CuentaCorriente((HashSet<Cliente>) titulares, 100));
     
-        System.out.println(galicia.portfolioDeCuentas.size());
-        System.out.println(galicia.portfolioDeClientes.size());
+        System.out.println(OperadorBancario.portfolioDeCuentas.size());
+        System.out.println(OperadorBancario.portfolioDeClientes.size());
         
     }
     

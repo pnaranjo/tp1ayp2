@@ -10,82 +10,126 @@ public class Ventanilla {
 	public Ventanilla() {
 	}
 
-	// tipo moneda solo permite pesos o dolares
+	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		try {	
+			Cuenta c = null;
+			
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
 				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
 				return;
-			}		
-			Cuenta c = null;
-			if (OperadorBancario.portfolioDeCuentas.containsValue(cbu)) {
-				// TODO aca tedria que tener c.setCbu para poder tomar obj c con el get
+			}
+			
+			if (montoADepositar > 0){
+				System.out.println("el monto tiene que ser mayor a 0");
+				return;
+			}
+			
+			if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
 				c = OperadorBancario.portfolioDeCuentas.get(cbu);
 				if (c.isEnabled()) {
-					if (tipoDeCA(c).equals(tipoMoneda)) {
-						if (montoADepositar > 0) {
-							c.acreditar(cbu, montoADepositar);
-							toString(cbu, montoADepositar, c.getSaldo());
-						}
-						System.out.println("monto erroneo");
-					}
-					System.out.println("tipo de moneda erroneo");
+					c.acreditar(montoADepositar);		
 				}
-				System.out.println("la cuenta no pertenece al banco");
 			}
 		} catch (Exception e) {
 		System.out.println(e);
 		}
 	}
 	
-	public String toString(Long cbu, double monto, double saldo){
-		return "Operacion Satisfactoria /n se deposito en cuenta: "+cbu+" $"+monto+
-				"/n quedando un saldo de: $"+saldo;
+
+	
+	//TODO agregar exception y texto de salida
+	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo){
+		CajaDeAhorro ca = null;
+		if (OperadorBancario.portfolioDeCuentas.containsKey(cbu)) {
+			Cuenta c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if(c.getTipoCuenta().equals("CuentaCorriente")){
+				System.out.println("extracciones solo se permiten de Caja de Ahorro");
+				return;
+			}
+			ca = (CajaDeAhorro) c;
+			if (ca.isEnabled()) {				
+				if(ca.getTitulares().contains(cliente)){
+					ca.debitar("Debito", montoDeExtraccion, motivo);
+					//toString();
+				}
+			}
+		}
+
 	}
 
-	private String tipoDeCA(Cuenta c){
-		if(c instanceof CajaDeAhorroEnPesos) return "PESOS";
-		return "DOLARES";
+	//TODO agregar exception y texto de salida
+	public void transferencia(long cuitCliente, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) {
+		
+		CuentaComun cDestino = null;
+		CuentaComun cOrigen = null;
+				
+		//obtengo las cuentas y me fijo que esten habilitadas
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbuOrigen)){
+			cOrigen = (CuentaComun)OperadorBancario.portfolioDeCuentas.get(cbuOrigen);
+			if(!cOrigen.isEnabled()){
+				System.out.println("cuenta no hablitada");
+				return;
+			}
+		}
+		
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbuDestino)){
+			cDestino = (CuentaComun)OperadorBancario.portfolioDeCuentas.get(cbuDestino);
+			if(!cDestino.isEnabled()){
+				System.out.println("cuenta no hablitada");
+				return;
+			}
+		}
+		
+		// verificar que cliente sea titular cuenta de origen
+		if(cOrigen.tieneComoCliente(cuitCliente)){
+			cOrigen.debitar(montoTransferencia); //+ ver regla de monto por transferencia o movimiento
+			cDestino.acreditar(montoTransferencia);
+			Transaccion transCOrigen = new Transaccion("Transferencia", montoTransferencia, motivo, ("a cuenta " + cDestino.getCbu())); // si fue dolar a pesos o viceversa poner observacion 
+			cOrigen.historial.add(transCOrigen);
+			Transaccion transCDestino = new Transaccion("Transferencia", montoTransferencia, motivo, ("de cuenta " + cOrigen.getCbu())); // si fue dolar a pesos o viceversa poner observacion 
+			cOrigen.historial.add(transCDestino);
+		}
 	}
 
-	public void extraccionEfectivoCA(long cliente, long cuenta,
-			double montoDeExtraccion, String motivo) {
-		// ver cuenta habilitada
-		// ver que cliente sea titular de la cuenta
-		// restar monto al saldo y ver que no exeda lo disponible
-		// crear un movimiento
-		// toString de ticket extraccion OK, si cuenta no habilitada devolver
-		// extraccion KO
-
+	
+	public String listarMovimientos(long cbu, int ultimosNMovimientos) {
+		Cuenta c = null;
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
+			c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if(!c.getHistorial().isEmpty()){
+				String historial = "";
+				
+				int nAListar;
+				if(c.getHistorial().size() >= ultimosNMovimientos){
+					nAListar = ultimosNMovimientos;
+				}else{
+					nAListar = c.getHistorial().size();
+					System.out.println("no hay tantos movimientos, se listaran " + c.getHistorial().size());
+					
+				}
+					for(int i = 0; i< nAListar ; i++){
+						historial += c.getHistorial().get(i) + "/n";	
+					}
+					return historial;
+			}
+		}
+		return "cuenta inexistente";
 	}
 
-	public void transferencia(long cliente, long cuentaOrigen,
-			long cuentaDestino, double montoTransferencia, String motivo) {
-		// ver ambas cuentas habilitadas
-		// que cliente sea titular cuenta de origen
-		// monto transferencia (con retenciones y etc...) no exede limite
-		// disponible de origen
-		// si existe un cambio de divisa agregarlo al comentario del ticket con
-		// el cambio vigente
-		// hacer la conversion
-		// depositar en destino
-		// toString con ok o ko
-	}
-
-	// lista los ultimos n movimientos de la cuenta
-	public String listarMovimientos(long cuenta, int ultimosNMovimientos) {
-		// ver cuenta habilitada
-		// recorrer cuenta los ultimos n movimientos
-
-		return null;
-	}
-
-	// lista todos los movimientos de la cuenta
-	public String listarMovimientos(long cuenta) {
-		// ver cuenta habilitada
-		// recorrer toda la cuenta
-
-		return null;
+	public String listarMovimientos(long cbu) {
+		Cuenta c = null;
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
+			c = OperadorBancario.portfolioDeCuentas.get(cbu);
+			if(!c.getHistorial().isEmpty()){
+				String historial = "";
+				for(int i = 0; i< c.getHistorial().size() ; i++){
+					historial += c.getHistorial().get(i) + "/n";	
+				}
+				return historial;
+			}
+		}
+		return "cuenta inexistente";
 	}
 
 }

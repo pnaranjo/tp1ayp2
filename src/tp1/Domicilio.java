@@ -45,5 +45,9 @@ public class Domicilio {
 	public String getProvincia() {
 		return provincia;
 	}
+	
+	public String toString() {
+		return ("Dirección: " +direccion+ " Código Postal: "+codigoPostal+ " Localidad: " +localidad+ " Provincia: " +provincia);
+	}
 
 }
