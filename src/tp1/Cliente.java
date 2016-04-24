@@ -11,6 +11,9 @@ public abstract class Cliente {
 	private boolean habilitado;
 	private String otrosDatos;
 	
+	/*
+	 * Constructor para cliente con otrosDatos
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
@@ -21,6 +24,9 @@ public abstract class Cliente {
 		this.otrosDatos = otrosDatos;
 	}
 	
+	/*
+	 * Constructor para cliente inactivo
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
@@ -29,7 +35,10 @@ public abstract class Cliente {
 		this.telefono = telefono;
 		this.habilitado = habilitado;
 	}
-	
+
+	/*
+	 * Constructor para cliente activo
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
@@ -49,8 +58,7 @@ public abstract class Cliente {
 	 * 		Si el cliente es persona física, el CUIT tiene que comenzar con 2
 	 * 		
 	 */
-	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {		
-		//si es existente, arroja una excepción. 	
+	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {			
 		
 		if (cuit < 20000000010L || cuit > 39999999999L){
 			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
