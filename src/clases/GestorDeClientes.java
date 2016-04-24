@@ -41,9 +41,7 @@ public class GestorDeClientes {
 		// if (OperadorBancario.portfolioDeCuentas.
 		// while (!hayCuentaActiva) {traeme todas las cuentas en que esté este cliente y decime si alguna está activa}
 		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente);
-		
-		System.out.println(esCliente);
-		
+				
 		if (!esCliente || !hayCuentaActiva(cliente)){
 			Banco.portfolioDeClientes.remove(cliente.getCuit());
 			}
