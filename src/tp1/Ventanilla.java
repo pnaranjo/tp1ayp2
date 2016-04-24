@@ -81,16 +81,16 @@ public class Ventanilla {
 			}
 		}
 		
-		// verificar que cliente sea titular cuenta de origen
-		// Cambió la firma del método debitar( String tipoDeMovimiento, double monto, String motivo);
-
+		// verifico que cliente sea titular cuenta de origen
 		if(cOrigen.tieneComoCliente(cuitCliente)){
+		
 			
 			//TODO verificar que el tipo de movimiento sea el correcto
 			String tipoDeMovimiento = "Transferencia";
 			//TODO ver regla de monto por transferencia o movimiento
 			
-			//TODO recordar que el método debitar devuelve una Transferencia
+			//TODO recordar que el método debitar devuelve una Transferencia, Acreditar tambien deberia
+			// Cambió la firma del método debitar( String tipoDeMovimiento, double monto, String motivo);
 			cOrigen.debitar(tipoDeMovimiento, montoTransferencia, motivo); //+ ver regla de monto por transferencia o movimiento
 			cDestino.acreditar(montoTransferencia);
 			Transaccion transCOrigen = new Transaccion("Transferencia", montoTransferencia, motivo, ("a cuenta " + cDestino.getCbu())); // si fue dolar a pesos o viceversa poner observacion 

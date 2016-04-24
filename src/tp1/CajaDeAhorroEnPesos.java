@@ -20,5 +20,9 @@ public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 		this.saldo =- CajaDeAhorroEnPesos.costoDeMantenimientoPesos;
 		CajaDeAhorroEnPesos.mantenimientoPesos.saldo =+ CajaDeAhorroEnPesos.costoDeMantenimientoPesos;
 	}
+	
+	public double getCostoMantenimiento(){
+		return costoDeMantenimientoPesos;
+	}
 		
 }
