@@ -13,9 +13,13 @@ public abstract class CuentaComun extends Cuenta {
        return this.cbu;
     }
     
-    public void debitar(double monto){
-    	//TODO hacer metodo
-    }
+    /*
+     * El método debitar() debe ser abstracto ya que, en una cuenta corriente 
+     * se permite debitar hasta el monto de sobregiro y en Caja de Ahorro no.
+     * 
+     */
+    protected abstract Transaccion debitar( String tipoDeMovimiento, double monto, String motivo);
+
     
     public boolean tieneComoCliente(long cuit){
     	if(OperadorBancario.portfolioDeClientes.containsKey(cuit)){

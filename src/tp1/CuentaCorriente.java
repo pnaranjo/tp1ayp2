@@ -38,6 +38,21 @@ public class CuentaCorriente extends CuentaComun {
     public double setMontoParaAbrirCuenta(double monto){
         return montoParaAbrirCuenta = monto;
     }
+
+	@Override
+	public Transaccion debitar(String tipoDeMovimiento, double monto, String motivo){
+		return null;
+		
+		
+		// TODO Auto-generated method stub
+	
+		//TODO debitar debería chequear que el monto sea Válido: menor que el Monto de Sobregiro.
+		    	    	
+		//TODO debitar debería decrementar el saldo
+		    	
+		//TODO debitar debería generar una Transaccion y agregarla al hostorial
+		
+	}
     
     
 }
