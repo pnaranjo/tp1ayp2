@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 public class ProcesadorBatch {
 	
-	Iterator<Entry<Long, Cuenta>> it = Banco.portfolioDeCuentas.entrySet().iterator();
+	Iterator<Entry<Long, CuentaComun>> it = Banco.portfolioDeCuentas.entrySet().iterator();
 	CuentaComun cuenta = null;
 	CuentaEspecial cuentaCobroMantenimientoPesos;
 	CuentaEspecial cuentaCobroMantenimientoDolares;

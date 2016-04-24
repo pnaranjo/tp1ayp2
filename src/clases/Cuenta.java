@@ -44,7 +44,7 @@ public abstract class Cuenta  {
     	
     	//TODO acreditar debería incrementar el saldo
     	
-    	//TODO acreditar debería generar una Transaccion y agregarla al hostorial
+    	//TODO acreditar debería generar una Transaccion y agregarla al historial
         
     }
     
