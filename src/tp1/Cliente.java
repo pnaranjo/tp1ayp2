@@ -11,6 +11,9 @@ public abstract class Cliente {
 	private boolean habilitado;
 	private String otrosDatos;
 	
+	/*
+	 * Cliente con OtrosDatos
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
@@ -21,6 +24,9 @@ public abstract class Cliente {
 		this.otrosDatos = otrosDatos;
 	}
 	
+	/*
+	 * Cliente que recibe un boolean para determinar si está habilitado
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
@@ -29,7 +35,11 @@ public abstract class Cliente {
 		this.telefono = telefono;
 		this.habilitado = habilitado;
 	}
-	
+
+	/*
+	 * Cliente que NO recibe un boolean para determinar si está habilitado.
+	 * Post: cliente habilitado por defecto.
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
