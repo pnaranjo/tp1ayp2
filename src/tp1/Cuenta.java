@@ -39,6 +39,12 @@ public abstract class Cuenta  {
     }
     
     public void acreditar(double monto){
+    	
+    	//TODO acreditar debería chequear que el monto sea mayor que 0
+    	
+    	//TODO acreditar debería incrementar el saldo
+    	
+    	//TODO acreditar debería generar una Transaccion y agregarla al hostorial
         
     }
     
