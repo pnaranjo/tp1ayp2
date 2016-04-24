@@ -16,8 +16,8 @@ public class GestorDeCuentas {
 		OperadorBancario.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
 	
-	public void abrirCuentaCorriente(double saldo, HashSet<Cliente> titulares,double montoSobreGiro,double montoDeposito){
-		CuentaCorriente cCorriente = new CuentaCorriente(saldo, titulares, montoSobreGiro, montoDeposito);
+	public void abrirCuentaCorriente(double montoDeposito, ArrayList<Cliente> titulares,double montoSobreGiro){
+		CuentaCorriente cCorriente = new CuentaCorriente(montoDeposito, titulares, montoSobreGiro);
 		OperadorBancario.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
 	}
 	

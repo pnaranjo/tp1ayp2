@@ -13,14 +13,14 @@ public class Ventanilla {
 	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		try {	
-			Cuenta c = null;
+			CuentaComun c = null;
 			
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
 				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
 				return;
 			}
 			
-			if (montoADepositar > 0){
+			if (montoADepositar <= 0){
 				System.out.println("el monto tiene que ser mayor a 0");
 				return;
 			}

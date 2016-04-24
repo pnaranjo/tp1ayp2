@@ -4,22 +4,20 @@ import java.util.ArrayList;
 
 public abstract class Cuenta  {
 
-    //private final long cbu = 0;
-    //estan bien los protected???
     protected double saldo;
     protected ArrayList<Transaccion> historial;   
-    protected boolean enabled;
-    protected String tipoCuenta;
+    protected boolean habilitada;
+    // rc protected String tipoDeMoneda;
     
-    public Cuenta(double saldo){
-    	
-    	this.saldo = saldo;
-    	this.enabled = false;
-    	historial = new ArrayList<Transaccion>();
-    	this.tipoCuenta = "Cuenta";  //TODO extederlo al resto de las clases hijas
-    }
+    
 
-    public double getSaldo() {
+    public Cuenta(double saldo) {
+		
+		this.saldo = saldo;
+		this.historial = new ArrayList<Transaccion>();
+	}
+
+	public double getSaldo() {
         return saldo;
     }
 
@@ -28,23 +26,19 @@ public abstract class Cuenta  {
     }
 
     public boolean isEnabled() {
-        return enabled;
+        return habilitada;
     }
     
     public void setEnable(){
-        enabled = true;
+        habilitada = true;
     }
     public void setDisable(){
-        enabled = false;
+        habilitada = false;
     }
-    
-    public void acreditar(double monto){
-        
-    }
-    
+    //RC: Para mi esto no es necesario aca
     //TODO extederlo al resto de las clases hijas
-    public String getTipoCuenta(){
+/*    public String getTipoCuenta(){
     	return tipoCuenta;
     }
-      
+    */  
 }

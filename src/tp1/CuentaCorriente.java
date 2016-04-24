@@ -1,43 +1,56 @@
 package tp1;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+
+import Excepciones.ArrayTitularesException;
+import Excepciones.MontoDepositoException;
+import Excepciones.MontoException;
 
 public class CuentaCorriente extends CuentaComun {
-    private final Set titulares;
+    private final ArrayList<Cliente> titulares;
     private double montoSobreGiro, montoParaAbrirCuenta = 10000;
-    static final double comision = 0.03;
-    static long cbu;
-            
-    public CuentaCorriente(double saldo, HashSet<Cliente> titulares,double montoSobreGiro1) {
-        super(saldo);
-        this.titulares = new HashSet<Cliente>(titulares);         
-        this.montoSobreGiro = montoSobreGiro1;
-        enabled = false;
-    }
+    static double comision = 0.03;
     
-    public CuentaCorriente(double saldo, HashSet<Cliente> titulares,double montoSobreGiro,double montoDeposito) {
-    	super(saldo);
-        if(montoDeposito < montoParaAbrirCuenta){
-            throw new Error(" El monto necesario para abrir cuenta debe ser mayor o igual a 10.000");
-        }
-        this.titulares = new HashSet<Cliente>(titulares);                 
-        this.montoSobreGiro = montoSobreGiro;
-        cbu = super.getCbu();
-        enabled = true;
-    }
-    
+    	public CuentaCorriente(double montoDeposito,ArrayList<Cliente> titulares,double montoSobreGiro)throws MontoDepositoException,MontoException,ArrayTitularesException {
+    	 super(montoDeposito);
+    	 if(montoDeposito < montoParaAbrirCuenta){
+             throw new MontoDepositoException();
+         }
+    	 if(montoSobreGiro >= 0){
+    		 throw new MontoException("El monto de sobregiro debe ser negativo");
+    	 }
+    	 if(titulares.isEmpty()){
+    		 throw new ArrayTitularesException();
+    	 }
+         this.titulares = titulares;                 
+         this.montoSobreGiro = montoSobreGiro;                 
+         habilitada = true;
+         tipoDeMoneda = "pesos";
+    	 }
+	
     public double cobrarComision(double monto){
         return comision * monto;
     }
-
-    public double getMontoSobreGiro() {
-        return montoSobreGiro;
-    }
-    
+    public ArrayList<Cliente> getTitulares() {
+		return titulares;
+	}
+	public double getMontoParaAbrirCuenta() {
+		return montoParaAbrirCuenta;
+	}
     public double setMontoParaAbrirCuenta(double monto){
         return montoParaAbrirCuenta = monto;
     }
-    
-    
+	public double getMontoSobreGiro() {
+        return montoSobreGiro;
+    }
+	public void setMontoSobreGiro(double montoSobreGiro) {
+		this.montoSobreGiro = montoSobreGiro;
+	}
+	public static double getComision() {
+		return comision;
+	}
+	public static void setComision(double nuevaComision) {
+		comision = nuevaComision;
+	}
+       
 }
