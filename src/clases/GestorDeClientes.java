@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.Iterator;
+
 import excepciones.ExceptionCuitNoEncontrado;
 import excepciones.ExceptionCuitNoValido;
 
@@ -28,27 +30,42 @@ public class GestorDeClientes {
 		}		
 	}
 	
-	/*
-	 * 
-	 * 
+	/* 
 	 * pre: el cliente existe en el sistema.
 	 * 		el cliente NO está asociado a ninguna cuenta ACTIVA.
 	 * post: el cliente pasa a estado inactivo. 
-	 * 
-	 * 
-	 * 
+	 *
 	 */
 	public void baja(Cliente cliente) {
-		
-		boolean hayCuentaActiva = false;
-		
-		//TODO if (OperadorBancario.portfolioDeCuentas.
+						
+		// if (OperadorBancario.portfolioDeCuentas.
 		// while (!hayCuentaActiva) {traeme todas las cuentas en que esté este cliente y decime si alguna está activa}
-		if (!hayCuentaActiva){
+		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente);
+		
+		System.out.println(esCliente);
+		
+		if (!esCliente || !hayCuentaActiva(cliente)){
 			Banco.portfolioDeClientes.remove(cliente.getCuit());
 			}
-	
 	} 
+	
+	private boolean hayCuentaActiva(Cliente cliente){
+		boolean hayCuentaActiva = false;
+				
+		Iterator<Long> it = Banco.portfolioDeClientes.keySet().iterator();
+		
+		while(it.hasNext()){
+			  Long key = (Long) it.next();
+			  boolean esCliente = Banco.portfolioDeCuentas.get(key).tieneComoCliente(cliente.getCuit());
+			  boolean esCuentaActiva = Banco.portfolioDeCuentas.get(key).isEnabled();
+			  hayCuentaActiva = esCliente & esCuentaActiva;
+			  if(hayCuentaActiva) {
+				  return true;
+			  }
+			}
+		return hayCuentaActiva;
+		
+	}
 	
 	
 	/*
