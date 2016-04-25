@@ -38,7 +38,6 @@ public class Ventanilla {
 	//TODO agregar exception y texto de salida
 	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo){
 		CajaDeAhorro ca = null;
-		
 		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
 			CuentaComun cComun = Banco.portfolioDeCuentas.get(cbu);
 			if(cComun.getTipoCuenta().equals("CuentaCorriente")){

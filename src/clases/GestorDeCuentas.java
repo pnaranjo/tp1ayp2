@@ -1,7 +1,9 @@
 package clases;
 
 
+
 public class GestorDeCuentas {
+
 
 	
 	public void abrirCajaDeAhorroEnPesos(CajaDeAhorroEnPesos caPesos){
@@ -12,7 +14,6 @@ public class GestorDeCuentas {
 	public void abrirCajaDeAhorroEnDolares(CajaDeAhorroEnDolares caDolares){
 		Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
-	
 	
 	public void abrirCuentaCorriente(CuentaCorriente cCorriente){
 		Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
