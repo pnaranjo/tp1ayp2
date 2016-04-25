@@ -34,7 +34,8 @@ public class ProcesadorBatch {
 					
 				}else{
 					caPesos.debitar("debito", caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
-					cuentaCobroMantenimientoPesos.acreditar(caPesos.getCostoMantenimiento());
+					//TODO ver
+					//cuentaCobroMantenimientoPesos.acreditar(caPesos.getCostoMantenimiento());
 					mantenimientosCobrados(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), caPesos.getTipoMoneda(), "Pesos");
 				}
 				
@@ -52,7 +53,8 @@ public class ProcesadorBatch {
 					
 				}else{
 					caDolares.debitar("debito", caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
-					cuentaCobroMantenimientoPesos.acreditar(caDolares.convertirDolaresAPesos(caDolares.getCostoDeMantenimientoDolares()));
+					//TODO ver
+					//cuentaCobroMantenimientoPesos.acreditar(caDolares.convertirDolaresAPesos(caDolares.getCostoDeMantenimientoDolares()));
 					mantenimientosCobrados(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), caDolares.getTipoMoneda(), "Dolares");
 				}
 			}
@@ -89,7 +91,7 @@ public class ProcesadorBatch {
 	public void erroresMatenenimiento(long cbu, String tipoCuenta, double monto, String motivo){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String ruta = "/temp/erroresMatenenimiento_"+ dateFormat.format(date) +".txt";
+		String ruta = "/home/erroresMatenenimiento_"+ dateFormat.format(date) +".txt";
 		
 		try{
 			File archivo = new File(ruta);

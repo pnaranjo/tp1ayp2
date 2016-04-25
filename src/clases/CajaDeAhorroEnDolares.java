@@ -3,7 +3,7 @@ package clases;
 import java.util.ArrayList;
 
 public class CajaDeAhorroEnDolares extends CajaDeAhorro{
-	public static final CuentaEspecial mantenimientoDolares = new CuentaEspecial(0,"pesos");
+	public static final CuentaEspecial mantenimientoDolares  = new CuentaEspecial(0,"pesos");
 	public static double costoDeMantenimientoDolares;
 	public static long cbu;
 	

@@ -11,11 +11,11 @@ import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
 
-import tp1.Cliente;
-import tp1.CuentaCorriente;
-import tp1.Domicilio;
-import tp1.OperadorBancario;
-import tp1.PersonaFisica;
+import clases.Cliente;
+import clases.CuentaCorriente;
+import clases.Domicilio;
+import clases.Banco;
+import clases.PersonaFisica;
 
 public class PruebaCuentaCorriente  {
 	String codigoPostal1 = "1426";
@@ -39,7 +39,7 @@ public class PruebaCuentaCorriente  {
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
 		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, -3);
-		OperadorBancario op1 = new OperadorBancario();
+		Banco op1 = new Banco();
 		op1.portfolioDeCuentas.put(c1.getCbu(),c1);
 		Assert.assertEquals(1,op1.portfolioDeCuentas.size());	
 		}
