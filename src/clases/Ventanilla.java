@@ -12,25 +12,18 @@ public class Ventanilla {
 
 	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
+		Cuenta c = null;
 		try {	
-			Cuenta c = null;
-			
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
 				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
 				return;
 			}
 			
-			if (montoADepositar > 0){
-				System.out.println("el monto tiene que ser mayor a 0");
-				return;
-			}
-			
 			if (Banco.portfolioDeCuentas.containsKey(cbu)) {
 				c = Banco.portfolioDeCuentas.get(cbu);
-				if (c.isEnabled()) {
-					c.acreditar(montoADepositar);		
-				}
+				c.acreditar(montoADepositar);
 			}
+			
 		} catch (Exception e) {
 		System.out.println(e);
 		}
