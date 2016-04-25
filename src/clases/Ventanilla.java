@@ -14,16 +14,20 @@ public class Ventanilla {
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		CuentaComun cComun;
 		try {	
+			
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
 				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
 				return;
 			}
 			
+			
 			if (Banco.portfolioDeCuentas.containsKey(cbu)) {
 				cComun = Banco.portfolioDeCuentas.get(cbu);
-				cComun.acreditar(montoADepositar);
+				if (cComun.isEnabled()) {
+					cComun.acreditar(montoADepositar);		
+				}
 			}
-			
+
 		} catch (Exception e) {
 		System.out.println(e);
 		}
@@ -34,13 +38,14 @@ public class Ventanilla {
 	//TODO agregar exception y texto de salida
 	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo){
 		CajaDeAhorro ca = null;
+		
 		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
-			Cuenta c = Banco.portfolioDeCuentas.get(cbu);
-			if(c.getTipoCuenta().equals("CuentaCorriente")){
+			CuentaComun cComun = Banco.portfolioDeCuentas.get(cbu);
+			if(cComun.getTipoCuenta().equals("CuentaCorriente")){
 				System.out.println("extracciones solo se permiten de Caja de Ahorro");
 				return;
 			}
-			ca = (CajaDeAhorro) c;
+			ca = (CajaDeAhorro) cComun;
 			if (ca.isEnabled()) {				
 				if(ca.getTitulares().contains(cliente)){
 					ca.debitar("Debito", montoDeExtraccion, motivo);
@@ -74,18 +79,11 @@ public class Ventanilla {
 			}
 		}
 		
-		// verifico que cliente sea titular cuenta de origen
+		// verificar que cliente sea titular cuenta de origen
 		if(cOrigen.tieneComoCliente(cuitCliente)){
-		
-			
-			//TODO verificar que el tipo de movimiento sea el correcto
-			String tipoDeMovimiento = "Transferencia";
-			//TODO ver regla de monto por transferencia o movimiento
-			
-			//TODO recordar que el método debitar devuelve una Transferencia, Acreditar tambien deberia
-			// Cambió la firma del método debitar( String tipoDeMovimiento, double monto, String motivo);
-			cOrigen.debitar(tipoDeMovimiento, montoTransferencia, motivo); //+ ver regla de monto por transferencia o movimiento
+			cOrigen.debitar(montoTransferencia); //+ ver regla de monto por transferencia o movimiento
 			cDestino.acreditar(montoTransferencia);
+			//TODO VER
 			Transaccion transCOrigen = new Transaccion("Transferencia", montoTransferencia, motivo, ("a cuenta " + cDestino.getCbu())); // si fue dolar a pesos o viceversa poner observacion 
 			cOrigen.historial.add(transCOrigen);
 			Transaccion transCDestino = new Transaccion("Transferencia", montoTransferencia, motivo, ("de cuenta " + cOrigen.getCbu())); // si fue dolar a pesos o viceversa poner observacion 

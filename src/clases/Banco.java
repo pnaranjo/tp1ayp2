@@ -17,5 +17,4 @@ public class Banco{
         portfolioDeCuentas = new HashMap<Long, CuentaComun>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
     }
-    
 }

@@ -6,11 +6,13 @@ public class GestorDeCuentas {
 	
 	public void abrirCajaDeAhorroEnPesos(CajaDeAhorroEnPesos caPesos){
 		Banco.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
+
 	}
 	
 	public void abrirCajaDeAhorroEnDolares(CajaDeAhorroEnDolares caDolares){
 		Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
+	
 	
 	public void abrirCuentaCorriente(CuentaCorriente cCorriente){
 		Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
