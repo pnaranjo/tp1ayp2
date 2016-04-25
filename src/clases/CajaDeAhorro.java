@@ -1,4 +1,4 @@
-package tp1;
+package clases;
 
 import java.util.ArrayList;
 
@@ -14,11 +14,11 @@ public abstract class CajaDeAhorro extends CuentaComun {
     }
         
     protected double convertirPesosADolares(double montoEnPesos){
-       return montoEnPesos*OperadorBancario.tipoDeCambioVigente;   
+       return montoEnPesos*Banco.tipoDeCambioVigente;   
     }
         
     protected double convertirDolaresAPesos(double montoEnDolares){
-       return montoEnDolares/OperadorBancario.tipoDeCambioVigente;
+       return montoEnDolares/Banco.tipoDeCambioVigente;
     }
 
     public ArrayList<PersonaFisica> getTitulares(){
@@ -30,6 +30,7 @@ public abstract class CajaDeAhorro extends CuentaComun {
     }
     
     protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo,  String observaciones){
+    	//TODO:
     	/*falta verificar que el saldo no quede negativo*/
     	this.saldo =- monto;
     	Transaccion transaccion = new Transaccion(tipoDeMovimiento, monto, motivo, observaciones);
@@ -37,6 +38,7 @@ public abstract class CajaDeAhorro extends CuentaComun {
 		return transaccion; 
     }
     protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo){
+    	//TODO:
     	/*falta verificar que el saldo no quede negativo*/
     	this.saldo =- monto;
     	Transaccion transaccion = new Transaccion(tipoDeMovimiento, monto, motivo);

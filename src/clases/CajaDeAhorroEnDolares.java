@@ -1,4 +1,4 @@
-package tp1;
+package clases;
 
 import java.util.ArrayList;
 
@@ -21,5 +21,8 @@ public class CajaDeAhorroEnDolares extends CajaDeAhorro{
 		CajaDeAhorroEnDolares.mantenimientoDolares.saldo =+ CajaDeAhorroEnDolares.costoDeMantenimientoDolares;	
 	}
 	
+	public double getCostoDeMantenimientoDolares(){
+		return costoDeMantenimientoDolares;
+	}
 
 }

@@ -1,4 +1,4 @@
-package tp1;
+package clases;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,10 @@ public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 		// faltan comprobar que no quede en negativo
 		this.saldo =- CajaDeAhorroEnPesos.costoDeMantenimientoPesos;
 		CajaDeAhorroEnPesos.mantenimientoPesos.saldo =+ CajaDeAhorroEnPesos.costoDeMantenimientoPesos;
+	}
+	
+	public double getCostoMantenimiento(){
+		return costoDeMantenimientoPesos;
 	}
 		
 }

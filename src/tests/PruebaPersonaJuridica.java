@@ -1,14 +1,15 @@
-package pruebas_TP1;
+package tests;
 
 import org.junit.Assert;
-import tp1.*;
 import org.junit.Test;
 
-import Excepciones.ExceptionCuitNoValido;
+import clases.*;
+import excepciones.ExceptionCuitNoValido;
+
 
 public class PruebaPersonaJuridica {
 	
-	OperadorBancario banco = new OperadorBancario();
+	Banco banco = new Banco();
 
 	String codigoPostal1 = "T4000IJN";
 	String direccion = "Buenos Aires 672";
@@ -84,8 +85,8 @@ public class PruebaPersonaJuridica {
 	}
 	
 	@Test
-	public void testDeshabilitar() {
-		asociacionDeOrtopedia.deshabilitar();
+	public void testDesactivar() {
+		asociacionDeOrtopedia.desactivar();
 		Assert.assertFalse(asociacionDeOrtopedia.isEnabled());
 	}
 	
@@ -95,8 +96,8 @@ public class PruebaPersonaJuridica {
 	}
 	
 	@Test
-	public void testHabilitar() {
-		asociacion2.habilitar();
+	public void testactivar() {
+		asociacion2.activar();
 		Assert.assertTrue(asociacion2.isEnabled());
 	}
 	

@@ -1,10 +1,10 @@
-package tp1;
+package clases;
 
-import Excepciones.ExceptionCuitNoValido;
-import Excepciones.ExceptionNumeroDeDocumentoNoValido;
-import Excepciones.PersonaFisicaException;
-import tp1.Cliente;
-import tp1.Domicilio;
+import clases.Cliente;
+import clases.Domicilio;
+import excepciones.ExceptionCuitNoValido;
+import excepciones.ExceptionNumeroDeDocumentoNoValido;
+import excepciones.PersonaFisicaException;
 
 public class PersonaFisica extends Cliente {
 	
@@ -117,7 +117,7 @@ public class PersonaFisica extends Cliente {
 	public String toString() {
 		return ("Nombre y Apellido: " + super.getNombre()+ " CUIT: " +super.getCuit()+ " Domicilio: " 
 				+super.getDomicilio().toString()+ " Telefono: " + super.getTelefono() 
-				+(super.isEnabled()?" Cliente habilitado.":" Cliente NO habilitado") + " Tipo de documento: " 
+				+(super.isEnabled()?" Cliente activo.":" Cliente inactivo.") + " Tipo de documento: " 
 				+tipoDeDocumento+ " Número de documento: " +numeroDeDocumento+ 
 				" Profesión: " +profesion+ " Estado civil: " 
 				+estadoCivil+ (conyugue != null ? (" Cónyugue: " +conyugue):""));

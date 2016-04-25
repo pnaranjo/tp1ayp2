@@ -1,6 +1,6 @@
-package tp1;
+package clases;
 
-import Excepciones.*;
+import excepciones.*;
 
 public abstract class Cliente {
 	
@@ -8,35 +8,44 @@ public abstract class Cliente {
 	private final long cuit;
 	private Domicilio domicilio;
 	private int telefono;
-	private boolean habilitado;
+	private boolean activo;
 	private String otrosDatos;
 	
-	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado, String otrosDatos) throws ExceptionCuitNoValido {
+	/*
+	 * Constructor para cliente con otrosDatos
+	 */
+	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean activo, String otrosDatos) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
-		this.habilitado = habilitado;
+		this.activo = activo;
 		this.otrosDatos = otrosDatos;
 	}
 	
+	/*
+	 * Constructor para cliente inactivo
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono, boolean habilitado) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
-		this.habilitado = habilitado;
+		this.activo = habilitado;
 	}
-	
+
+	/*
+	 * Constructor para cliente activo
+	 */
 	public Cliente(String nombre, long cuit, Domicilio domicilio, int telefono) throws ExceptionCuitNoValido {
 		validarCuit(cuit);
 		this.nombre = nombre;
 		this.cuit = cuit;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
-		this.habilitado = true;
+		this.activo = true;
 	}
 
 
@@ -49,8 +58,7 @@ public abstract class Cliente {
 	 * 		Si el cliente es persona física, el CUIT tiene que comenzar con 2
 	 * 		
 	 */
-	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {		
-		//si es existente, arroja una excepción. 	
+	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {			
 		
 		if (cuit < 20000000010L || cuit > 39999999999L){
 			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
@@ -97,36 +105,15 @@ public abstract class Cliente {
 	}
 	
 	public boolean isEnabled() {
-		return habilitado;
+		return activo;
 	}
 	
-	public void habilitar() {
-		habilitado = true;
+	public void activar() {
+		activo = true;
 	}
 	
-	public void deshabilitar(){
-		habilitado = false;
-	}	
-
-    @Override
-    public int hashCode() {        
-        return (int) (long) this.cuit;
-        
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cliente other = (Cliente) obj;
-        if (this.cuit != other.cuit) {
-            return false;
-        }
-        return true;
-    }
+	public void desactivar(){
+		activo = false;
+	}
      
 }
