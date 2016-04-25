@@ -1,4 +1,4 @@
-package pruebas_TP1;
+package tests;
 
 import java.util.ArrayList;
 

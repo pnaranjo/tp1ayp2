@@ -2,35 +2,36 @@ package clases;
 
 public abstract class CuentaComun extends Cuenta {
 	private final long cbu;
-    
+	protected String tipoDeMoneda;//rc
+	protected String tipoCuenta;
 	public CuentaComun(double saldo) {
 	   super(saldo);
-	   this.cbu = Banco.generadorCbu++;
+	   this.cbu = OperadorBancario.generadorCbu++;
 	   // TODO Auto-generated constructor stub
 	}  
         
     public long getCbu(){
-       return this.cbu;
+       return cbu;
     }
-    
-    /*
-     * El método debitar() debe ser abstracto ya que, en una cuenta corriente 
-     * se permite debitar hasta el monto de sobregiro y en Caja de Ahorro no.
-     * 
-     */
-    protected abstract Transaccion debitar( String tipoDeMovimiento, double monto, String motivo);
-
-    
+  //TODO cargar tipo de moneda en las clases hijas
+    public String getTipoMoneda(){
+    	return tipoDeMoneda;
+    } 	
+    //metodo temporal, debe ser de tipo transaccion, con las respectivas validaciones.
+    public void debitar(double monto){
+    	saldo -= monto;
+    }
+    //metodo temporal, debe ser de tipo transaccion, con las respectivas validaciones.
+    public void acreditar(double monto){
+    	saldo += monto;
+    }
     public boolean tieneComoCliente(long cuit){
-    	if(Banco.portfolioDeClientes.containsKey(cuit)){
+    	if(OperadorBancario.portfolioDeClientes.containsKey(cuit)){
     		return true;    	
     	}
     	return false;
     }
-    
-    //TODO cargar tipo de moneda en las clases hijas
-    public String getTipoMoneda(){
-    	return "";
+    public String getTipoCuenta(){
+    	return tipoCuenta;
     }
-       
 }

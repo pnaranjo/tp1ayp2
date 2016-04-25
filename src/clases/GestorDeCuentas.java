@@ -1,35 +1,36 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GestorDeCuentas {
 
 	
 	public void abrirCajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
-		Banco.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
+		OperadorBancario.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
 	}
 	
 	public void abrirCajaDeAhorroEnDolares(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
 		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
-		Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
+		OperadorBancario.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
 	
-	public void abrirCuentaCorriente(double saldo, ArrayList<Cliente> titulares,double montoSobreGiro,double montoDeposito){
-		CuentaCorriente cCorriente = new CuentaCorriente(saldo, titulares, montoSobreGiro, montoDeposito);
-		Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
+	public void abrirCuentaCorriente(double montoDeposito, ArrayList<Cliente> titulares,double montoSobreGiro){
+		CuentaCorriente cCorriente = new CuentaCorriente(montoDeposito, titulares, montoSobreGiro);
+		OperadorBancario.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
 	}
 	
 	public void inhablitarCuenta(long cbu){
-		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
+			Cuenta cuenta = OperadorBancario.portfolioDeCuentas.get(cbu);
 			cuenta.setDisable();
 		}
 	}
 	
 	public void hablitarCuenta(long cbu){
-		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
+		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
+			Cuenta cuenta = OperadorBancario.portfolioDeCuentas.get(cbu);
 			cuenta.setEnable();
 		}
 	}

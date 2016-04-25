@@ -1,16 +1,16 @@
 package clases;
 
 public class CuentaEspecial extends Cuenta {
-		private final String tipoDeMoneda;
+		//private final String tipoDeMoneda;
 		
-		public CuentaEspecial(double saldo, String tipoDeMoneda){
+		public CuentaEspecial(double saldo/*, String tipoDeMoneda*/){
 			super(saldo);
-			this.tipoDeMoneda = tipoDeMoneda;
+			//this.tipoDeMoneda = tipoDeMoneda; RC: Para mi esto no es necesario
 		}
-		
+		/* RC: Para mi esto no es necesario
 		public String getTipoDeMoneda(){
 			return tipoDeMoneda;
-		}
+		}*/
 		
 }
 
