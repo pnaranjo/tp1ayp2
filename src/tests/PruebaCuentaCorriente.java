@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
-import Excepciones.ArrayTitularesException;
-import Excepciones.ExceptionCuitNoValido;
-import Excepciones.ExceptionNumeroDeDocumentoNoValido;
-import Excepciones.MontoDepositoException;
-import Excepciones.MontoException;
+
+import excepciones.ArrayTitularesException;
+import excepciones.ExceptionCuitNoValido;
+import excepciones.ExceptionNumeroDeDocumentoNoValido;
+import excepciones.MontoDepositoException;
+import excepciones.MontoException;
+
 import clases.Cliente;
 import clases.CuentaCorriente;
 import clases.Domicilio;

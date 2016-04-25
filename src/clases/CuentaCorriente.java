@@ -2,9 +2,10 @@ package clases;
 
 import java.util.ArrayList;
 
-import Excepciones.ArrayTitularesException;
-import Excepciones.MontoDepositoException;
-import Excepciones.MontoException;
+import excepciones.ArrayTitularesException;
+import excepciones.MontoDepositoException;
+import excepciones.MontoException;
+
 
 public class CuentaCorriente extends CuentaComun {
     private final ArrayList<Cliente> titulares;

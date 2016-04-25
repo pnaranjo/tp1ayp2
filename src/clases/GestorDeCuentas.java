@@ -1,27 +1,22 @@
 package clases;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 
-import Excepciones.ArrayTitularesException;
-import Excepciones.MontoDepositoException;
-import Excepciones.MontoException;
+import excepciones.ArrayTitularesException;
+import excepciones.MontoDepositoException;
+import excepciones.MontoException;
 
 public class GestorDeCuentas {
 
-	
-	public void abrirCajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
+	public void abrirCajaDeAhorroEnPesos(CajaDeAhorroEnPesos caPesos){
 		Banco.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
+
 	}
 	
-	public void abrirCajaDeAhorroEnDolares(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
-		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
+	public void abrirCajaDeAhorroEnDolares(CajaDeAhorroEnDolares caDolares){
 		Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
 	
-	public void abrirCuentaCorriente(double montoDeposito, ArrayList<Cliente> titulares,double montoSobreGiro) throws ArrayTitularesException,MontoException,MontoDepositoException{
-		CuentaCorriente cCorriente = new CuentaCorriente(montoDeposito, titulares, montoSobreGiro);
+	public void abrirCuentaCorriente(CuentaCorriente cCorriente){
 		Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
 	}
 	
