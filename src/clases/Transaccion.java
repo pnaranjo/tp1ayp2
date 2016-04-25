@@ -10,7 +10,8 @@ class Transaccion {
     private String observaciones = "";
 
     public Transaccion(String tipoMovimiento, double monto, String motivo) {
-        fechaYHora = getTime();
+        
+    	fechaYHora = getTime();
         this.tipoMovimiento = tipoMovimiento;
         this.monto = monto;
         this.motivo = motivo;

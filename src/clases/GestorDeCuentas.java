@@ -3,34 +3,38 @@ package clases;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import Excepciones.ArrayTitularesException;
+import Excepciones.MontoDepositoException;
+import Excepciones.MontoException;
+
 public class GestorDeCuentas {
 
 	
 	public void abrirCajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
-		OperadorBancario.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
+		Banco.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
 	}
 	
 	public void abrirCajaDeAhorroEnDolares(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
 		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
-		OperadorBancario.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
+		Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
 	
-	public void abrirCuentaCorriente(double montoDeposito, ArrayList<Cliente> titulares,double montoSobreGiro){
+	public void abrirCuentaCorriente(double montoDeposito, ArrayList<Cliente> titulares,double montoSobreGiro) throws ArrayTitularesException,MontoException,MontoDepositoException{
 		CuentaCorriente cCorriente = new CuentaCorriente(montoDeposito, titulares, montoSobreGiro);
-		OperadorBancario.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
+		Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
 	}
 	
 	public void inhablitarCuenta(long cbu){
-		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
-			Cuenta cuenta = OperadorBancario.portfolioDeCuentas.get(cbu);
+		if(Banco.portfolioDeCuentas.containsKey(cbu)){
+			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
 			cuenta.setDisable();
 		}
 	}
 	
 	public void hablitarCuenta(long cbu){
-		if(OperadorBancario.portfolioDeCuentas.containsKey(cbu)){
-			Cuenta cuenta = OperadorBancario.portfolioDeCuentas.get(cbu);
+		if(Banco.portfolioDeCuentas.containsKey(cbu)){
+			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
 			cuenta.setEnable();
 		}
 	}

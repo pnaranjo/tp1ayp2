@@ -6,7 +6,7 @@ public abstract class CuentaComun extends Cuenta {
 	protected String tipoCuenta;
 	public CuentaComun(double saldo) {
 	   super(saldo);
-	   this.cbu = OperadorBancario.generadorCbu++;
+	   this.cbu = Banco.generadorCbu++;
 	   // TODO Auto-generated constructor stub
 	}  
         
@@ -26,7 +26,7 @@ public abstract class CuentaComun extends Cuenta {
     	saldo += monto;
     }
     public boolean tieneComoCliente(long cuit){
-    	if(OperadorBancario.portfolioDeClientes.containsKey(cuit)){
+    	if(Banco.portfolioDeClientes.containsKey(cuit)){
     		return true;    	
     	}
     	return false;
