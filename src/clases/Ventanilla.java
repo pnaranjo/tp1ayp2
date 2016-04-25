@@ -12,7 +12,7 @@ public class Ventanilla {
 
 	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
-		Cuenta c = null;
+		CuentaComun cComun;
 		try {	
 			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
 				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
@@ -20,8 +20,8 @@ public class Ventanilla {
 			}
 			
 			if (Banco.portfolioDeCuentas.containsKey(cbu)) {
-				c = Banco.portfolioDeCuentas.get(cbu);
-				c.acreditar(montoADepositar);
+				cComun = Banco.portfolioDeCuentas.get(cbu);
+				cComun.acreditar(montoADepositar);
 			}
 			
 		} catch (Exception e) {

@@ -1,22 +1,18 @@
 package clases;
 
-import java.util.ArrayList;
 
 public class GestorDeCuentas {
 
 	
-	public void abrirCajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
+	public void abrirCajaDeAhorroEnPesos(CajaDeAhorroEnPesos caPesos){
 		Banco.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
 	}
 	
-	public void abrirCajaDeAhorroEnDolares(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres, double costoDeMantenimiento){
-		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(saldo, titulares, tasaDeInteres, costoDeMantenimiento);
+	public void abrirCajaDeAhorroEnDolares(CajaDeAhorroEnDolares caDolares){
 		Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);
 	}
 	
-	public void abrirCuentaCorriente(double saldo, ArrayList<Cliente> titulares,double montoSobreGiro,double montoDeposito){
-		CuentaCorriente cCorriente = new CuentaCorriente(saldo, titulares, montoSobreGiro, montoDeposito);
+	public void abrirCuentaCorriente(CuentaCorriente cCorriente){
 		Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
 	}
 	
