@@ -2,6 +2,8 @@ package clases;
 
 import clases.Banco;
 import clases.Cuenta;
+import excepciones.MontoException;
+import excepciones.TransaccionException;
 
 public class Ventanilla {
 
@@ -36,9 +38,8 @@ public class Ventanilla {
 
 	
 	//TODO agregar exception y texto de salida
-	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo){
+	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo) throws TransaccionException, MontoException{
 		CajaDeAhorro ca = null;
-		
 		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
 			CuentaComun cComun = Banco.portfolioDeCuentas.get(cbu);
 			if(cComun.getTipoCuenta().equals("CuentaCorriente")){
@@ -57,7 +58,7 @@ public class Ventanilla {
 	}
 
 	//TODO agregar exception y texto de salida
-	public void transferencia(long cuitCliente, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) {
+	public void transferencia(long cuitCliente, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) throws TransaccionException, MontoException {
 		
 		CuentaComun cDestino = null;
 		CuentaComun cOrigen = null;

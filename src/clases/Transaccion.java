@@ -2,22 +2,48 @@ package clases;
 
 import java.util.Calendar;
 
+
+import excepciones.MontoException;
+import excepciones.TransaccionException;
+
 class Transaccion {
     private String fechaYHora;
     private String tipoMovimiento;
     private double monto;
     private String motivo;
-    private String observaciones = "";
+    private String observaciones;
 
-    public Transaccion(String tipoMovimiento, double monto, String motivo) {
-        fechaYHora = getTime();
+    public Transaccion(String tipoMovimiento, double monto, String motivo) throws TransaccionException, MontoException {
+    	if(tipoMovimiento == null || tipoMovimiento != "debitar" || tipoMovimiento != "acreditar"){
+        	throw new TransaccionException("El tipo de movimiento ingresado es incorrecto");
+        }
+        if(motivo == null){
+        	throw new TransaccionException("Debe ingresar un motivo para generar la transaccion");
+        }
+        if( monto <= 0){
+        	throw new MontoException();
+        }
+    	fechaYHora = getTime();
         this.tipoMovimiento = tipoMovimiento;
         this.monto = monto;
         this.motivo = motivo;
     }
 
-    public Transaccion(String tipoMovimiento, double monto, String motivo, String observaciones) {
-        fechaYHora = getTime();
+    public Transaccion(String tipoMovimiento, double monto, String motivo, String observaciones) throws TransaccionException, MontoException {
+        if(tipoMovimiento == null || tipoMovimiento != "debitar" || tipoMovimiento != "acreditar"){
+        	throw new TransaccionException("El tipo de movimiento ingresado es incorrecto");
+        }
+        if(motivo == null){
+        	throw new TransaccionException("Debe ingresar un motivo para generar la transaccion");
+        }
+        if( monto <= 0){
+        	throw new MontoException();
+        }
+        if(observaciones == null){
+        	throw new TransaccionException("Debe ingresar una observacion para generar la transaccion");
+        }
+        
+    	fechaYHora = getTime();
         this.tipoMovimiento = tipoMovimiento;
         this.monto = monto;
         this.motivo = motivo;

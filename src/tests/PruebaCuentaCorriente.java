@@ -1,5 +1,6 @@
 package tests;
 
+
 import java.util.ArrayList;
 
 import org.junit.Assert;
@@ -10,8 +11,8 @@ import excepciones.ExceptionCuitNoValido;
 import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
-
 import clases.Cliente;
+import clases.CuentaComun;
 import clases.CuentaCorriente;
 import clases.Domicilio;
 import clases.Banco;
@@ -35,7 +36,7 @@ public class PruebaCuentaCorriente  {
 
 	@Test
 	public void testCrearCuentaCorriente() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
-		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
+		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
 		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, -3);
