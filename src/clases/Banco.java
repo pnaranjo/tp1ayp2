@@ -13,6 +13,8 @@ public class Banco{
     public static long generadorCbu = 1; /*generador de CBU*/
     private double costoDeMantemientoPesos = 30;
     private double costoDeMantemientoDolares = 2;
+    private CuentaEspecial retenciones;
+    private CuentaEspecial mantenimiento;
     
     
     public Banco() {
@@ -51,7 +53,30 @@ public class Banco{
     
     public void setTipoDeCambioVigente(Double tipoDeCambioVigente) {
         Banco.tipoDeCambioVigente = tipoDeCambioVigente;
-
+    }
+    
+    public void setCostoDeMantenimientoPesos (double costoDeMantenimientoPesos) {
+    	this.costoDeMantemientoPesos = costoDeMantenimientoPesos;
+    }
+    
+    public void setCostoDeMantenimientoDolares (double costoDeMantenimientoDolares) {
+    	this.costoDeMantemientoDolares = costoDeMantenimientoDolares;
+    }
+    
+    public void acreditarRetenciones(double monto) {
+    	retenciones.saldo+=monto;
+    }
+    
+    public void acreditarMantenimiento(double monto) {
+    	mantenimiento.saldo+=monto;
+    }
+    
+    public double getSaldoMantenimiento() {
+    	return mantenimiento.saldo;
+    }
+    
+    public double getSaldoRetenciones(){
+    	return retenciones.saldo;
     }
     
 }
