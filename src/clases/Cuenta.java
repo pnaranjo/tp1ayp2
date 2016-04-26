@@ -7,6 +7,7 @@ public abstract class Cuenta  {
     protected double saldo;
     protected ArrayList<Transaccion> historial;   
     protected boolean habilitada;
+    protected String tipoDeCuenta; 
     // rc protected String tipoDeMoneda;
     
     

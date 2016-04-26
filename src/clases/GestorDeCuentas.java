@@ -3,7 +3,9 @@ package clases;
 import excepciones.ExceptionCuitNoEncontrado;
 
 
+
 public class GestorDeCuentas {
+
 
 	
 	public void abrirCajaDeAhorroEnPesos(CajaDeAhorroEnPesos caPesos){
@@ -23,7 +25,6 @@ public class GestorDeCuentas {
 			e.printStackTrace();
 		}
 	}
-	
 	
 	public void abrirCuentaCorriente(CuentaCorriente cCorriente){
 		try {
