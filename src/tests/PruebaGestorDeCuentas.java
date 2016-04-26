@@ -17,7 +17,7 @@ import clases.GestorDeCuentas;
 import clases.PersonaFisica;
 import clases.PersonaJuridica;
 import clases.Ventanilla;
-import excepciones.ExceptionCuitNoEncontrado;
+import excepciones.ExceptionCbuNoEncontrado;
 
 public class PruebaGestorDeCuentas {
 	
@@ -116,7 +116,7 @@ public class PruebaGestorDeCuentas {
 		Assert.assertEquals(false, Banco.portfolioDeCuentas.containsKey(cbu));
 	}
 	
-	@Test (expected = ExceptionCuitNoEncontrado.class)
+	@Test (expected = ExceptionCbuNoEncontrado.class)
 	public void probarQueNoEncuentraUnaCuentaEnHabilitar() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
@@ -128,7 +128,7 @@ public class PruebaGestorDeCuentas {
 		gestorCuentas.hablitarCuenta(cbu);
 	}
 	
-	@Test (expected = ExceptionCuitNoEncontrado.class)
+	@Test (expected = ExceptionCbuNoEncontrado.class)
 	public void probarQueNoEncuentraUnaCuentaEnDeshabilitar() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);

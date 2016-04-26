@@ -33,7 +33,7 @@ public class ProcesadorBatch {
 					
 				}else if((caPesos.saldo - caPesos.getCostoMantenimiento()) < 0) {
 					erroresMatenenimiento(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), "Fondos Insuficientes");
-					gestorCuentas.inhablitarCuenta(caPesos.getCbu());
+					//gestorCuentas.inhablitarCuenta(caPesos.getCbu());
 					
 				}else{
 					caPesos.debitar("debito", caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
@@ -52,7 +52,7 @@ public class ProcesadorBatch {
 					
 				}else if((caDolares.saldo - caDolares.getCostoDeMantenimientoDolares()) < 0) {
 					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Fondos Insuficientes");
-					gestorCuentas.inhablitarCuenta(caDolares.getCbu());
+					//gestorCuentas.inhablitarCuenta(caDolares.getCbu());
 					
 				}else{
 					caDolares.debitar("debito", caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");

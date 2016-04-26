@@ -32,6 +32,7 @@ public abstract class CuentaComun extends Cuenta {
     	}
     	return false;
     }
+    
     public String getTipoCuenta(){
     	return tipoCuenta;
     }
