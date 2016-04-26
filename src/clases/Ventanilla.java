@@ -7,23 +7,14 @@ import excepciones.TransaccionException;
 
 public class Ventanilla {
 
-	public enum TipoMonedaPermitida { PESOS , DOLARES }
-
 	public Ventanilla() {
 	} 
 
-	//TODO agregar exception y texto de salida
+	//TODO agregar texto de salida 
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		CuentaComun cComun;
-		TipoMonedaPermitida tmp = null;
-		
 		try {	
-			
-			if(!tipoMoneda.equals(tmp.PESOS.toString()) && !(tipoMoneda.equals(tmp.DOLARES.toString()))){
-				System.out.println("Solo se permiten PESOS o DOLARES");
-				return;
-			}
-			
+			tipoMonedaPermitida(tipoMoneda);
 			
 			if (Banco.portfolioDeCuentas.containsKey(cbu)) {
 				cComun = Banco.portfolioDeCuentas.get(cbu);
@@ -33,11 +24,9 @@ public class Ventanilla {
 			}
 
 		} catch (Exception e) {
-		System.out.println(e);
+			e.printStackTrace();
 		}
 	}
-	
-
 	
 	//TODO agregar exception y texto de salida
 	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo) throws TransaccionException, MontoException{
@@ -132,6 +121,12 @@ public class Ventanilla {
 			}
 		}
 		return "cuenta inexistente";
+	}
+	
+	public void tipoMonedaPermitida(String tipoMoneda) throws Exception{
+		if(!tipoMoneda.equalsIgnoreCase("Pesos") && !tipoMoneda.equalsIgnoreCase("Dolares")){
+			throw new Exception("Tipo Moneda No Permitida, solo se aceptan Pesos o Dolares");
+		}
 	}
 
 }
