@@ -2,6 +2,9 @@ package clases;
 
 import java.util.ArrayList;
 
+import excepciones.MontoException;
+import excepciones.TransaccionException;
+
 
 public abstract class CajaDeAhorro extends CuentaComun {
     private final ArrayList<PersonaFisica> titulares;
@@ -29,7 +32,7 @@ public abstract class CajaDeAhorro extends CuentaComun {
     	return this.tasaDeInteres;
     }
     
-    protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo,  String observaciones){
+    protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
     	//TODO:
     	/*falta verificar que el saldo no quede negativo*/
     	this.saldo =- monto;
@@ -37,7 +40,7 @@ public abstract class CajaDeAhorro extends CuentaComun {
     	this.historial.add(transaccion);
 		return transaccion; 
     }
-    protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo){
+    protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo) throws TransaccionException, MontoException{
     	//TODO:
     	/*falta verificar que el saldo no quede negativo*/
     	this.saldo =- monto;
