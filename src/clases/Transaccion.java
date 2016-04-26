@@ -27,6 +27,7 @@ class Transaccion {
         this.tipoMovimiento = tipoMovimiento;
         this.monto = monto;
         this.motivo = motivo;
+        observaciones = "";
     }
 
     public Transaccion(String tipoMovimiento, double monto, String motivo, String observaciones) throws TransaccionException, MontoException {

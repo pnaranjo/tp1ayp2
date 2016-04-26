@@ -13,7 +13,7 @@ public class Banco{
     public static long generadorCbu = 1; /*generador de CBU*/
     private double costoDeMantemientoPesos = 30;
     private double costoDeMantemientoDolares = 2;
-    private CuentaEspecial retenciones;
+    private static CuentaEspecial retenciones;//RC agregue la palabra static para poder realizar la acreditacion de retenciones de los movimientos en cc.
     private CuentaEspecial mantenimiento;
     
     
@@ -63,7 +63,7 @@ public class Banco{
     	this.costoDeMantemientoDolares = costoDeMantenimientoDolares;
     }
     
-    public void acreditarRetenciones(double monto) {
+    public static void acreditarRetenciones(double monto) {
     	//TODO generar transaccion
     	retenciones.saldo+=monto;
     }
