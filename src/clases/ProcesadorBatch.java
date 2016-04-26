@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import excepciones.ExceptionCuitNoEncontrado;
 import excepciones.MontoException;
 import excepciones.TransaccionException;
 
@@ -20,7 +21,7 @@ public class ProcesadorBatch {
 	CuentaEspecial cuentaCobroMantenimientoDolares;
 	GestorDeCuentas gestorCuentas;
 	
-	public void cobrarCosto() throws TransaccionException, MontoException{
+	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado{
 		
 		while(it.hasNext()){
 			cuenta = (CuentaComun) it.next();

@@ -1,38 +1,49 @@
 package clases;
 
+import excepciones.DebitarException;
+import excepciones.MontoException;
+import excepciones.TransaccionException;
+
 public abstract class CuentaComun extends Cuenta {
 	private final long cbu;
 	protected Cliente[] titulares;
-	protected String tipoDeMoneda;//rc
-	protected String tipoCuenta;
+	protected String tipoDeMoneda;
+	
+	protected boolean habilitada;
+	
 	public CuentaComun(double saldo) {
 	   super(saldo);
-	   this.cbu = Banco.generadorCbu++;
-	   // TODO Auto-generated constructor stub
+	   this.cbu = Banco.generadorCbu++;	   
 	}  
         
     public long getCbu(){
        return cbu;
     }
-  //TODO cargar tipo de moneda en las clases hijas
+    public boolean isEnabled() {
+        return habilitada;
+    }
+    
+    public void setEnable(){
+        habilitada = true;
+    }
+    public void setDisable(){
+        habilitada = false;
+    }
+  
     public String getTipoMoneda(){
     	return tipoDeMoneda;
-    } 	
-    //metodo temporal, debe ser de tipo transaccion, con las respectivas validaciones.
-    public void debitar(double monto){
-    	saldo -= monto;
     }
-    //metodo temporal, debe ser de tipo transaccion, con las respectivas validaciones.
-    public void acreditar(double monto){
-    	saldo += monto;
-    }
+    
+    public abstract String debitar(double monto,String motivo) throws TransaccionException, MontoException, DebitarException;
+    public abstract String debitar(double monto,String motivo,String Observaciones) throws TransaccionException, MontoException, DebitarException;
+    
+    public abstract String acreditar(double monto,String motivo) throws TransaccionException, MontoException;
+    public abstract String acreditar(double monto,String motivo,String Observaciones) throws TransaccionException, MontoException;
     public boolean tieneComoCliente(long cuit){
     	if(Banco.portfolioDeClientes.containsKey(cuit)){
     		return true;    	
     	}
     	return false;
     }
-    public String getTipoCuenta(){
-    	return tipoCuenta;
-    }
+    
 }

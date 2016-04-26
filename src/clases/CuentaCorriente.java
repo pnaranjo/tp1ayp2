@@ -29,7 +29,7 @@ public class CuentaCorriente extends CuentaComun {
          this.titulares = titulares;                 
          this.montoSobreGiro = montoSobreGiro;                 
          habilitada = true;
-         tipoDeMoneda = "pesos";
+         tipoDeCuenta = "CuentaCorriente";
     	 }
 	
     public double cobrarComision(double monto){
