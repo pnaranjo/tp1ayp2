@@ -3,6 +3,7 @@ package clases;
 import java.util.ArrayList;
 
 import excepciones.MontoException;
+import excepciones.SaldoNegativoException;
 import excepciones.TransaccionException;
 
 public abstract class CajaDeAhorro extends CuentaComun {
@@ -22,13 +23,13 @@ public abstract class CajaDeAhorro extends CuentaComun {
     public double getTasaDeInteres(){
     	return this.tasaDeInteres;
     }
-    abstract protected void cobroDeMantenimiento();
+    abstract protected void cobroDeMantenimiento() throws SaldoNegativoException;
     
     public String debitar(double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
     	if(monto <= 0)
 			throw new MontoException();
     	if(monto > saldo)
-    		throw new MontoException("No dispone de saldo suficiente para realizar la operación");
+    		throw new MontoException("No dispone de saldo suficiente para realizar la operaciï¿½n");
     	this.saldo =- monto;
     	transaccion = new Transaccion("debitar", monto, motivo, observaciones);
     	this.historial.add(transaccion);
@@ -38,7 +39,7 @@ public abstract class CajaDeAhorro extends CuentaComun {
     	if(monto <= 0)
 			throw new MontoException();
     	if(monto > saldo)
-    		throw new MontoException("No dispone de saldo suficiente para realizar la operación");
+    		throw new MontoException("No dispone de saldo suficiente para realizar la operaciï¿½n");
     	this.saldo =- monto;
     	transaccion = new Transaccion("debitar", monto, motivo);
     	this.historial.add(transaccion);

@@ -2,6 +2,9 @@ package clases;
 
 import java.util.ArrayList;
 
+import excepciones.MontoException;
+import excepciones.SaldoNegativoException;
+
 public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 	/*	Codigo Pablo
 	public static final CuentaEspecial mantenimientoPesos = new CuentaEspecial(0,"pesos");
@@ -20,8 +23,9 @@ public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 	public double costoMantenimiento;
 	
 
-	public CajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares,double tasaDeInteres) {
+	public CajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares,double tasaDeInteres) throws MontoException{
 		super(saldo, titulares, tasaDeInteres);
+		if (saldo <= 0) throw new MontoException();
 		costoMantenimiento = Banco.getCostoDeMantenimientoPesos();		
 	}
 	/* Codigo Pablo
@@ -33,7 +37,8 @@ public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 	}*/
 	
 	/* RC */
-	public void cobroDeMantenimiento(){
+	public void cobroDeMantenimiento() throws SaldoNegativoException{
+		if (saldo < costoMantenimiento) throw new SaldoNegativoException();
 		saldo =- costoMantenimiento;
 	}
 	public double getCostoMantenimiento(){
