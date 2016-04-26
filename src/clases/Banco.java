@@ -11,7 +11,10 @@ public class Banco{
     public static Map<Long, Cliente> portfolioDeClientes;
     private static double tipoDeCambioVigente = 15.0;
     public static long generadorCbu = 1; /*generador de CBU*/
-    private double costoDeMantemientoPesos = 30;
+    private static double costoDeMantemientoPesos = 30;//RC Como todas las cuentas van a tener el mismo costo de mantenimiento
+    // para mi no tiene sentido tener costo de mant. pesos y otro dolares. Basta con que sea solam pesos. y en 
+    // CA dolares le seteamos el cost. de mant. al valorde cambio vigente. Que opinan? Ademas tuve que agregar la 
+    //palabra static al atributo.
     private double costoDeMantemientoDolares = 2;
     private static CuentaEspecial retenciones;//RC agregue la palabra static para poder realizar la acreditacion de retenciones de los movimientos en cc.
     private CuentaEspecial mantenimiento;
@@ -42,7 +45,7 @@ public class Banco{
     	return costoDeMantemientoDolares;
     }
     
-    public double getCostoDeMantenimientoPesos(){
+    public static double getCostoDeMantenimientoPesos(){
     	return costoDeMantemientoPesos;
     }
     

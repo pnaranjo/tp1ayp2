@@ -36,8 +36,8 @@ public class ProcesadorBatch {
 					erroresMatenenimiento(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), "Fondos Insuficientes");
 					gestorCuentas.inhablitarCuenta(caPesos.getCbu());
 					
-				}else{
-					caPesos.debitar("debito", caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
+				}else{	//RC- Liber esto no seria mejor asi? espero confirmacion.
+					caPesos.debitar(/*"debito",*/ caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
 					//TODO ver
 					//cuentaCobroMantenimientoPesos.acreditar(caPesos.getCostoMantenimiento());
 					mantenimientosCobrados(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), caPesos.getTipoMoneda(), "Pesos");
@@ -55,8 +55,8 @@ public class ProcesadorBatch {
 					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Fondos Insuficientes");
 					gestorCuentas.inhablitarCuenta(caDolares.getCbu());
 					
-				}else{
-					caDolares.debitar("debito", caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
+				}else{				//RC- Liber esto no seria mejor asi? espero confirmacion.	
+					caDolares.debitar(/*"debito", */caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
 					//TODO ver
 					//cuentaCobroMantenimientoPesos.acreditar(caDolares.convertirDolaresAPesos(caDolares.getCostoDeMantenimientoDolares()));
 					mantenimientosCobrados(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), caDolares.getTipoMoneda(), "Dolares");

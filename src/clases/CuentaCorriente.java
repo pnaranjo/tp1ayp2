@@ -57,6 +57,8 @@ public class CuentaCorriente extends CuentaComun {
 		comision = nuevaComision;
 	}
 	public String acreditar(double monto, String motivo) throws TransaccionException, MontoException{		
+		if(monto <= 0)
+			throw new MontoException();
 		saldo += (monto - cobrarComision(monto));
 		t1 = new Transaccion("acreditar", monto, motivo);
 		historial.add(t1);
@@ -64,6 +66,8 @@ public class CuentaCorriente extends CuentaComun {
 		return t1.toString();
 	}
 	public String acreditar(double monto, String motivo,String observacion) throws TransaccionException, MontoException{
+		if(monto <= 0)
+			throw new MontoException();
 		saldo += (monto - cobrarComision(monto));
 		t1 = new Transaccion("acreditar", monto, motivo,observacion);
 		historial.add(t1);
@@ -71,6 +75,8 @@ public class CuentaCorriente extends CuentaComun {
 		return t1.toString();
 	}
 	public String debitar(double monto, String motivo) throws TransaccionException, MontoException, DebitarException{		
+		if(monto <= 0)
+			throw new MontoException();
 		if(saldo - (monto + cobrarComision(monto)) < (-(montoSobreGiro))){
 			throw new DebitarException("La operación no se ha podido realizar, saldo insuficiente");
 		}
@@ -81,6 +87,8 @@ public class CuentaCorriente extends CuentaComun {
 		return t1.toString();
 	}
 	public String debitar(double monto, String motivo,String observacion) throws TransaccionException, MontoException, DebitarException{
+		if(monto <= 0)
+			throw new MontoException();
 		if(saldo - (monto + cobrarComision(monto)) < (-(montoSobreGiro))){
 			throw new DebitarException("La operación no se ha podido realizar, saldo insuficiente");
 		}
