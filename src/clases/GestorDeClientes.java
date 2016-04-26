@@ -43,9 +43,17 @@ public class GestorDeClientes {
 		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente);
 				
 		if (!esCliente || !hayCuentaActiva(cliente)){
-			Banco.portfolioDeClientes.remove(cliente.getCuit());
+			cliente.desactivar();
 			}
 	} 
+	
+	public void activar(Cliente cliente) {
+		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente);
+		
+		if (esCliente){
+			cliente.activar();
+			}
+	}
 	
 	private boolean hayCuentaActiva(Cliente cliente){
 		boolean hayCuentaActiva = false;

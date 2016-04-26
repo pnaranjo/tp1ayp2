@@ -2,6 +2,7 @@ package clases;
 
 public abstract class CuentaComun extends Cuenta {
 	private final long cbu;
+	protected Cliente[] titulares;
 	protected String tipoDeMoneda;//rc
 	protected String tipoCuenta;
 	public CuentaComun(double saldo) {

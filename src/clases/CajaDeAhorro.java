@@ -1,5 +1,7 @@
 package clases;
 
+import clases.Banco;
+
 import java.util.ArrayList;
 
 
@@ -14,11 +16,11 @@ public abstract class CajaDeAhorro extends CuentaComun {
     }
         
     protected double convertirPesosADolares(double montoEnPesos){
-       return montoEnPesos*Banco.tipoDeCambioVigente;   
+       return montoEnPesos*Banco.getTipoDeCambioVigente();   
     }
         
     protected double convertirDolaresAPesos(double montoEnDolares){
-       return montoEnDolares/Banco.tipoDeCambioVigente;
+       return montoEnDolares/Banco.getTipoDeCambioVigente();
     }
 
     public ArrayList<PersonaFisica> getTitulares(){

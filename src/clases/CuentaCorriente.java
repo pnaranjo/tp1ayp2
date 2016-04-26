@@ -17,8 +17,8 @@ public class CuentaCorriente extends CuentaComun {
     	 if(montoDeposito < montoParaAbrirCuenta){
              throw new MontoDepositoException();
          }
-    	 if(montoSobreGiro >= 0){
-    		 throw new MontoException("El monto de sobregiro debe ser negativo");
+    	 if(montoSobreGiro <= 0){
+    		 throw new MontoException("El monto de sobregiro debe ser cero o positivo.");
     	 }
     	 if(titulares.isEmpty()){
     		 throw new ArrayTitularesException();
@@ -53,5 +53,5 @@ public class CuentaCorriente extends CuentaComun {
 	public static void setComision(double nuevaComision) {
 		comision = nuevaComision;
 	}
-       
+ 
 }
