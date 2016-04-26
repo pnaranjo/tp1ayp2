@@ -64,10 +64,12 @@ public class Banco{
     }
     
     public void acreditarRetenciones(double monto) {
+    	//TODO generar transaccion
     	retenciones.saldo+=monto;
     }
     
     public void acreditarMantenimiento(double monto) {
+    	//TODO generar transaccion
     	mantenimiento.saldo+=monto;
     }
     

@@ -5,6 +5,7 @@ public class CuentaEspecial extends Cuenta {
 		
 		public CuentaEspecial(double saldo, String tipoDeMoneda){
 			super(saldo);
+			this.tipoDeCuenta="CuentaEspecial";
 			//this.tipoDeMoneda = tipoDeMoneda; RC: Para mi esto no es necesario
 		}
 		/* RC: Para mi esto no es necesario
