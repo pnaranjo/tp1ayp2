@@ -83,7 +83,6 @@ public class Banco{
     public static void acreditarRetenciones(long cbu, double monto, String motivo) throws TransaccionException, MontoException {
     	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo);
     	retenciones.historial.add(t);
-    	//TODO generar transaccion
     	retenciones.saldo+=monto;
     }
     
@@ -93,8 +92,15 @@ public class Banco{
     	retenciones.saldo+=monto;
     }
     
-    public void acreditarMantenimiento(double monto) {
-    	//TODO generar transaccion
+    public void acreditarMantenimiento(long cbu, double monto, String motivo) throws TransaccionException, MontoException {
+    	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo);
+    	mantenimiento.historial.add(t);
+    	mantenimiento.saldo+=monto;
+    }
+    
+    public void acreditarMantenimiento(long cbu, double monto, String motivo, String observaciones) throws TransaccionException, MontoException {
+    	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo, observaciones);
+    	mantenimiento.historial.add(t);
     	mantenimiento.saldo+=monto;
     }
     
