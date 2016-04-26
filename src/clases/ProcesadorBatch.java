@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import excepciones.MontoException;
+import excepciones.TransaccionException;
+
 public class ProcesadorBatch {
 	
 	Iterator<Entry<Long, CuentaComun>> it = Banco.portfolioDeCuentas.entrySet().iterator();
@@ -17,7 +20,7 @@ public class ProcesadorBatch {
 	CuentaEspecial cuentaCobroMantenimientoDolares;
 	GestorDeCuentas gestorCuentas;
 	
-	public void cobrarCosto(){
+	public void cobrarCosto() throws TransaccionException, MontoException{
 		
 		while(it.hasNext()){
 			cuenta = (CuentaComun) it.next();
