@@ -25,7 +25,7 @@ public class Banco{
         portfolioDeClientes = new HashMap<Long, Cliente>();
         validar(tipoDeCambioVigente);
         validar(costoDeMantemientoPesos);
-        this.tipoDeCambioVigente = tipoDeCambioVigente;
+        Banco.tipoDeCambioVigente = tipoDeCambioVigente;
         this.costoDeMantemientoPesos = costoDeMantemientoPesos;
         this.costoDeMantemientoDolares = costoDeMantemientoPesos/tipoDeCambioVigente;
     }
@@ -50,7 +50,7 @@ public class Banco{
     }
     
     public void setTipoDeCambioVigente(Double tipoDeCambioVigente) {
-        this.tipoDeCambioVigente = tipoDeCambioVigente;
+        Banco.tipoDeCambioVigente = tipoDeCambioVigente;
 
     }
     
