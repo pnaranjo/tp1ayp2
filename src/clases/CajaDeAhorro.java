@@ -18,13 +18,7 @@ public abstract class CajaDeAhorro extends CuentaComun {
     	this.titulares = titulares;
     }
         
-    protected double convertirPesosADolares(double montoEnPesos){
-       return montoEnPesos*Banco.getTipoDeCambioVigente();   
-    }
-        
-    protected double convertirDolaresAPesos(double montoEnDolares){
-       return montoEnDolares/Banco.getTipoDeCambioVigente();
-    }
+    
 
     public ArrayList<PersonaFisica> getTitulares(){
     	return this.titulares;

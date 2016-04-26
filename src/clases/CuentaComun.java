@@ -7,8 +7,7 @@ import excepciones.TransaccionException;
 public abstract class CuentaComun extends Cuenta {
 	private final long cbu;
 	protected Cliente[] titulares;
-	protected String tipoDeMoneda;
-	
+	protected String tipoDeMoneda;	
 	protected boolean habilitada;
 	
 	public CuentaComun(double saldo) {
@@ -45,5 +44,12 @@ public abstract class CuentaComun extends Cuenta {
     	}
     	return false;
     }
+    protected double convertirPesosADolares(double montoEnPesos){
+        return montoEnPesos*Banco.getTipoDeCambioVigente();   
+     }
+         
+     protected double convertirDolaresAPesos(double montoEnDolares){
+        return montoEnDolares/Banco.getTipoDeCambioVigente();
+     }
     
 }
