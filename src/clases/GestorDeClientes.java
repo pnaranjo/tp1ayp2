@@ -47,11 +47,13 @@ public class GestorDeClientes {
 			}
 	} 
 	
-	public void activar(Cliente cliente) {
+	public void activar(Cliente cliente) throws ExceptionCuitNoEncontrado {
 		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente);
 		
 		if (esCliente){
 			cliente.activar();
+			} else {
+				throw new ExceptionCuitNoEncontrado("El CUIT no figura en el sistema. Solamente se puede activar un cliente existente.");
 			}
 	}
 	
