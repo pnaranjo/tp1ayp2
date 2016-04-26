@@ -11,8 +11,9 @@ public abstract class CajaDeAhorro extends CuentaComun {
     private final double tasaDeInteres;
     private Transaccion transaccion;
 	
-    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) {
+    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException{
         super(saldo);
+        if (saldo <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
     	this.tasaDeInteres = tasaDeInteres;
     	this.titulares = titulares;
     }
