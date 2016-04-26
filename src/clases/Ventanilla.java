@@ -7,18 +7,20 @@ import excepciones.TransaccionException;
 
 public class Ventanilla {
 
-	enum tipoMonedaPermitida { PESOS, DOLARES }
+	public enum TipoMonedaPermitida { PESOS , DOLARES }
 
 	public Ventanilla() {
-	}
+	} 
 
 	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
 		CuentaComun cComun;
+		TipoMonedaPermitida tmp = null;
+		
 		try {	
 			
-			if(!tipoMoneda.equalsIgnoreCase((tipoMonedaPermitida.values()).toString())){
-				System.out.println("tipo de moneda no permitida elija " + tipoMonedaPermitida.values());
+			if(!tipoMoneda.equals(tmp.PESOS.toString()) && !(tipoMoneda.equals(tmp.DOLARES.toString()))){
+				System.out.println("Solo se permiten PESOS o DOLARES");
 				return;
 			}
 			
