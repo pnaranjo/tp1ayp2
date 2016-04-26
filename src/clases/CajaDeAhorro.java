@@ -1,31 +1,22 @@
 package clases;
 
-import clases.Banco;
-
 import java.util.ArrayList;
 
 import excepciones.MontoException;
+import excepciones.SaldoNegativoException;
 import excepciones.TransaccionException;
-
 
 public abstract class CajaDeAhorro extends CuentaComun {
     private final ArrayList<PersonaFisica> titulares;
     private final double tasaDeInteres;
+    private Transaccion transaccion;
 	
-    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) {
+    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException{
         super(saldo);
+        if (saldo <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
     	this.tasaDeInteres = tasaDeInteres;
     	this.titulares = titulares;
     }
-        
-    protected double convertirPesosADolares(double montoEnPesos){
-       return montoEnPesos*Banco.getTipoDeCambioVigente();   
-    }
-        
-    protected double convertirDolaresAPesos(double montoEnDolares){
-       return montoEnDolares/Banco.getTipoDeCambioVigente();
-    }
-
     public ArrayList<PersonaFisica> getTitulares(){
     	return this.titulares;
     }
@@ -33,24 +24,44 @@ public abstract class CajaDeAhorro extends CuentaComun {
     public double getTasaDeInteres(){
     	return this.tasaDeInteres;
     }
+    abstract protected void cobroDeMantenimiento() throws SaldoNegativoException;
     
-    protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
-    	//TODO:
-    	/*falta verificar que el saldo no quede negativo*/
+    public String debitar(double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
+    	if(monto <= 0)
+			throw new MontoException();
+    	if(monto > saldo)
+    		throw new MontoException("No dispone de saldo suficiente para realizar la operaci�n");
     	this.saldo =- monto;
-    	Transaccion transaccion = new Transaccion(tipoDeMovimiento, monto, motivo, observaciones);
+    	transaccion = new Transaccion("debitar", monto, motivo, observaciones);
     	this.historial.add(transaccion);
-		return transaccion; 
+		return transaccion.toString(); 
     }
-    protected Transaccion debitar( String tipoDeMovimiento, double monto, String motivo) throws TransaccionException, MontoException{
-    	//TODO:
-    	/*falta verificar que el saldo no quede negativo*/
+    public String debitar(double monto, String motivo) throws TransaccionException, MontoException{
+    	if(monto <= 0)
+			throw new MontoException();
+    	if(monto > saldo)
+    		throw new MontoException("No dispone de saldo suficiente para realizar la operaci�n");
     	this.saldo =- monto;
-    	Transaccion transaccion = new Transaccion(tipoDeMovimiento, monto, motivo);
+    	transaccion = new Transaccion("debitar", monto, motivo);
     	this.historial.add(transaccion);
-		return transaccion; 
+		return transaccion.toString(); 
     }
     
-    abstract protected void cobroDeMantenimiento();
     
+    public String acreditar(double monto, String motivo) throws TransaccionException, MontoException{		
+		if(monto <= 0)
+			throw new MontoException();
+		saldo += monto;
+		transaccion = new Transaccion("acreditar", monto, motivo);
+		historial.add(transaccion);
+		return transaccion.toString();
+	}
+    public String acreditar(double monto, String motivo,String observaciones) throws TransaccionException, MontoException{		
+		if(monto <= 0)
+			throw new MontoException();
+		saldo += monto;
+		transaccion = new Transaccion("acreditar", monto, motivo,observaciones);
+		historial.add(transaccion);
+		return transaccion.toString();
+	}
 }

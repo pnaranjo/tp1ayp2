@@ -29,7 +29,7 @@ public class CuentaCorriente extends CuentaComun {
          this.titulares = titulares;                 
          this.montoSobreGiro = montoSobreGiro;                 
          habilitada = true;
-         tipoDeMoneda = "pesos";
+         tipoDeCuenta = "CuentaCorriente";
     	 }
 	
     public double cobrarComision(double monto){
@@ -57,37 +57,45 @@ public class CuentaCorriente extends CuentaComun {
 		comision = nuevaComision;
 	}
 	public String acreditar(double monto, String motivo) throws TransaccionException, MontoException{		
+		if(monto <= 0)
+			throw new MontoException();
 		saldo += (monto - cobrarComision(monto));
 		t1 = new Transaccion("acreditar", monto, motivo);
 		historial.add(t1);
-		Banco.acreditarRetenciones(cobrarComision(monto));
+		Banco.acreditarRetenciones(this.getCbu(),cobrarComision(monto), motivo);
 		return t1.toString();
 	}
 	public String acreditar(double monto, String motivo,String observacion) throws TransaccionException, MontoException{
+		if(monto <= 0)
+			throw new MontoException();
 		saldo += (monto - cobrarComision(monto));
 		t1 = new Transaccion("acreditar", monto, motivo,observacion);
 		historial.add(t1);
-		Banco.acreditarRetenciones(cobrarComision(monto));
+		Banco.acreditarRetenciones(this.getCbu(),cobrarComision(monto), motivo, observacion);
 		return t1.toString();
 	}
 	public String debitar(double monto, String motivo) throws TransaccionException, MontoException, DebitarException{		
+		if(monto <= 0)
+			throw new MontoException();
 		if(saldo - (monto + cobrarComision(monto)) < (-(montoSobreGiro))){
-			throw new DebitarException("La operación no se ha podido realizar, saldo insuficiente");
+			throw new DebitarException("La operaciï¿½n no se ha podido realizar, saldo insuficiente");
 		}
 		saldo -= (monto + cobrarComision(monto));
 		t1 = new Transaccion("acreditar", monto, motivo);
 		historial.add(t1);
-		Banco.acreditarRetenciones(cobrarComision(monto));
+		Banco.acreditarRetenciones(this.getCbu(),cobrarComision(monto), motivo);
 		return t1.toString();
 	}
 	public String debitar(double monto, String motivo,String observacion) throws TransaccionException, MontoException, DebitarException{
+		if(monto <= 0)
+			throw new MontoException();
 		if(saldo - (monto + cobrarComision(monto)) < (-(montoSobreGiro))){
-			throw new DebitarException("La operación no se ha podido realizar, saldo insuficiente");
+			throw new DebitarException("La operaciï¿½n no se ha podido realizar, saldo insuficiente");
 		}
 		saldo -= (monto + cobrarComision(monto));
 		t1 = new Transaccion("acreditar", monto, motivo,observacion);
 		historial.add(t1);
-		Banco.acreditarRetenciones(cobrarComision(monto));
+		Banco.acreditarRetenciones(this.getCbu(),cobrarComision(monto), motivo, observacion);
 		return t1.toString();
 	}
 }

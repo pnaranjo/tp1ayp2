@@ -5,41 +5,22 @@ import java.util.ArrayList;
 public abstract class Cuenta  {
 
     protected double saldo;
-    protected ArrayList<Transaccion> historial;   
-    protected boolean habilitada;
-    protected String tipoDeCuenta; 
-    // rc protected String tipoDeMoneda;
-    
+    protected ArrayList<Transaccion> historial;  
+    protected String tipoDeCuenta;
     
 
-    public Cuenta(double saldo) {
-		
+    public Cuenta(double saldo) {	
 		this.saldo = saldo;
 		this.historial = new ArrayList<Transaccion>();
 	}
-
 	public double getSaldo() {
         return saldo;
     }
-
     public ArrayList<Transaccion> getHistorial() {
         return historial;
     }
-
-    public boolean isEnabled() {
-        return habilitada;
+      public String getTipoCuenta(){
+    	return tipoDeCuenta;
     }
-    
-    public void setEnable(){
-        habilitada = true;
-    }
-    public void setDisable(){
-        habilitada = false;
-    }
-    //RC: Para mi esto no es necesario aca
-    //TODO extederlo al resto de las clases hijas
-/*    public String getTipoCuenta(){
-    	return tipoCuenta;
-    }
-    */  
+      
 }

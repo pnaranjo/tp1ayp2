@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import excepciones.ExceptionCuitNoEncontrado;
 import excepciones.MontoException;
 import excepciones.TransaccionException;
 
@@ -20,7 +21,7 @@ public class ProcesadorBatch {
 	CuentaEspecial cuentaCobroMantenimientoDolares;
 	GestorDeCuentas gestorCuentas;
 	
-	public void cobrarCosto() throws TransaccionException, MontoException{
+	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado{
 		
 		while(it.hasNext()){
 			cuenta = (CuentaComun) it.next();
@@ -35,8 +36,8 @@ public class ProcesadorBatch {
 					erroresMatenenimiento(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), "Fondos Insuficientes");
 					//gestorCuentas.inhablitarCuenta(caPesos.getCbu());
 					
-				}else{
-					caPesos.debitar("debito", caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
+				}else{	//RC- Liber esto no seria mejor asi? espero confirmacion.
+					caPesos.debitar(/*"debito",*/ caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
 					//TODO ver
 					//cuentaCobroMantenimientoPesos.acreditar(caPesos.getCostoMantenimiento());
 					mantenimientosCobrados(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), caPesos.getTipoMoneda(), "Pesos");
@@ -54,8 +55,8 @@ public class ProcesadorBatch {
 					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Fondos Insuficientes");
 					//gestorCuentas.inhablitarCuenta(caDolares.getCbu());
 					
-				}else{
-					caDolares.debitar("debito", caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
+				}else{				//RC- Liber esto no seria mejor asi? espero confirmacion.	
+					caDolares.debitar(/*"debito", */caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
 					//TODO ver
 					//cuentaCobroMantenimientoPesos.acreditar(caDolares.convertirDolaresAPesos(caDolares.getCostoDeMantenimientoDolares()));
 					mantenimientosCobrados(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), caDolares.getTipoMoneda(), "Dolares");
