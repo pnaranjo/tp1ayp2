@@ -28,8 +28,8 @@ public class Banco{
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
         //TODO creo una cuenta especial con saldo 0.001, corregirlo luego
-        mantenimiento = new CuentaEspecial(0.001);
-        retenciones = new CuentaEspecial(0.001);
+        mantenimiento = new CuentaEspecial();
+        retenciones = new CuentaEspecial();
         mantenimiento.saldo=0;
         retenciones.saldo=0;
         

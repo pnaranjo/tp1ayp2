@@ -16,11 +16,12 @@ public abstract class Cuenta  {
 	protected boolean habilitada;
 	protected Transaccion transaccion;
 	
-
+	public Cuenta(){
+		this.saldo = 0;
+		this.historial = new ArrayList<Transaccion>();
+		this.cbu = Banco.generarNuevoCbu();
+	}
     public Cuenta(double monto) throws MontoException{	
-    	
-    	//TODO corregir esto!! No todas las cuentas se crean con saldo mayor a cero
-    	// las Cuentas Especiales se crean con saldo 0
     	if (monto <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
     	this.saldo = monto;
 		this.historial = new ArrayList<Transaccion>();

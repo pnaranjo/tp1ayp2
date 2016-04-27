@@ -12,8 +12,8 @@ public abstract class CajaDeAhorro extends Cuenta{
     private final double tasaDeInteres;
     public double costoMantenimiento;
 	
-    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException{
-        super(saldo);
+    public CajaDeAhorro(double monto, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException{
+        super(monto);
         if(titulares.isEmpty()){
       		 throw new ArrayTitularesException();
       	 }

@@ -6,20 +6,9 @@ import excepciones.TransaccionException;
 
 public class CuentaEspecial extends Cuenta {
 		
-	/*
-	 * La Cuenta Especial se crea con saldo 0
-	 * 
-	 */
-		public CuentaEspecial(double saldo) throws MontoException{
-			
-			//TODO hay que corregir esto, la CuentaEspecial se tiene que poder crear sin parámetros
-			
-			super(saldo);
+		public CuentaEspecial(){			
 			setTipoCuenta("CuentaEspecial");
-			setTipoMoneda("Pesos");
-			
-			//TODO acá estamos hardcodeando el saldo, eso está mal
-			this.saldo = 0;
+			setTipoMoneda("Pesos");			
 			this.habilitada = true;
 		}
 		
