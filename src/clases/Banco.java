@@ -17,17 +17,10 @@ public class Banco{
     private static CuentaEspecial retenciones;
     private CuentaEspecial mantenimiento;
     
-
-    
-    /*
-     * Si no se le pasan parámetros
-     * Post: El banco se crea con valores por default.
-     */
     public Banco() throws MontoException {
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
-        //TODO creo una cuenta especial con saldo 0.001, corregirlo luego
         mantenimiento = new CuentaEspecial();
         retenciones = new CuentaEspecial();
         mantenimiento.saldo=0;
