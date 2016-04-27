@@ -11,15 +11,13 @@ public class Banco{
     public static Map<Long,Cuenta> portfolioDeCuentas;
     public static Map<Long, Cliente> portfolioDeClientes;
     private static double tipoDeCambioVigente;
-    private static long generadorCbu; /*generador de CBU*/
+    private static long generadorCbu;
     private static double costoDeMantemientoPesos;
     private static double costoDeMantemientoDolares;
     private static CuentaEspecial retenciones;
     private CuentaEspecial mantenimiento;
     
-    
 
-    
     
     /*
      * Si no se le pasan parámetros
@@ -29,6 +27,7 @@ public class Banco{
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
+        mantenimiento = new CuentaEspecial(0);
         
         setTipoDeCambioVigente(15.0);
         setCostoDeMantenimientoPesos(30.0);
@@ -44,8 +43,6 @@ public class Banco{
     public Banco(double tipoDeCambioVigente, double costoDeMantemientoPesos) throws MontoException{
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
-        validar(tipoDeCambioVigente);
-        validar(costoDeMantemientoPesos);
         this.setTipoDeCambioVigente(tipoDeCambioVigente);
         this.setCostoDeMantenimientoPesos(costoDeMantemientoPesos);
         this.setCostoDeMantenimientoDolares(costoDeMantemientoPesos/tipoDeCambioVigente);
@@ -55,6 +52,7 @@ public class Banco{
     
     /*
      * Se genera el CBU para cada cuenta.
+     * Post: el CBU generado es un número distinto para cada cuenta. 
      */
     public static long generarNuevoCbu(){
     	return generadorCbu++;
@@ -63,7 +61,7 @@ public class Banco{
     /*
      * El monto ingresado es mayor a 0.
      */
-    public void validar(double cantidad)throws MontoException{
+    private void validar(double cantidad)throws MontoException{
     	if(cantidad<=0){
     		new MontoException("El monto ingresado no es correcto. Ingrese un monto mayor que 0.");
     	}
