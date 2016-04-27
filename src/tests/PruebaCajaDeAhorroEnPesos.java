@@ -1,22 +1,23 @@
 package tests;
 
-
 import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import clases.Banco;
+import clases.Cliente;
+import clases.CuentaCorriente;
+import clases.Domicilio;
+import clases.PersonaFisica;
 import excepciones.ArrayTitularesException;
 import excepciones.ExceptionCuitNoValido;
 import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
 import excepciones.TransaccionException;
-import clases.Cliente;
-import clases.CuentaCorriente;
-import clases.Domicilio;
-import clases.Banco;
-import clases.PersonaFisica;
 
-public class PruebaCuentaCorriente  {
+public class PruebaCajaDeAhorroEnPesos {
 	String codigoPostal1 = "1426";
 	String direccion = "Las Heras 2532";
 	String localidad = "Capital";
@@ -29,8 +30,10 @@ public class PruebaCuentaCorriente  {
 	String tipoDeDocumento = "PASAPORTE";
 	int numeroDeDocumento = 22883344;
 	String profesion = "Horticultor";
+
+	
 	@Test
-	public void testCrearCuentaCorriente() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido, TransaccionException {
+	public void testCrearCajaDeAhorroEnPesos() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido, TransaccionException {
 		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
@@ -59,4 +62,5 @@ public class PruebaCuentaCorriente  {
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
 	}
+
 }
