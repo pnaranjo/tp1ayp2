@@ -14,9 +14,9 @@ import excepciones.MontoException;
 public class PruebaGestorDeClientes {
 	
 	
-	Banco banco;
+	static Banco banco;
 	
-    @BeforeClass public void initialize() throws MontoException {
+    @BeforeClass public static void initialize() throws MontoException {
     	 banco = new Banco();
      }
 

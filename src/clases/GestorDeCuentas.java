@@ -1,6 +1,6 @@
 package clases;
 
-import excepciones.ExceptionCuitNoEncontrado;
+import excepciones.ExceptionCbuNoEncontrado;
 
 
 
@@ -35,21 +35,21 @@ public class GestorDeCuentas {
 		}
 	}
 	
-	public void inhablitarCuenta(long cbu) throws ExceptionCuitNoEncontrado{
+	public void inhablitarCuenta(long cbu) throws ExceptionCbuNoEncontrado{
 		if(Banco.portfolioDeCuentas.containsKey(cbu)){
 			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
 			cuenta.setDisable();
 		}else{
-			throw new ExceptionCuitNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas"); 
+			throw new ExceptionCbuNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas"); 
 		}
 	}
 	 
-	public void hablitarCuenta(long cbu)throws ExceptionCuitNoEncontrado{
+	public void hablitarCuenta(long cbu)throws ExceptionCbuNoEncontrado{
 		if(Banco.portfolioDeCuentas.containsKey(cbu)){
 			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
 			cuenta.setEnable();
 		}else{
-			throw new ExceptionCuitNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas");
+			throw new ExceptionCbuNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas");
 		}
 	}
 	

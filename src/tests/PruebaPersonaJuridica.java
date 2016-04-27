@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clases.*;
@@ -9,8 +10,14 @@ import excepciones.ExceptionCuitNoValido;
 
 public class PruebaPersonaJuridica {
 	
-	Banco banco = new Banco();
-
+	static Banco banco;
+	
+	@BeforeClass
+	public static void initialize() throws Exception{
+	banco = new Banco();
+	}
+	
+	
 	String codigoPostal1 = "T4000IJN";
 	String direccion = "Buenos Aires 672";
 	String localidad = "San Miguel de Tucumán";
