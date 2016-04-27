@@ -18,9 +18,6 @@ public class ProcesadorBatch {
 	
 	Iterator<Entry<Long, CuentaComun>> it = Banco.portfolioDeCuentas.entrySet().iterator();
 	CuentaComun cuenta = null;
-	CuentaEspecial cuentaCobroMantenimientoPesos;
-	CuentaEspecial cuentaCobroMantenimientoDolares;
-	GestorDeCuentas gestorCuentas;
 	
 	
 	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
@@ -38,8 +35,8 @@ public class ProcesadorBatch {
 					cajaAhorroPesos.setDisable();
 				}else{
 					cajaAhorroPesos.cobroDeMantenimiento();
-					//TODO acreditar en cuentaEspecial
-					//TODO ver tipoDeCambio
+					Banco.acreditarRetenciones(cajaAhorroPesos.getCbu(), cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");
+					//TODO ver tipoDeCambio que pide mantenimientosCobrados
 					mantenimientosCobrados(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Pesos", "tipoDeCambio"); 
 				}
 			}	
@@ -55,8 +52,8 @@ public class ProcesadorBatch {
 					cajaAhorroDolares.setDisable();
 				}else{
 					cajaAhorroDolares.cobroDeMantenimiento();
-					//TODO acreditar en cuentaEspecial
-					//TODO ver tipoDeCambio
+					Banco.acreditarRetenciones(cajaAhorroDolares.getCbu(), cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
+					//TODO ver tipoDeCambio que pide mantenimientosCobrados
 					mantenimientosCobrados(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Dolares", "tipoDeCambio"); 
 				}
 			}
@@ -67,7 +64,7 @@ public class ProcesadorBatch {
 	public void mantenimientosCobrados(long cbu, String tipoCuenta, double monto, String tipoMoneda, String tipoCambio){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String ruta = "/home/mantenimeintosCobrados_"+ dateFormat.format(date) +".txt";
+		String ruta = File.separator + "mantenimeintosCobrados_"+ dateFormat.format(date) +".txt";
 		
 		try{
 			File archivo = new File(ruta);
@@ -82,7 +79,7 @@ public class ProcesadorBatch {
 	        }
 	        bw.close();	
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 		
 	}
@@ -90,7 +87,7 @@ public class ProcesadorBatch {
 	public void erroresMatenenimiento(long cbu, String tipoCuenta, double monto, String motivo){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String ruta = "/home/erroresMatenenimiento_"+ dateFormat.format(date) +".txt";
+		String ruta = File.separator + "mantenimeintosCobrados_"+ dateFormat.format(date) +".txt";
 		
 		try{
 			File archivo = new File(ruta);
@@ -105,7 +102,7 @@ public class ProcesadorBatch {
 	        }
 	        bw.close();	
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 	
