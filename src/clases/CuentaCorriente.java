@@ -16,11 +16,8 @@ public class CuentaCorriente extends Cuenta{
 	static double comision = 0.03;
 
 	public CuentaCorriente(double montoDeposito,ArrayList<Cliente> titulares,double montoSobreGiro)throws MontoDepositoException,MontoException,ArrayTitularesException {
-		super(montoDeposito);
-
-		if (montoDeposito <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
-
-		if(montoDeposito < getMontoParaAbrirCuenta()){
+		super(validarMontoCuentaNoEspecial(montoDeposito));
+		if(montoDeposito <= getMontoParaAbrirCuenta()){
 			throw new MontoDepositoException();
 		}
 		if(titulares.isEmpty()){

@@ -13,10 +13,7 @@ public abstract class CajaDeAhorro extends Cuenta{
     public double costoMantenimiento;
 	
     public CajaDeAhorro(double monto, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException{
-        super(monto);
-        
-		if (monto <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
-        
+        super(validarMontoCuentaNoEspecial(monto));
         if(titulares.isEmpty()){
       		 throw new ArrayTitularesException();
       	 }
