@@ -11,24 +11,29 @@ public class Banco{
     public static Map<Long,CuentaComun > portfolioDeCuentas;
     public static Map<Long, Cliente> portfolioDeClientes;
     private static double tipoDeCambioVigente;
-    public static long generadorCbu = 1; /*generador de CBU*/
+    private static long generadorCbu; /*generador de CBU*/
     private static double costoDeMantemientoPesos;
     private double costoDeMantemientoDolares;
     private static CuentaEspecial retenciones;
     private CuentaEspecial mantenimiento;
     
     
+
+    
+    
     /*
      * Si no se le pasan parámetros
      * Post: El banco se crea con valores por default.
      */
-    public Banco() {
+    public Banco() throws MontoException {
         portfolioDeCuentas = new HashMap<Long, CuentaComun>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
-        tipoDeCambioVigente = 15.0;
-        costoDeMantemientoPesos = 30;
-        costoDeMantemientoDolares = 2;
+        
+        setTipoDeCambioVigente(15.0);
+        setCostoDeMantenimientoPesos(30.0);
+        setCostoDeMantenimientoDolares(2.0);        
+        generadorCbu = 0;
     }
     
     
@@ -41,9 +46,18 @@ public class Banco{
         portfolioDeClientes = new HashMap<Long, Cliente>();
         validar(tipoDeCambioVigente);
         validar(costoDeMantemientoPesos);
-        Banco.tipoDeCambioVigente = tipoDeCambioVigente;
-        Banco.costoDeMantemientoPesos = costoDeMantemientoPesos;
-        this.costoDeMantemientoDolares = costoDeMantemientoPesos/tipoDeCambioVigente;
+        this.setTipoDeCambioVigente(tipoDeCambioVigente);
+        this.setCostoDeMantenimientoPesos(costoDeMantemientoPesos);
+        this.setCostoDeMantenimientoDolares(costoDeMantemientoPesos/tipoDeCambioVigente);
+        generadorCbu = 0;
+    }
+    
+    
+    /*
+     * Se genera el CBU para cada cuenta.
+     */
+    public static long generarNuevoCbu(){
+    	return generadorCbu++;
     }
     
     /*
@@ -68,33 +82,50 @@ public class Banco{
     	return tipoDeCambioVigente;
     }
     
-    public void setTipoDeCambioVigente(Double tipoDeCambioVigente) {
+    public void setTipoDeCambioVigente(Double tipoDeCambioVigente) throws MontoException {
+        validar(tipoDeCambioVigente);
         Banco.tipoDeCambioVigente = tipoDeCambioVigente;
     }
     
-    public void setCostoDeMantenimientoPesos (double costoDeMantenimientoPesos) {
+    public void setCostoDeMantenimientoPesos (double costoDeMantenimientoPesos) throws MontoException {
+    	validar(costoDeMantenimientoPesos);
     	Banco.costoDeMantemientoPesos = costoDeMantenimientoPesos;
     }
     
-    public void setCostoDeMantenimientoDolares (double costoDeMantenimientoDolares) {
+    public void setCostoDeMantenimientoDolares (double costoDeMantenimientoDolares) throws MontoException {
+    	validar(costoDeMantenimientoDolares);
     	this.costoDeMantemientoDolares = costoDeMantenimientoDolares;
     }
     
+    /*
+     * pre: el monto es válido
+     * post: incrementa el saldo y genera una Transacción en el historial
+     */
     public static void acreditarRetenciones(long cbu, double monto, String motivo) throws TransaccionException, MontoException {
     	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo);
     	retenciones.historial.add(t);
-    	//TODO generar transaccion
     	retenciones.saldo+=monto;
     }
-    
+
+    /*
+     * pre: el monto es válido
+     * post: incrementa el saldo y genera una Transacción en el historial con Observaciones
+     */
     public static void acreditarRetenciones(long cbu, double monto, String motivo, String observaciones) throws TransaccionException, MontoException {
     	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo, observaciones);
     	retenciones.historial.add(t);
     	retenciones.saldo+=monto;
     }
     
-    public void acreditarMantenimiento(double monto) {
-    	//TODO generar transaccion
+    public void acreditarMantenimiento(long cbu, double monto, String motivo) throws TransaccionException, MontoException {
+    	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo);
+    	mantenimiento.historial.add(t);
+    	mantenimiento.saldo+=monto;
+    }
+    
+    public void acreditarMantenimiento(long cbu, double monto, String motivo, String observaciones) throws TransaccionException, MontoException {
+    	Transaccion t = new Transaccion(("Cuenta origen: " + cbu), monto, motivo, observaciones);
+    	mantenimiento.historial.add(t);
     	mantenimiento.saldo+=monto;
     }
     

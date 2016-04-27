@@ -1,17 +1,25 @@
 package tests;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clases.*;
 import excepciones.ExceptionCuitNoEncontrado;
 import excepciones.ExceptionCuitNoValido;
 import excepciones.ExceptionNumeroDeDocumentoNoValido;
+import excepciones.MontoException;
 
 
 public class PruebaGestorDeClientes {
 	
-	Banco banco = new Banco();
+	
+	Banco banco;
+	
+    @BeforeClass public void initialize() throws MontoException {
+    	 banco = new Banco();
+     }
+
 	GestorDeClientes gestorDeClientes = new GestorDeClientes();
 	
 	String codigoPostal1 = "T4000IJN";
