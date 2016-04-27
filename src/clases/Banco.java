@@ -67,7 +67,7 @@ public class Banco{
      */
     private void validar(double cantidad)throws MontoException{
     	if(cantidad<=0){
-    		new MontoException("El monto ingresado no es correcto. Ingrese un monto mayor que 0.");
+    		throw new MontoException("El monto ingresado no es correcto. Ingrese un monto mayor que 0.");
     	}
     }
     
