@@ -12,11 +12,13 @@ public class CajaDeAhorroEnDolares extends CajaDeAhorro{
 		super(saldo, titulares, tasaDeInteres);
 		costoMantenimiento = Banco.getCostoDeMantenimientoPesos() * Banco.getTipoDeCambioVigente();		
 	}
-	public double getCostoDeMantenimientoDolares(){
+	public double getCostoMantenimiento(){
 		return costoMantenimiento;
 	}
 	public void cobroDeMantenimiento() throws SaldoNegativoException{
 		if (saldo < costoMantenimiento) throw new SaldoNegativoException();
 		saldo =- costoMantenimiento;
 	}
+	
+	
 }

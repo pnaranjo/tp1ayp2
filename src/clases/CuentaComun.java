@@ -38,6 +38,7 @@ public abstract class CuentaComun extends Cuenta {
     
     public abstract String acreditar(double monto,String motivo) throws TransaccionException, MontoException;
     public abstract String acreditar(double monto,String motivo,String Observaciones) throws TransaccionException, MontoException;
+    
     public boolean tieneComoCliente(long cuit){
     	if(Banco.portfolioDeClientes.containsKey(cuit)){
     		return true;    	

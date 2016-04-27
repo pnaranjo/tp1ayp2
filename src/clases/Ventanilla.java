@@ -1,7 +1,6 @@
 package clases;
 
 import clases.Banco;
-import clases.Cuenta;
 import excepciones.ExceptionCbuNoEncontrado;
 import excepciones.MontoException;
 import excepciones.TransaccionException;
@@ -13,7 +12,7 @@ public class Ventanilla {
 			tipoMonedaPermitida(tipoMoneda);
 			CuentaComun	cComun = getCuenta(cbu);
 			if(cComun.getTipoMoneda().equalsIgnoreCase(tipoMoneda)){
-				cComun.acreditar(montoADepositar);
+				cComun.acreditar(montoADepositar, "Depósito por ventanilla. ");
 			}
 		} catch (ExceptionCbuNoEncontrado e) {
 			e.printStackTrace();
@@ -26,12 +25,11 @@ public class Ventanilla {
 		try {
 			CuentaComun	cComun = getCuenta(cbu);
 			if(cComun.getTipoCuenta().equalsIgnoreCase("CuentaCorriente")) throw new Exception("extracciones solo se permiten de Caja de Ahorro");
-			
+			 
 			if(cComun.tieneComoCliente(cuit)) throw new Exception("cliente y cuenta no coinciden");
 			
 			CajaDeAhorro cajaDeAhorro = (CajaDeAhorro)cComun;
-			//TODO debitar no recibe motivo
-			cajaDeAhorro.debitar(montoDeExtraccion);
+			cajaDeAhorro.debitar(montoDeExtraccion, "Extracción por ventanilla. ");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,9 +41,19 @@ public class Ventanilla {
 			CuentaComun cuentaOrigen = getCuenta(cbuOrigen);
 			CuentaComun cuentaDestino = getCuenta(cbuDestino);
 			if(cuentaOrigen.tieneComoCliente(cuit)) throw new Exception("cliente y cuenta no coinciden");
-			//TODO falta motivo
-			cuentaOrigen.debitar(montoTransferencia); 
-			cuentaDestino.acreditar(montoTransferencia);
+
+			if(cuentaOrigen.getTipoMoneda().equalsIgnoreCase("Dolares") && cuentaDestino.getTipoMoneda().equalsIgnoreCase("Pesos")){
+				cuentaOrigen.debitar(montoTransferencia, ("Transferencia a cuenta: " + cuentaDestino.getCbu())); 
+				cuentaDestino.acreditar(cuentaDestino.convertirDolaresAPesos(montoTransferencia), ("Transferencia de cuenta: " + cuentaOrigen.getCbu()));
+			
+			}else if(cuentaOrigen.getTipoMoneda().equalsIgnoreCase("Pesos") && cuentaDestino.getTipoMoneda().equalsIgnoreCase("Dolares")){
+				cuentaOrigen.debitar(montoTransferencia, ("Transferencia a cuenta: " + cuentaDestino.getCbu())); 
+				cuentaDestino.acreditar(cuentaDestino.convertirPesosADolares(montoTransferencia), ("Transferencia de cuenta: " + cuentaOrigen.getCbu()));
+				
+			}else{
+				cuentaOrigen.debitar(montoTransferencia, ("Transferencia a cuenta: " + cuentaDestino.getCbu())); 
+				cuentaDestino.acreditar(montoTransferencia, ("Transferencia de cuenta: " + cuentaOrigen.getCbu()));
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,43 +61,41 @@ public class Ventanilla {
 	}
 
 	
-	public String listarMovimientos(long cbu, int ultimosNMovimientos) {
-		Cuenta c = null;
-		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			c = Banco.portfolioDeCuentas.get(cbu);
-			if(!c.getHistorial().isEmpty()){
-				String historial = "";
-				
-				int nAListar;
-				if(c.getHistorial().size() >= ultimosNMovimientos){
-					nAListar = ultimosNMovimientos;
-				}else{
-					nAListar = c.getHistorial().size();
-					System.out.println("no hay tantos movimientos, se listaran " + c.getHistorial().size());
-					
-				}
-					for(int i = 0; i< nAListar ; i++){
-						historial += c.getHistorial().get(i) + "/n";	
-					}
-					return historial;
-			}
+	public String listarMovimientos(long cbu, int ultimosNMovimientos) throws Exception {
+			
+		String historial = "";
+		CuentaComun cuenta = getCuenta(cbu);
+		
+		if(cuenta.getHistorial().isEmpty()){
+			return "Historial vacio, no hay datos para listar";
 		}
-		return "cuenta inexistente";
+		
+		if(cuenta.getHistorial().size() < ultimosNMovimientos){
+			ultimosNMovimientos = cuenta.getHistorial().size();
+			System.out.println("no hay tantos movimientos, se listaran " + ultimosNMovimientos + " movimientos");
+		}
+			
+		for(int i = 0; i < ultimosNMovimientos ; i++){
+			historial += (cuenta.getHistorial().get(i)).toString() + "/n";	
+		}
+		
+		return historial;
 	}
 
-	public String listarMovimientos(long cbu) {
-		Cuenta c = null;
-		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			c = Banco.portfolioDeCuentas.get(cbu);
-			if(!c.getHistorial().isEmpty()){
-				String historial = "";
-				for(int i = 0; i< c.getHistorial().size() ; i++){
-					historial += c.getHistorial().get(i) + "/n";	
-				}
-				return historial;
-			}
+	public String listarMovimientos(long cbu) throws Exception {
+		
+		String historial = "";
+		CuentaComun cuenta = getCuenta(cbu);
+		
+		if(cuenta.getHistorial().isEmpty()){
+			return "Historial vacio, no hay datos para listar";
+		}	
+			
+		for(int i = 0; i< cuenta.getHistorial().size() ; i++){
+			historial += (cuenta.getHistorial().get(i)).toString() + "/n";	
 		}
-		return "cuenta inexistente";
+		
+		return historial;
 	}
 	
 	public void tipoMonedaPermitida(String tipoMoneda) throws Exception{

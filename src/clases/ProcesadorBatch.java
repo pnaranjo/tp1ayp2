@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import excepciones.ExceptionCuitNoEncontrado;
 import excepciones.MontoException;
+import excepciones.SaldoNegativoException;
 import excepciones.TransaccionException;
 
 public class ProcesadorBatch {
@@ -21,51 +22,45 @@ public class ProcesadorBatch {
 	CuentaEspecial cuentaCobroMantenimientoDolares;
 	GestorDeCuentas gestorCuentas;
 	
-	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado{
+	
+	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
 		
 		while(it.hasNext()){
 			cuenta = (CuentaComun) it.next();
 			
-			if(cuenta.getTipoCuenta().equals("CajaDeAhorroEnPesos")){
-				CajaDeAhorroEnPesos caPesos = (CajaDeAhorroEnPesos) cuenta;
+			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnPesos")){ 
+				CajaDeAhorroEnPesos cajaAhorroPesos = (CajaDeAhorroEnPesos) cuenta;
 				
-				if (!caPesos.isEnabled()){
-					erroresMatenenimiento(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), "Deshabilitada");
-					
-				}else if((caPesos.saldo - caPesos.getCostoMantenimiento()) < 0) {
-					erroresMatenenimiento(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), "Fondos Insuficientes");
-					//gestorCuentas.inhablitarCuenta(caPesos.getCbu());
-					
-				}else{	//RC- Liber esto no seria mejor asi? espero confirmacion.
-					caPesos.debitar(/*"debito",*/ caPesos.getCostoMantenimiento(), "Cobro Mantenimiento");
-					//TODO ver
-					//cuentaCobroMantenimientoPesos.acreditar(caPesos.getCostoMantenimiento());
-					mantenimientosCobrados(caPesos.getCbu(), caPesos.getTipoCuenta(), caPesos.getCostoMantenimiento(), caPesos.getTipoMoneda(), "Pesos");
+				if (!cajaAhorroPesos.isEnabled()){
+					erroresMatenenimiento(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Deshabilitada");
+				}else if ((cajaAhorroPesos.getSaldo() - cajaAhorroPesos.getCostoMantenimiento()) < 0){
+					erroresMatenenimiento(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Fondos Insuficientes");
+					cajaAhorroPesos.setDisable();
+				}else{
+					cajaAhorroPesos.cobroDeMantenimiento();
+					//TODO acreditar en cuentaEspecial
+					//TODO ver tipoDeCambio
+					mantenimientosCobrados(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Pesos", "tipoDeCambio"); 
 				}
-				
-			}
+			}	
 			
-			if(cuenta.getTipoCuenta().equals("CajaDeAhorroEnDolares")){
-				CajaDeAhorroEnDolares caDolares = (CajaDeAhorroEnDolares) cuenta;
+			
+			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnDolares")){ 
+				CajaDeAhorroEnDolares cajaAhorroDolares = (CajaDeAhorroEnDolares) cuenta;
 				
-				if (!caDolares.isEnabled()){
-					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Deshabilitada");
-					
-				}else if((caDolares.saldo - caDolares.getCostoDeMantenimientoDolares()) < 0) {
-					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Fondos Insuficientes");
-					//gestorCuentas.inhablitarCuenta(caDolares.getCbu());
-					
-				}else{				//RC- Liber esto no seria mejor asi? espero confirmacion.	
-					caDolares.debitar(/*"debito", */caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
-					//TODO ver
-					//cuentaCobroMantenimientoPesos.acreditar(caDolares.convertirDolaresAPesos(caDolares.getCostoDeMantenimientoDolares()));
-					mantenimientosCobrados(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), caDolares.getTipoMoneda(), "Dolares");
+				if (!cajaAhorroDolares.isEnabled()){
+					erroresMatenenimiento(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Deshabilitada");
+				}else if ((cajaAhorroDolares.getSaldo() - cajaAhorroDolares.getCostoMantenimiento()) < 0){
+					erroresMatenenimiento(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Fondos Insuficientes");
+					cajaAhorroDolares.setDisable();
+				}else{
+					cajaAhorroDolares.cobroDeMantenimiento();
+					//TODO acreditar en cuentaEspecial
+					//TODO ver tipoDeCambio
+					mantenimientosCobrados(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Dolares", "tipoDeCambio"); 
 				}
 			}
-			
-			
 		}
-		
 	}
 	
 	

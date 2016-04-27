@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clases.*;
@@ -10,7 +11,13 @@ import excepciones.ExceptionNumeroDeDocumentoNoValido;
 
 public class PruebaPersonaFisica {
 	
-	Banco banco = new Banco();	
+
+	static Banco banco;
+	
+	@BeforeClass
+	public static void initialize() throws Exception{
+	banco = new Banco();
+	}
 	
 	String codigoPostal1 = "1426";
 	String direccion = "Las Heras 2532";

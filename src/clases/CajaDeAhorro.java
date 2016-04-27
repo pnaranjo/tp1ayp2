@@ -24,9 +24,9 @@ public abstract class CajaDeAhorro extends CuentaComun {
     public double getTasaDeInteres(){
     	return this.tasaDeInteres;
     }
-    abstract protected void cobroDeMantenimiento() throws SaldoNegativoException;
+    abstract  protected void cobroDeMantenimiento() throws SaldoNegativoException;
     
-    public String debitar(double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
+    public  String debitar(double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
     	if(monto <= 0)
 			throw new MontoException();
     	if(monto > saldo)
