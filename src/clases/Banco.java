@@ -27,7 +27,11 @@ public class Banco{
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
-        mantenimiento = new CuentaEspecial(0);
+        //TODO creo una cuenta especial con saldo 0.001, corregirlo luego
+        mantenimiento = new CuentaEspecial(0.001);
+        retenciones = new CuentaEspecial(0.001);
+        mantenimiento.saldo=0;
+        retenciones.saldo=0;
         
         setTipoDeCambioVigente(15.0);
         setCostoDeMantenimientoPesos(30.0);

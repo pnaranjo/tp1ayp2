@@ -17,7 +17,7 @@ public abstract class Cuenta  {
 	protected Transaccion transaccion;
 	
 
-    public Cuenta(double monto) throws MontoException {	
+    public Cuenta(double monto) throws MontoException{	
     	
     	//TODO corregir esto!! No todas las cuentas se crean con saldo mayor a cero
     	// las Cuentas Especiales se crean con saldo 0

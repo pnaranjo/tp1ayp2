@@ -11,9 +11,14 @@ public class CuentaEspecial extends Cuenta {
 	 * 
 	 */
 		public CuentaEspecial(double saldo) throws MontoException{
+			
+			//TODO hay que corregir esto, la CuentaEspecial se tiene que poder crear sin parámetros
+			
 			super(saldo);
 			setTipoCuenta("CuentaEspecial");
 			setTipoMoneda("Pesos");
+			
+			//TODO acá estamos hardcodeando el saldo, eso está mal
 			this.saldo = 0;
 			this.habilitada = true;
 		}
