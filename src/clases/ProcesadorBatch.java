@@ -16,14 +16,13 @@ import excepciones.TransaccionException;
 
 public class ProcesadorBatch {
 	
-	Iterator<Entry<Long, CuentaComun>> it = Banco.portfolioDeCuentas.entrySet().iterator();
-	CuentaComun cuenta;
-	
+	Iterator<Entry<Long, Cuenta>> it = Banco.portfolioDeCuentas.entrySet().iterator();
+	Cuenta cuenta;
 	
 	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
 		
 		while(it.hasNext()){
-			cuenta = (CuentaComun) it.next();
+			cuenta = (Cuenta) it.next();
 			
 			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnPesos")){ 
 				CajaDeAhorroEnPesos cajaAhorroPesos = (CajaDeAhorroEnPesos) cuenta;
@@ -42,10 +41,9 @@ public class ProcesadorBatch {
 				}
 			}	
 			 
-			
 			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnDolares")){ 
 				CajaDeAhorroEnDolares cajaAhorroDolares = (CajaDeAhorroEnDolares) cuenta;
-				
+	
 				if (!cajaAhorroDolares.isEnabled()){
 					erroresMatenenimiento(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Deshabilitada");
 				}else if ((cajaAhorroDolares.getSaldo() - cajaAhorroDolares.getCostoMantenimiento()) < 0){
@@ -61,7 +59,7 @@ public class ProcesadorBatch {
 			}
 		}
 	}
-	
+	 
 	public void pagarInteres(long cbu) throws TransaccionException, MontoException {
 		CajaDeAhorro cajaAhorro = (CajaDeAhorro)Banco.portfolioDeCuentas.get(cbu);
 		cajaAhorro.acreditar(cajaAhorro.getTasaDeInteres(), "Intereses mensuales");
@@ -112,11 +110,6 @@ public class ProcesadorBatch {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
 	
 
 }

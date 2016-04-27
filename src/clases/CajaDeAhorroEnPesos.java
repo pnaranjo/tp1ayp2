@@ -2,21 +2,22 @@ package clases;
 
 import java.util.ArrayList;
 
+import excepciones.ArrayTitularesException;
 import excepciones.MontoException;
 import excepciones.SaldoNegativoException;
 
 public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 	
 	public double costoMantenimiento;
-	//public String tipoCuenta;
 	public String tipoMoneda;
 	
 	
-	public CajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares,double tasaDeInteres) throws MontoException{
+	public CajaDeAhorroEnPesos(double saldo, ArrayList<PersonaFisica> titulares,double tasaDeInteres) throws MontoException, ArrayTitularesException{
 		super(saldo, titulares, tasaDeInteres);
-		super.tipoDeCuenta = "CajaDeAhorroEnPesos";
-		super.tipoDeMoneda = "Pesos";
 		costoMantenimiento = Banco.getCostoDeMantenimientoPesos();		
+		costoMantenimiento = Banco.getCostoDeMantenimientoPesos();
+		setTipoCuenta("CajaDeAhorroEnPesos");
+		setTipoMoneda("Pesos");
 	}
 	
 	public void cobroDeMantenimiento() throws SaldoNegativoException{
@@ -27,14 +28,4 @@ public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 		return costoMantenimiento;
 	}
 	
-	public String getTipoCuenta(){
-		return super.tipoDeCuenta;
-	}
-	
-	public String getTipoMoneda(){
-		return super.tipoDeMoneda;
-	}
-	
-	
-		
 }

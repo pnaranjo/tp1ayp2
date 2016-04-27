@@ -7,12 +7,14 @@ import excepciones.TransaccionException;
 
 public class Ventanilla {
 
+
+		
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda){
 		try {	
 			tipoMonedaPermitida(tipoMoneda);
-			CuentaComun	cComun = getCuenta(cbu);
-			if(cComun.getTipoMoneda().equalsIgnoreCase(tipoMoneda)){
-				cComun.acreditar(montoADepositar, "Depósito por ventanilla. ");
+			Cuenta cuenta = getCuenta(cbu);
+			if(cuenta.getTipoMoneda().equalsIgnoreCase(tipoMoneda)){
+				cuenta.acreditar(montoADepositar, "Depósito por ventanilla. ");
 			}
 		} catch (ExceptionCbuNoEncontrado e) {
 			e.printStackTrace();
@@ -23,12 +25,12 @@ public class Ventanilla {
 	
 	public void extraccionEfectivoCA(long cuit, long cbu, double montoDeExtraccion, String motivo) throws TransaccionException, MontoException{
 		try {
-			CuentaComun	cComun = getCuenta(cbu);
-			if(cComun.getTipoCuenta().equalsIgnoreCase("CuentaCorriente")) throw new Exception("extracciones solo se permiten de Caja de Ahorro");
+			Cuenta	cuenta = getCuenta(cbu);
+			if(cuenta.getTipoCuenta().equalsIgnoreCase("CuentaCorriente")) throw new Exception("extracciones solo se permiten de Caja de Ahorro");
 			 
-			if(cComun.tieneComoCliente(cuit)) throw new Exception("cliente y cuenta no coinciden");
+			if(cuenta.tieneComoCliente(cuit)) throw new Exception("cliente y cuenta no coinciden");
 			
-			CajaDeAhorro cajaDeAhorro = (CajaDeAhorro)cComun;
+			CajaDeAhorro cajaDeAhorro = (CajaDeAhorro)cuenta;
 			cajaDeAhorro.debitar(montoDeExtraccion, "Extracción por ventanilla. ");
 		
 		} catch (Exception e) {
@@ -38,8 +40,8 @@ public class Ventanilla {
 
 	public void transferencia(long cuit, long cbuOrigen, long cbuDestino, double montoTransferencia, String motivo) throws TransaccionException, MontoException {
 		try {
-			CuentaComun cuentaOrigen = getCuenta(cbuOrigen);
-			CuentaComun cuentaDestino = getCuenta(cbuDestino);
+			Cuenta cuentaOrigen = getCuenta(cbuOrigen);
+			Cuenta cuentaDestino = getCuenta(cbuDestino);
 			if(cuentaOrigen.tieneComoCliente(cuit)) throw new Exception("cliente y cuenta no coinciden");
 
 			if(cuentaOrigen.getTipoMoneda().equalsIgnoreCase("Dolares") && cuentaDestino.getTipoMoneda().equalsIgnoreCase("Pesos")){
@@ -64,7 +66,7 @@ public class Ventanilla {
 	public String listarMovimientos(long cbu, int ultimosNMovimientos) throws Exception {
 			
 		String historial = "";
-		CuentaComun cuenta = getCuenta(cbu);
+		Cuenta cuenta = getCuenta(cbu);
 		
 		if(cuenta.getHistorial().isEmpty()){
 			return "Historial vacio, no hay datos para listar";
@@ -85,7 +87,7 @@ public class Ventanilla {
 	public String listarMovimientos(long cbu) throws Exception {
 		
 		String historial = "";
-		CuentaComun cuenta = getCuenta(cbu);
+		Cuenta cuenta = getCuenta(cbu);
 		
 		if(cuenta.getHistorial().isEmpty()){
 			return "Historial vacio, no hay datos para listar";
@@ -104,16 +106,17 @@ public class Ventanilla {
 		}
 	}
 	
-	public CuentaComun getCuenta(long cbu) throws Exception {
+	public Cuenta getCuenta(long cbu) throws Exception {
 		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
-			CuentaComun cComun = Banco.portfolioDeCuentas.get(cbu);
-			if (cComun.isEnabled()) {
-				return cComun;
+			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
+			if (cuenta.isEnabled()) {
+				return cuenta;
 			}else{ 
 				throw new Exception("cuenta no habilitada");
-			}
+			
+			}	
 		}
-		throw new ExceptionCbuNoEncontrado("Cuenta No existe");
+		throw new Exception("cuenta no encontrada");						
 	}
-
+	
 }
