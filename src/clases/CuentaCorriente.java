@@ -10,46 +10,49 @@ import excepciones.TransaccionException;
 
 
 public class CuentaCorriente extends Cuenta{
-    private final ArrayList<Cliente> titulares;
-    private double montoSobreGiro;
-    private static double montoParaAbrirCuenta = 10000;
-    static double comision = 0.03;
-    
-    	public CuentaCorriente(double montoDeposito,ArrayList<Cliente> titulares,double montoSobreGiro)throws MontoDepositoException,MontoException,ArrayTitularesException {
-    	 super(montoDeposito);
-    	 if(montoDeposito < getMontoParaAbrirCuenta()){
-             throw new MontoDepositoException();
-         }
-    	 if(titulares.isEmpty()){
-    		 throw new ArrayTitularesException();
-    	 }
-         this.titulares = titulares;                 
-         setMontoSobreGiro(montoSobreGiro);                 
-         setTipoCuenta("CuentaCorriente");
-         setTipoMoneda("Pesos");
-    	 }
-	
-    public double cobrarComision(double monto) throws MontoException{
-    	if (monto < 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
-    	return comision * monto;
-    }
-    public ArrayList<Cliente> getTitulares() {
+	private final ArrayList<Cliente> titulares;
+	private double montoSobreGiro;
+	private static double montoParaAbrirCuenta = 10000;
+	static double comision = 0.03;
+
+	public CuentaCorriente(double montoDeposito,ArrayList<Cliente> titulares,double montoSobreGiro)throws MontoDepositoException,MontoException,ArrayTitularesException {
+		super(montoDeposito);
+
+		if (montoDeposito <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
+
+		if(montoDeposito < getMontoParaAbrirCuenta()){
+			throw new MontoDepositoException();
+		}
+		if(titulares.isEmpty()){
+			throw new ArrayTitularesException();
+		}
+		this.titulares = titulares;                 
+		setMontoSobreGiro(montoSobreGiro);                 
+		setTipoCuenta("CuentaCorriente");
+		setTipoMoneda("Pesos");
+	}
+
+	public double cobrarComision(double monto) throws MontoException{
+		if (monto < 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
+		return comision * monto;
+	}
+	public ArrayList<Cliente> getTitulares() {
 		return titulares;
 	}
 	public double getMontoParaAbrirCuenta() {
 		return montoParaAbrirCuenta;
 	}
-    public double setMontoParaAbrirCuenta(double monto) throws MontoException{
-    	if (monto < 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
-    	return montoParaAbrirCuenta = monto;
-    }
+	public double setMontoParaAbrirCuenta(double monto) throws MontoException{
+		if (monto < 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
+		return montoParaAbrirCuenta = monto;
+	}
 	public double getMontoSobreGiro() {
-        return montoSobreGiro;
-    }
+		return montoSobreGiro;
+	}
 	public void setMontoSobreGiro(double montoSobreGiro) throws MontoException {
 		if(montoSobreGiro < 0){
-   		 throw new MontoException("El monto de sobregiro debe ser cero o positivo.");
-   	 }
+			throw new MontoException("El monto de sobregiro debe ser cero o positivo.");
+		}
 		this.montoSobreGiro = montoSobreGiro;
 	}
 	public static double getComision() {

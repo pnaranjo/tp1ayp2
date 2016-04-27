@@ -6,10 +6,11 @@ import excepciones.TransaccionException;
 
 public class CuentaEspecial extends Cuenta {
 		
-		public CuentaEspecial(){			
+		public CuentaEspecial() throws MontoException{
+			super(0.0);
 			setTipoCuenta("CuentaEspecial");
 			setTipoMoneda("Pesos");			
-			this.habilitada = true;
+			this.saldo = 0;
 		}
 		
 		
