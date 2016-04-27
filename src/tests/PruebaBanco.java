@@ -4,9 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import clases.*;
-import excepciones.ExceptionCuitNoEncontrado;
-import excepciones.ExceptionCuitNoValido;
-import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoException;
 
 public class PruebaBanco {

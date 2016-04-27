@@ -10,7 +10,6 @@ public class CuentaEspecial extends Cuenta {
 			super(0.0);
 			setTipoCuenta("CuentaEspecial");
 			setTipoMoneda("Pesos");			
-			this.saldo = 0;
 		}
 		
 		
