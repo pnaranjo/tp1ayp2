@@ -6,12 +6,13 @@ import excepciones.TransaccionException;
 
 public class CuentaEspecial extends Cuenta {
 		
-		public CuentaEspecial() throws MontoException{
+		public CuentaEspecial() throws MontoException, TransaccionException{
 			super(0.0);
 			setTipoCuenta("CuentaEspecial");
-			setTipoMoneda("Pesos");			
+			setTipoMoneda("Pesos");	
+			transaccion = new Transaccion("Se ha creado una cuenta especial", saldo,"Por disposicion del banco " );
+			historial.add(transaccion);
 		}
-		
 		
 		public String acreditar(double monto, String motivo) throws TransaccionException, MontoException{		
 			if(monto <= 0)

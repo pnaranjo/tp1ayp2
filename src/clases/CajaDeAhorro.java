@@ -8,19 +8,17 @@ import excepciones.SaldoNegativoException;
 import excepciones.TransaccionException;
 
 public abstract class CajaDeAhorro extends Cuenta{
-    private final ArrayList<PersonaFisica> titulares;
-    private final double tasaDeInteres;
+    private final ArrayList<PersonaFisica> titulares = null;
+    private double tasaDeInteres;
     public double costoMantenimiento;
 	
     public CajaDeAhorro(double monto, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException{
         super(validarMontoCuentaNoEspecial(monto));
-        if(titulares.isEmpty()){
-      		 throw new ArrayTitularesException();
-      	 }
-        if (tasaDeInteres < 0) throw new MontoException("La tasa de interes no puede ser negativa");
-    	this.tasaDeInteres = tasaDeInteres;
-    	this.titulares = titulares;
+        setTasaDeInteres(tasaDeInteres);
+        titulares = setTitularesPersonaFisica(titulares);   
     }
+    
+    
     public ArrayList<PersonaFisica> getTitulares(){
     	return this.titulares;
     }
@@ -35,6 +33,16 @@ public abstract class CajaDeAhorro extends Cuenta{
 		if (saldo < costoMantenimiento) throw new SaldoNegativoException();
 		saldo -= costoMantenimiento;
 	}
+	public void setTasaDeInteres(double monto) throws MontoException{
+    	if (tasaDeInteres < 0) throw new MontoException("La tasa de interes no puede ser negativa");
+    	tasaDeInteres = monto;
+	}
+	public ArrayList<PersonaFisica> setTitularesPersonaFisica(ArrayList<PersonaFisica> titulares) throws ArrayTitularesException{
+	 	   if(titulares.isEmpty()){
+				throw new ArrayTitularesException();
+				}
+	 	   return titulares; 
+	    }
     public String debitar(double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
     
     	if(monto <= 0)

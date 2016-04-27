@@ -17,7 +17,7 @@ public class Banco{
     private static CuentaEspecial retenciones;
     private CuentaEspecial mantenimiento;
     
-    public Banco() throws MontoException {
+    public Banco() throws MontoException, TransaccionException {
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
@@ -37,7 +37,7 @@ public class Banco{
      * Si se le pasan los parámetros tipoDeCambioVigente y costoDeMantemientoPesos.
      * Post: El banco se crea con un valor calculado para costoDeMantemientoDolares
      */
-    public Banco(double tipoDeCambioVigente, double costoDeMantemientoPesos) throws MontoException{
+    public Banco(double tipoDeCambioVigente, double costoDeMantemientoPesos) throws MontoException, TransaccionException{
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         

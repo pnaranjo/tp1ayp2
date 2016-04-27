@@ -21,10 +21,6 @@ public abstract class Cuenta  {
 		this.historial = new ArrayList<Transaccion>();
 		this.cbu = Banco.generarNuevoCbu();
     }
-	public static double validarMontoCuentaNoEspecial(double monto) throws MontoException{
-		if (monto <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
-		return monto;
-	}
     
 	public double getSaldo() {
         return saldo;
@@ -58,6 +54,12 @@ public abstract class Cuenta  {
        public void setTipoMoneda(String tipoDeMoneda){
           	this.tipoDeMoneda = tipoDeMoneda;
        }
+       
+       public static double validarMontoCuentaNoEspecial(double monto) throws MontoException{
+   		if (monto <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
+   		return monto;
+   	}
+   
        public abstract String debitar(double monto,String motivo) throws TransaccionException, MontoException, DebitarException;
        public abstract String debitar(double monto,String motivo,String Observaciones) throws TransaccionException, MontoException, DebitarException;
        

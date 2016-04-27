@@ -14,44 +14,24 @@ class Transaccion {
     private String observaciones;
 
     public Transaccion(String tipoMovimiento, double monto, String motivo) throws TransaccionException, MontoException {
-    	if(tipoMovimiento == null || tipoMovimiento != "debitar" || tipoMovimiento != "acreditar"){
-        	throw new TransaccionException("El tipo de movimiento ingresado es incorrecto");
-        }
-        if(motivo == null){
-        	throw new TransaccionException("Debe ingresar un motivo para generar la transaccion");
-        }
-        if( monto <= 0){
-        	throw new MontoException();
-        }
+    	setTipoMovimiento(tipoMovimiento);
+    	setMotivo(motivo);
+    	setMonto(monto);        
     	fechaYHora = getTime();
-        this.tipoMovimiento = tipoMovimiento;
-        this.monto = monto;
-        this.motivo = motivo;
+        getTime();
         observaciones = "";
     }
-
+    
+    
     public Transaccion(String tipoMovimiento, double monto, String motivo, String observaciones) throws TransaccionException, MontoException {
-        if(tipoMovimiento == null || tipoMovimiento != "debitar" || tipoMovimiento != "acreditar"){
-        	throw new TransaccionException("El tipo de movimiento ingresado es incorrecto");
-        }
-        if(motivo == null){
-        	throw new TransaccionException("Debe ingresar un motivo para generar la transaccion");
-        }
-        if( monto <= 0){
-        	throw new MontoException();
-        }
-        if(observaciones == null){
-        	throw new TransaccionException("Debe ingresar una observacion para generar la transaccion");
-        }
-        
+    	setTipoMovimiento(tipoMovimiento);
+    	setMotivo(motivo);
+    	setMonto(monto);        
     	fechaYHora = getTime();
-        this.tipoMovimiento = tipoMovimiento;
-        this.monto = monto;
-        this.motivo = motivo;
-        this.observaciones = observaciones;
+        getTime();
+        setObservaciones(observaciones);
+        
     }
-    
-    
     
     public String getTime() {
         Calendar c = Calendar.getInstance();
@@ -63,30 +43,45 @@ class Transaccion {
         String segundos = Integer.toString(c.get(Calendar.SECOND));
         return fechaYHora = dia+"/"+mes+"/"+annio+"   "+hora+":"+minutos+";"+segundos;
     }
-
     public String getTipoMovimiento() {
         return tipoMovimiento;
     }
-
     public double getMonto() {
         return monto;
     }
-
     public String getMotivo() {
         return motivo;
     }
-
     public String getObservaciones() {
         return observaciones;
     }
-    
-    
-    /* Optativo*/
+    public void setTipoMovimiento(String tipoMovimiento) throws TransaccionException{
+		if(tipoMovimiento == null || tipoMovimiento != "debitar" || tipoMovimiento != "acreditar"){
+        	throw new TransaccionException("El tipo de movimiento ingresado es incorrecto");
+        }
+		this.tipoMovimiento = tipoMovimiento;
+	}
+    public void setMotivo(String motivo) throws TransaccionException{
+		if(motivo == null){
+        	throw new TransaccionException("Debe ingresar un motivo para generar la transaccion");
+        }
+		this.motivo = motivo;
+	}
+    public void setMonto(double monto) throws MontoException{
+		if( monto < 0){
+        	throw new MontoException();
+        }
+		this.monto = monto;
+	}
+    public void setObservaciones(String observaciones) throws TransaccionException{
+    	if(observaciones == null){
+        	throw new TransaccionException("Debe ingresar una observacion para generar la transaccion");
+        }
+        this.observaciones = observaciones;
+    }
     public String agregarObservacion(String observacion){
         return  observaciones = observaciones.concat("\n").concat(observacion);
     }
-    
-
     @Override
     public String toString() {
         return  fechaYHora + "\ntipoMovimiento:" + tipoMovimiento + "\nmonto:" + monto + "\nmotivo:" + motivo + "\nobservaciones:" + observaciones +"\n\n";

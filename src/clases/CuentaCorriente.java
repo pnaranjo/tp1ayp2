@@ -10,20 +10,14 @@ import excepciones.TransaccionException;
 
 
 public class CuentaCorriente extends Cuenta{
-	private final ArrayList<Cliente> titulares;
+	private final ArrayList<Cliente> titulares = null;
 	private double montoSobreGiro;
 	private static double montoParaAbrirCuenta = 10000;
 	static double comision = 0.03;
 
 	public CuentaCorriente(double montoDeposito,ArrayList<Cliente> titulares,double montoSobreGiro)throws MontoDepositoException,MontoException,ArrayTitularesException {
-		super(validarMontoCuentaNoEspecial(montoDeposito));
-		if(montoDeposito <= getMontoParaAbrirCuenta()){
-			throw new MontoDepositoException();
-		}
-		if(titulares.isEmpty()){
-			throw new ArrayTitularesException();
-		}
-		this.titulares = titulares;                 
+		super(setMontoDeposito(montoDeposito));
+		titulares = setTitulares(titulares);                
 		setMontoSobreGiro(montoSobreGiro);                 
 		setTipoCuenta("CuentaCorriente");
 		setTipoMoneda("Pesos");
@@ -36,7 +30,7 @@ public class CuentaCorriente extends Cuenta{
 	public ArrayList<Cliente> getTitulares() {
 		return titulares;
 	}
-	public double getMontoParaAbrirCuenta() {
+	public static double getMontoParaAbrirCuenta() {
 		return montoParaAbrirCuenta;
 	}
 	public double setMontoParaAbrirCuenta(double monto) throws MontoException{
@@ -59,6 +53,19 @@ public class CuentaCorriente extends Cuenta{
 		if (nuevaComision < 0) throw new MontoException("La nueva comision ingresada debe ser mayor a cero. ");
 		comision = nuevaComision;
 	}
+	public static double setMontoDeposito(double montoDeposito) throws MontoDepositoException{
+		if(montoDeposito <= getMontoParaAbrirCuenta()){
+			throw new MontoDepositoException();
+		}
+		return montoDeposito;
+	    }
+	
+	public ArrayList<Cliente> setTitulares(ArrayList<Cliente> titulares) throws ArrayTitularesException{
+ 	   if(titulares.isEmpty()){
+			throw new ArrayTitularesException();
+			}
+ 	   return titulares; 
+    }
 	public String acreditar(double monto, String motivo) throws TransaccionException, MontoException{		
 		if(monto <= 0)
 			throw new MontoException();
