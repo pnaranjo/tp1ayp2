@@ -160,7 +160,9 @@ public class PruebaGestorDeClientes {
 	 * testear cambio de domicilio
 	 */
 	@Test
-	public void testSetDomicilioPersonaJuridica() throws ExceptionCuitNoValido {
+	public void testSetDomicilioPersonaJuridica() throws ExceptionCuitNoValido, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacion3);
 		//Cambiar Domicilio
 		asociacion3.setDomicilio(domicilio1);
@@ -198,7 +200,9 @@ public class PruebaGestorDeClientes {
 	 * testear desactivar() 
 	 */
 	@Test
-	public void testDesactivarPersonaJuridica() throws ExceptionCuitNoValido {
+	public void testDesactivarPersonaJuridica() throws ExceptionCuitNoValido, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacion3);
 		//Desactivar
 		asociacion3.desactivar();
