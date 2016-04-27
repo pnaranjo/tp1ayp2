@@ -54,7 +54,9 @@ public class PruebaGestorDeClientes {
 	 * post: el cliente es dado de alta en el sistema
 	 */
 	@Test
-	public void testAltaClienteValido() throws ExceptionCuitNoValido {
+	public void testAltaClienteValido() throws ExceptionCuitNoValido, MontoException {
+   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacionDeOrtopedia);
 		Assert.assertTrue(gestorDeClientes.esClienteExistente(asociacionDeOrtopedia));
 	}
@@ -96,13 +98,16 @@ public class PruebaGestorDeClientes {
 	
 	/*
 	 *  El cliente es dado de alta en el sistema y luego dado de baja
+	 *  Post: asociacionDeOrtopedia.isEnabled() == false
 	 * 
 	 */
 	@Test
-	public void testAltaYBajaCliente() throws ExceptionCuitNoValido {
+	public void testAltaYBajaCliente() throws ExceptionCuitNoValido, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacionDeOrtopedia);
 		gestorDeClientes.baja(asociacionDeOrtopedia);
-		Assert.assertFalse(gestorDeClientes.esClienteExistente(asociacionDeOrtopedia));
+		Assert.assertFalse(asociacionDeOrtopedia.isEnabled());
 	}
 	
 	/*
@@ -110,7 +115,9 @@ public class PruebaGestorDeClientes {
 	 * 
 	 */
 	@Test
-	public void testBuscarClienteExistenteConCuit() throws ExceptionCuitNoValido, ExceptionCuitNoEncontrado {
+	public void testBuscarClienteExistenteConCuit() throws ExceptionCuitNoValido, ExceptionCuitNoEncontrado, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacionDeOrtopedia);
 		Assert.assertEquals(asociacionDeOrtopedia, gestorDeClientes.buscarConCuit(cuit));
 	}
@@ -141,7 +148,9 @@ public class PruebaGestorDeClientes {
 	 * Probar el toString para PersonaJuridica
 	 */
 	@Test
-	public void testStringToStringPersonaJuridica() throws ExceptionCuitNoValido {
+	public void testStringToStringPersonaJuridica() throws ExceptionCuitNoValido, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacion3);
 		String s = asociacion3.toString();
 		Assert.assertEquals("Razón Social: APA CUIT: 30846846574 Domicilio: Dirección: Calle 11 1351 Código Postal: 1900 Localidad: La Plata Provincia: Buenos Aires Telefono: 4256379 Cliente habilitado. Fecha del contrato social: 15/5/2013", s);
@@ -162,7 +171,9 @@ public class PruebaGestorDeClientes {
 	 * testear cambio de telefono
 	 */
 	@Test
-	public void testSetTelefonoPersonaJuridica() throws ExceptionCuitNoValido {
+	public void testSetTelefonoPersonaJuridica() throws ExceptionCuitNoValido, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacion3);
 		//Cambiar Teléfono
 		asociacion3.setTelefono(48223456);
@@ -173,7 +184,9 @@ public class PruebaGestorDeClientes {
 	 * testear agregar otros datos
 	 */
 	@Test
-	public void testSetOtrosDatosPersonaJuridica() throws ExceptionCuitNoValido {
+	public void testSetOtrosDatosPersonaJuridica() throws ExceptionCuitNoValido, MontoException {
+	   	 banco = new Banco();
+
 		gestorDeClientes.alta(asociacion3);
 		//Agregar otros datos
 		String datosNuevos = "Sitio web de la Asociación Psicoanalítica Argentina: https://www.apa.org.ar/";
