@@ -12,7 +12,7 @@ public abstract class CuentaComun extends Cuenta {
 	
 	public CuentaComun(double saldo) {
 	   super(saldo);
-	   this.cbu = Banco.generadorCbu++;	   
+	   this.cbu = Banco.generarNuevoCbu();   
 	}  
         
     public long getCbu(){
