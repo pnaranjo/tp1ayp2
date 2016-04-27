@@ -17,7 +17,7 @@ import excepciones.TransaccionException;
 public class ProcesadorBatch {
 	
 	Iterator<Entry<Long, CuentaComun>> it = Banco.portfolioDeCuentas.entrySet().iterator();
-	CuentaComun cuenta = null;
+	CuentaComun cuenta;
 	
 	
 	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
@@ -34,13 +34,14 @@ public class ProcesadorBatch {
 					erroresMatenenimiento(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Fondos Insuficientes");
 					cajaAhorroPesos.setDisable();
 				}else{
+					pagarInteres(cajaAhorroPesos.getCbu());
 					cajaAhorroPesos.cobroDeMantenimiento();
 					Banco.acreditarRetenciones(cajaAhorroPesos.getCbu(), cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");
 					//TODO ver tipoDeCambio que pide mantenimientosCobrados
 					mantenimientosCobrados(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Pesos", "tipoDeCambio"); 
 				}
 			}	
-			
+			 
 			
 			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnDolares")){ 
 				CajaDeAhorroEnDolares cajaAhorroDolares = (CajaDeAhorroEnDolares) cuenta;
@@ -51,6 +52,7 @@ public class ProcesadorBatch {
 					erroresMatenenimiento(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Fondos Insuficientes");
 					cajaAhorroDolares.setDisable();
 				}else{
+					pagarInteres(cajaAhorroDolares.getCbu());
 					cajaAhorroDolares.cobroDeMantenimiento();
 					Banco.acreditarRetenciones(cajaAhorroDolares.getCbu(), cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
 					//TODO ver tipoDeCambio que pide mantenimientosCobrados
@@ -58,6 +60,11 @@ public class ProcesadorBatch {
 				}
 			}
 		}
+	}
+	
+	public void pagarInteres(long cbu) throws TransaccionException, MontoException {
+		CajaDeAhorro cajaAhorro = (CajaDeAhorro)Banco.portfolioDeCuentas.get(cbu);
+		cajaAhorro.acreditar(cajaAhorro.getTasaDeInteres(), "Intereses mensuales");
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clases.Banco;
+import clases.CajaDeAhorroEnDolares;
 import clases.CajaDeAhorroEnPesos;
 import clases.Cliente;
 import clases.Domicilio;
@@ -51,9 +52,15 @@ public class PruebaVentanilla {
 	}
 	
 	@Test
-	public void testDepositoCajaAhorroEnDolares(){
+	public void testDepositoCajaAhorroEnDolares() throws Exception{
+		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000125L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
+		titular.add(persona1);
+		gestorClientes.alta(persona1);
 		
-		
+		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(150, titular, 1);
+		gestorCuentas.abrirCajaDeAhorroEnDolares(caDolares);
+		ventanilla.depositoEnEfectivo(caDolares.getCbu(), 10.5, "DOLARES");
+		Assert.assertEquals(160.5, caDolares.getSaldo(), 0.0);
 	}
 	
 	@Test
