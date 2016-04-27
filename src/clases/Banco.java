@@ -8,12 +8,12 @@ import excepciones.TransaccionException;
 public class Banco{
 
 
-    public static Map<Long,CuentaComun > portfolioDeCuentas;
+    public static Map<Long,Cuenta> portfolioDeCuentas;
     public static Map<Long, Cliente> portfolioDeClientes;
     private static double tipoDeCambioVigente;
     private static long generadorCbu; /*generador de CBU*/
     private static double costoDeMantemientoPesos;
-    private double costoDeMantemientoDolares;
+    private static double costoDeMantemientoDolares;
     private static CuentaEspecial retenciones;
     private CuentaEspecial mantenimiento;
     
@@ -26,7 +26,7 @@ public class Banco{
      * Post: El banco se crea con valores por default.
      */
     public Banco() throws MontoException {
-        portfolioDeCuentas = new HashMap<Long, CuentaComun>();
+        portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         
         
@@ -42,7 +42,7 @@ public class Banco{
      * Post: El banco se crea con un valor calculado para costoDeMantemientoDolares
      */
     public Banco(double tipoDeCambioVigente, double costoDeMantemientoPesos) throws MontoException{
-        portfolioDeCuentas = new HashMap<Long, CuentaComun>();
+        portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
         validar(tipoDeCambioVigente);
         validar(costoDeMantemientoPesos);
@@ -69,7 +69,7 @@ public class Banco{
     	}
     }
     
-    public double getCostoDeMantenimientoDolares() {
+    public static double getCostoDeMantenimientoDolares() {
     	return costoDeMantemientoDolares;
     }
     
@@ -94,7 +94,7 @@ public class Banco{
     
     public void setCostoDeMantenimientoDolares (double costoDeMantenimientoDolares) throws MontoException {
     	validar(costoDeMantenimientoDolares);
-    	this.costoDeMantemientoDolares = costoDeMantenimientoDolares;
+    	costoDeMantemientoDolares = costoDeMantenimientoDolares;
     }
     
     /*

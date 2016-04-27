@@ -14,7 +14,7 @@ public class Ventanilla {
 
 	//TODO agregar exception y texto de salida
 	public void depositoEnEfectivo(long cbu, double montoADepositar, String tipoMoneda) {
-		CuentaComun cComun;
+		Cuenta cComun;
 		TipoMonedaPermitida tmp = null;
 		
 		try {	
@@ -43,7 +43,7 @@ public class Ventanilla {
 	public void extraccionEfectivoCA(long cliente, long cbu, double montoDeExtraccion, String motivo) throws TransaccionException, MontoException{
 		CajaDeAhorro ca = null;
 		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
-			CuentaComun cComun = Banco.portfolioDeCuentas.get(cbu);
+			Cuenta cComun = Banco.portfolioDeCuentas.get(cbu);
 			if(cComun.getTipoCuenta().equals("CuentaCorriente")){
 				System.out.println("extracciones solo se permiten de Caja de Ahorro");
 				return;

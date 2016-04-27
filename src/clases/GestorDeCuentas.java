@@ -37,7 +37,7 @@ public class GestorDeCuentas {
 	
 	public void inhablitarCuenta(long cbu) throws ExceptionCuitNoEncontrado{
 		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			CuentaComun cuenta = Banco.portfolioDeCuentas.get(cbu);
+			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
 			cuenta.setDisable();
 		}else{
 			throw new ExceptionCuitNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas"); 
@@ -46,7 +46,7 @@ public class GestorDeCuentas {
 	 
 	public void hablitarCuenta(long cbu)throws ExceptionCuitNoEncontrado{
 		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			CuentaComun cuenta = Banco.portfolioDeCuentas.get(cbu);
+			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
 			cuenta.setEnable();
 		}else{
 			throw new ExceptionCuitNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas");

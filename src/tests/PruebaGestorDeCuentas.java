@@ -36,7 +36,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		Assert.assertEquals(caPesos, Banco.portfolioDeCuentas.get(caPesos.getCbu()));
 	}
@@ -47,7 +47,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(100, titular, 0.5, CajaDeAhorroEnDolares.costoDeMantenimientoDolares);
+		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnDolares(caDolares);
 		Assert.assertEquals(caDolares, Banco.portfolioDeCuentas.get(caDolares.getCbu()));
 	}
@@ -83,7 +83,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		gestorCuentas.inhablitarCuenta(caPesos.getCbu());
 		CajaDeAhorroEnPesos ca = (CajaDeAhorroEnPesos) Banco.portfolioDeCuentas.get(caPesos.getCbu());
@@ -96,7 +96,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		gestorCuentas.inhablitarCuenta(caPesos.getCbu());
 		gestorCuentas.hablitarCuenta(caPesos.getCbu());
@@ -110,7 +110,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		long cbu = 22222;
 		Assert.assertEquals(false, Banco.portfolioDeCuentas.containsKey(cbu));
@@ -122,7 +122,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		long cbu = 22222;
 		gestorCuentas.hablitarCuenta(cbu);
@@ -134,7 +134,7 @@ public class PruebaGestorDeCuentas {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		long cbu = 22222;
 		gestorCuentas.inhablitarCuenta(cbu);

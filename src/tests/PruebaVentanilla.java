@@ -30,7 +30,7 @@ public class PruebaVentanilla {
 		titular.add(persona1);
 		gestorClientes.alta(persona1);
 		
-		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5, CajaDeAhorroEnPesos.costoDeMantenimientoPesos);
+		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		ventanilla.depositoEnEfectivo(caPesos.getCbu(), 100, "PESOS");
 		Assert.assertEquals(200, caPesos.getSaldo(), 0.0);

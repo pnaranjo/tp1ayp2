@@ -15,8 +15,8 @@ import excepciones.TransaccionException;
 
 public class ProcesadorBatch {
 	
-	Iterator<Entry<Long, CuentaComun>> it = Banco.portfolioDeCuentas.entrySet().iterator();
-	CuentaComun cuenta = null;
+	Iterator<Entry<Long, Cuenta>> it = Banco.portfolioDeCuentas.entrySet().iterator();
+	Cuenta cuenta = null;
 	CuentaEspecial cuentaCobroMantenimientoPesos;
 	CuentaEspecial cuentaCobroMantenimientoDolares;
 	GestorDeCuentas gestorCuentas;
@@ -24,7 +24,7 @@ public class ProcesadorBatch {
 	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado{
 		
 		while(it.hasNext()){
-			cuenta = (CuentaComun) it.next();
+			cuenta = (Cuenta) it.next();
 			
 			if(cuenta.getTipoCuenta().equals("CajaDeAhorroEnPesos")){
 				CajaDeAhorroEnPesos caPesos = (CajaDeAhorroEnPesos) cuenta;
@@ -49,17 +49,17 @@ public class ProcesadorBatch {
 				CajaDeAhorroEnDolares caDolares = (CajaDeAhorroEnDolares) cuenta;
 				
 				if (!caDolares.isEnabled()){
-					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Deshabilitada");
+					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoMantenimiento(), "Deshabilitada");
 					
-				}else if((caDolares.saldo - caDolares.getCostoDeMantenimientoDolares()) < 0) {
-					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), "Fondos Insuficientes");
+				}else if((caDolares.saldo - caDolares.getCostoMantenimiento()) < 0) {
+					erroresMatenenimiento(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoMantenimiento(), "Fondos Insuficientes");
 					gestorCuentas.inhablitarCuenta(caDolares.getCbu());
 					
 				}else{				//RC- Liber esto no seria mejor asi? espero confirmacion.	
-					caDolares.debitar(/*"debito", */caDolares.getCostoDeMantenimientoDolares(), "Cobro Mantenimiento");
+					caDolares.debitar(/*"debito", */caDolares.getCostoMantenimiento(), "Cobro Mantenimiento");
 					//TODO ver
 					//cuentaCobroMantenimientoPesos.acreditar(caDolares.convertirDolaresAPesos(caDolares.getCostoDeMantenimientoDolares()));
-					mantenimientosCobrados(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoDeMantenimientoDolares(), caDolares.getTipoMoneda(), "Dolares");
+					mantenimientosCobrados(caDolares.getCbu(), caDolares.getTipoCuenta(), caDolares.getCostoMantenimiento(), caDolares.getTipoMoneda(), "Dolares");
 				}
 			}
 			
@@ -113,11 +113,6 @@ public class ProcesadorBatch {
 			
 		}
 	}
-	
-	
-	
-	
-	
 	
 
 }

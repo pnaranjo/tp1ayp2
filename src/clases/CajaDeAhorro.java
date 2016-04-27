@@ -2,18 +2,22 @@ package clases;
 
 import java.util.ArrayList;
 
+import excepciones.ArrayTitularesException;
 import excepciones.MontoException;
 import excepciones.SaldoNegativoException;
 import excepciones.TransaccionException;
 
-public abstract class CajaDeAhorro extends CuentaComun {
+public abstract class CajaDeAhorro extends Cuenta{
     private final ArrayList<PersonaFisica> titulares;
     private final double tasaDeInteres;
-    private Transaccion transaccion;
+    public double costoMantenimiento;
 	
-    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException{
+    public CajaDeAhorro(double saldo, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException{
         super(saldo);
-        if (saldo <= 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
+        if(titulares.isEmpty()){
+      		 throw new ArrayTitularesException();
+      	 }
+        if (tasaDeInteres < 0) throw new MontoException("La tasa de interes no puede ser negativa");
     	this.tasaDeInteres = tasaDeInteres;
     	this.titulares = titulares;
     }
@@ -24,8 +28,13 @@ public abstract class CajaDeAhorro extends CuentaComun {
     public double getTasaDeInteres(){
     	return this.tasaDeInteres;
     }
-    abstract protected void cobroDeMantenimiento() throws SaldoNegativoException;
-    
+    public double getCostoMantenimiento(){
+		return costoMantenimiento;
+	}
+	public void cobroDeMantenimiento() throws SaldoNegativoException{
+		if (saldo < costoMantenimiento) throw new SaldoNegativoException();
+		saldo -= costoMantenimiento;
+	}
     public String debitar(double monto, String motivo,  String observaciones) throws TransaccionException, MontoException{
     	if(monto <= 0)
 			throw new MontoException();

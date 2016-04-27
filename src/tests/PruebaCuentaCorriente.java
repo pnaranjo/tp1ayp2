@@ -12,7 +12,6 @@ import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
 import clases.Cliente;
-import clases.CuentaComun;
 import clases.CuentaCorriente;
 import clases.Domicilio;
 import clases.Banco;
