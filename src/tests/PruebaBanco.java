@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clases.*;
@@ -8,106 +9,68 @@ import excepciones.MontoException;
 
 public class PruebaBanco {
 	
-	static Banco galicia;
+	static Banco banco;
+
+	@BeforeClass
+	public static void initialize() throws Exception{
+		banco = new Banco();	
+	}
+	
 
 	@Test
 	public void bancoCreadoSinParametrosTieneSaldoDeMantenimiento0() throws MontoException {
-		
-		galicia = new Banco();
-		Assert.assertEquals(0, galicia.getSaldoMantenimiento(), 0.01);
-				
+		Assert.assertEquals(0, banco.getSaldoMantenimiento(), 0.01);
 	}
 	
-
 	@Test
 	public void bancoCreadoSinParametrosTieneSaldoRetenciones0() throws MontoException {
-		
-		galicia = new Banco();
-		Assert.assertEquals(0, galicia.getSaldoRetenciones(), 0.01);
+		Assert.assertEquals(0, banco.getSaldoRetenciones(), 0.01);
 	}
 	
-	@SuppressWarnings("static-access")
 	@Test
 	public void bancoCreadoSinParametrosTieneCostoDeMantenimientoDolares2() throws MontoException {
-		
-		galicia = new Banco();
-		Assert.assertEquals(2, galicia.getCostoDeMantenimientoDolares(), 0.01);		
+		Assert.assertEquals(3.5, banco.getCostoDeMantenimientoDolares(), 0.1);		
 	}
 	
-	@SuppressWarnings("static-access")
 	@Test
 	public void bancoCreadoSinParametrosTieneCostoDeMantenimientoPesos30() throws MontoException {
-		
-		galicia = new Banco();
-		Assert.assertEquals(30, galicia.getCostoDeMantenimientoPesos(), 0.01);		
+		Assert.assertEquals(30, Banco.getCostoDeMantenimientoPesos(), 0.01);		
 	}
 	
-	@SuppressWarnings("static-access")
-	@Test
 	public void bancoCreadoSinParametrosTieneTipoDeCambioVigente15() throws MontoException {
-		
-		galicia = new Banco();
-		Assert.assertEquals(15, galicia.getTipoDeCambioVigente(), 0.01);		
+		Assert.assertEquals(15, Banco.getTipoDeCambioVigente(), 0.01);		
 	}
 	
 	@Test (expected = MontoException.class)
 	public void setCostoDeMantenimientoDolares0GeneraExcepcion() throws MontoException {
-		
-		galicia = new Banco();
-		galicia.setCostoDeMantenimientoDolares(0);		
+		banco.setCostoDeMantenimientoDolares(0);		
 	}
 	
 	@Test (expected = MontoException.class)
 	public void setCostoDeMantenimientoPesos0GeneraExcepcion() throws MontoException {
-		
-		galicia = new Banco();
-		galicia.setCostoDeMantenimientoPesos(0);		
+		banco.setCostoDeMantenimientoPesos(0);		
 	}
 	
 	@Test (expected = MontoException.class)
 	public void setTipoDeCambioVigente0GeneraExcepcion() throws MontoException {
-		
-		galicia = new Banco();
-		galicia.setTipoDeCambioVigente(0.0);
+		banco.setTipoDeCambioVigente(0.0);
 	}
 
-
-	
-	@SuppressWarnings("static-access")
 	@Test
 	public void setCostoDeMantenimientoDolares() throws MontoException {
-		
-		galicia = new Banco();
-		galicia.setCostoDeMantenimientoDolares(3.5);
-		Assert.assertEquals(3.5, galicia.getCostoDeMantenimientoDolares(), 0.01);		
+		banco.setCostoDeMantenimientoDolares(3.5);
+		Assert.assertEquals(3.5, Banco.getCostoDeMantenimientoDolares(), 0.01);		
 	}
 	
-	@SuppressWarnings("static-access")
 	@Test
 	public void setCostoDeMantenimientoPesos() throws MontoException {
-		
-		galicia = new Banco();
-		galicia.setCostoDeMantenimientoPesos(13.5);
-		Assert.assertEquals(13.5, galicia.getCostoDeMantenimientoPesos(), 0.01);		
+		banco.setCostoDeMantenimientoPesos(13.5);
+		Assert.assertEquals(13.5, Banco.getCostoDeMantenimientoPesos(), 0.01);		
 	}
 	
-	@SuppressWarnings("static-access")
 	@Test
 	public void setCostoDeManten() throws MontoException {
-		
-		galicia = new Banco();
-		galicia.setTipoDeCambioVigente(14.94);
-		Assert.assertEquals(14.94, galicia.getTipoDeCambioVigente(), 0.01);		
+		banco.setTipoDeCambioVigente(14.94);
+		Assert.assertEquals(14.94, Banco.getTipoDeCambioVigente(), 0.01);		
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-
-
 }

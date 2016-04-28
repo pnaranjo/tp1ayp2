@@ -45,7 +45,6 @@ public class PruebaGestorDeCuentas {
 	public void probarQueSeAbreUnaCajaDeAhorroEnPesos() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
-		//gestorClientes.alta(persona1);
 		
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
@@ -56,7 +55,6 @@ public class PruebaGestorDeCuentas {
 	public void probarQueSeAbreUnaCajaDeAhorroEnDolares() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
-		//gestorClientes.alta(persona1);
 		
 		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnDolares(caDolares);
@@ -67,9 +65,8 @@ public class PruebaGestorDeCuentas {
 	public void probarQueSeAbreUnaCuentaCorriente() throws Exception{
 		PersonaJuridica personaJuridica1 = new PersonaJuridica("Jebus", 30100000015L, domicilio, 4433222, true, "DNI");
 		titulares.add(personaJuridica1);
-		gestorClientes.alta(personaJuridica1);
 		
-		CuentaCorriente cCorriente = new CuentaCorriente(10000,titulares,1000);
+		CuentaCorriente cCorriente = new CuentaCorriente(10001,titulares,1000);
 		gestorCuentas.abrirCuentaCorriente(cCorriente);
 		Assert.assertEquals(cCorriente, Banco.getPortfolioDeCuentas().get(cCorriente.getCbu()));
 	}
@@ -80,10 +77,8 @@ public class PruebaGestorDeCuentas {
 		PersonaJuridica personaJuridica2 = new PersonaJuridica("Arnoldo", 30100000025L, domicilio, 4433222, true, "DNI");
 		titulares.add(personaJuridica1);
 		titulares.add(personaJuridica2);
-		//gestorClientes.alta(personaJuridica1);
-		gestorClientes.alta(personaJuridica2);
 		
-		CuentaCorriente cCorriente = new CuentaCorriente(10000,titulares,1000);
+		CuentaCorriente cCorriente = new CuentaCorriente(10001,titulares,1000);
 		gestorCuentas.abrirCuentaCorriente(cCorriente);
 		Assert.assertEquals(cCorriente, Banco.getPortfolioDeCuentas().get(cCorriente.getCbu()));
 	}
@@ -92,7 +87,6 @@ public class PruebaGestorDeCuentas {
 	public void probarQueDeshabilitoUnacuenta() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
-		//gestorClientes.alta(persona1);
 		
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
@@ -119,7 +113,6 @@ public class PruebaGestorDeCuentas {
 	public void probarQueNoEncuentraUnacuenta() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
-		//gestorClientes.alta(persona1);
 		
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
@@ -131,7 +124,6 @@ public class PruebaGestorDeCuentas {
 	public void probarQueNoEncuentraUnaCuentaEnHabilitar() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
-		//gestorClientes.alta(persona1);
 		
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
@@ -143,7 +135,6 @@ public class PruebaGestorDeCuentas {
 	public void probarQueNoEncuentraUnaCuentaEnDeshabilitar() throws Exception{
 		PersonaFisica persona1 = new PersonaFisica("Jebus", 20100000015L, domicilio, 4433222, true, "DNI", 31932422, "Carpintero", "soltero");
 		titular.add(persona1);
-		//gestorClientes.alta(persona1);
 		
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
