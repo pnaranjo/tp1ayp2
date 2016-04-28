@@ -36,15 +36,17 @@ public class GestorDeClientes {
 	 * post: el cliente pasa a estado inactivo. 
 	 *
 	 */
-	public void baja(Cliente cliente) {
+	public void baja(Cliente cliente) throws ExceptionCuitNoEncontrado {
 						
-		// if (OperadorBancario.portfolioDeCuentas.
-		// while (!hayCuentaActiva) {traeme todas las cuentas en que esté este cliente y decime si alguna está activa}
-		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente);
-				
-		if (!esCliente || !hayCuentaActiva(cliente)){
+		boolean esCliente = Banco.portfolioDeClientes.containsKey(cliente.getCuit());
+		if(esCliente){
 			cliente.desactivar();
-			}
+		}else{
+			throw new ExceptionCuitNoEncontrado("El CUIT no figura en el sistema. Solamente se puede desactivar un cliente existente.");
+		}
+		/*if (!esCliente || !hayCuentaActiva(cliente)){
+			cliente.desactivar();
+			}*/
 	} 
 	
 	public void activar(Cliente cliente) throws ExceptionCuitNoEncontrado {
@@ -82,7 +84,6 @@ public class GestorDeClientes {
 	 */
 	public boolean esClienteExistente(Cliente cliente) {
 		return Banco.portfolioDeClientes.containsKey(cliente.getCuit());
-		
 	}
 	
 	public Cliente buscarConCuit (long cuit) throws ExceptionCuitNoEncontrado{

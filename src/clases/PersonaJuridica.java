@@ -41,11 +41,9 @@ public class PersonaJuridica extends Cliente{
 	 */
 	@Override
 	protected void validarNumeroDeCuitPorTipoDeCliente(Long cuit) throws ExceptionCuitNoValido {
+		String numeroInicial = cuit.toString();
 		
-		while(cuit>10) {
-			cuit /= 10;
-		}
-		if (cuit != 3){
+		if (!numeroInicial.startsWith("3")){
 			throw new ExceptionCuitNoValido("El número de cuit debe comenzar con 3 para Persona Jurídica.");
 		}		
 	}

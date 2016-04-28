@@ -61,7 +61,7 @@ public abstract class Cliente {
 	private void validarCuit(Long cuit) throws ExceptionCuitNoValido {			
 		
 		if (cuit < 20000000010L || cuit > 39999999999L){
-			throw new ExceptionCuitNoValido("El número de CUIT" + cuit + "ya figura en el sistema.");
+			throw new ExceptionCuitNoValido("El número de CUIT " + cuit + " est� fuera de rango.");
 		}	
 		
 		validarNumeroDeCuitPorTipoDeCliente(cuit);		
