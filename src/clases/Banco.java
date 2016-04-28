@@ -137,4 +137,7 @@ public class Banco{
     public double getSaldoRetenciones(){
     	return retenciones.saldo;
     }
+	public static Map<Long, Cuenta> getPortfolioDeCuentas() {
+		return portfolioDeCuentas;
+	}
 }
