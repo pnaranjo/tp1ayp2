@@ -107,8 +107,8 @@ public class Ventanilla {
 	}
 	
 	public Cuenta getCuenta(long cbu) throws Exception {
-		if (Banco.portfolioDeCuentas.containsKey(cbu)) {
-			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
+		if (Banco.getPortfolioDeCuentas().containsKey(cbu)) {
+			Cuenta cuenta = Banco.getPortfolioDeCuentas().get(cbu);
 			if (cuenta.isEnabled()) {
 				return cuenta;
 			}else{ 

@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import excepciones.ArrayTitularesException;
 import excepciones.ExceptionCuitNoValido;
 import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
-import excepciones.TransaccionException;
+
 import clases.Cliente;
-import clases.Cuenta;
 import clases.CuentaCorriente;
 import clases.Domicilio;
 import clases.Banco;
@@ -47,6 +47,7 @@ public class PruebaCuentaCorriente  {
 	String profesion = "Horticultor";
 	
 	
+	//El montonto de deposito no puede ser menor a 10 mil pesos.
 	@Test
 	public void testCrearCuentaCorriente() throws Exception {
 	PersonaFisica cliente1 = new PersonaFisica(nombre, cuit, domicilio, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
@@ -62,21 +63,21 @@ public class PruebaCuentaCorriente  {
 		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(2000, titulares, -3);
+		CuentaCorriente c1 = new CuentaCorriente(2000, titulares, 1000);
 	}
 	
 	@Test (expected = MontoException.class)
-	public void testMonto() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+	public void testMontoSobregiro() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
 		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
+		CuentaCorriente c1 = new CuentaCorriente(10001, titulares, -234);
 	}
-	
-	@Test (expected = MontoException.class)
-	public void testTitulares() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+	@Test (expected = ArrayTitularesException.class)
+	public void testTitulares() throws ArrayTitularesException, MontoDepositoException, MontoException, ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoValido{
 		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
-		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
+		CuentaCorriente c1 = new CuentaCorriente(10001, titulares, 234);
+		
 	}
 }

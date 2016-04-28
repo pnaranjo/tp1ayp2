@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import clases.Banco;
+import clases.CajaDeAhorroEnPesos;
 import clases.Cliente;
 import clases.CuentaCorriente;
 import clases.Domicilio;
@@ -34,33 +35,26 @@ public class PruebaCajaDeAhorroEnPesos {
 	
 	@Test
 	public void testCrearCajaDeAhorroEnPesos() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido, TransaccionException {
-		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
-		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
-		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, -3);
-		Banco op1 = new Banco();
-		op1.portfolioDeCuentas.put(c1.getCbu(),c1);
-		Assert.assertEquals(1,op1.portfolioDeCuentas.size());	
+		//completar
 		}
-	@Test (expected = MontoDepositoException.class)
+	@Test (expected = MontoException.class)
 	public void testMontoDeposito() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
-		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
-		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
+		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
+		ArrayList<PersonaFisica> titulares = new ArrayList<PersonaFisica>();
 		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(2000, titulares, -3);
+		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(0, titulares, 200);
 	}
 	@Test (expected = MontoException.class)
-	public void testMonto() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
-		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
-		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
+	public void testTasaDeInteres() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
+		ArrayList<PersonaFisica> titulares = new ArrayList<PersonaFisica>();
 		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
+		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(100, titulares,-5);
 	}
-	@Test (expected = MontoException.class)
+	@Test (expected = ArrayTitularesException.class)
 	public void testTitulares() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
-		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
-		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
-		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
+		ArrayList<PersonaFisica> titulares = new ArrayList<PersonaFisica>();
+		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(10001, titulares, 234);
 	}
 
 }

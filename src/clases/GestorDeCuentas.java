@@ -10,7 +10,7 @@ public class GestorDeCuentas {
 	
 	public void abrirCajaDeAhorroEnPesos(CajaDeAhorroEnPesos caPesos){
 		try {
-			Banco.portfolioDeCuentas.put(caPesos.getCbu(), caPesos);
+			Banco.getPortfolioDeCuentas().put(caPesos.getCbu(), caPesos);
 			this.hablitarCuenta(caPesos.getCbu());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -19,7 +19,7 @@ public class GestorDeCuentas {
 	
 	public void abrirCajaDeAhorroEnDolares(CajaDeAhorroEnDolares caDolares){
 		try {
-			Banco.portfolioDeCuentas.put(caDolares.getCbu(), caDolares);	
+			Banco.getPortfolioDeCuentas().put(caDolares.getCbu(), caDolares);	
 			this.hablitarCuenta(caDolares.getCbu());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class GestorDeCuentas {
 	
 	public void abrirCuentaCorriente(CuentaCorriente cCorriente){
 		try {
-			Banco.portfolioDeCuentas.put(cCorriente.getCbu(), cCorriente);
+			Banco.getPortfolioDeCuentas().put(cCorriente.getCbu(), cCorriente);
 			this.hablitarCuenta(cCorriente.getCbu());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,8 +36,8 @@ public class GestorDeCuentas {
 	}
 	
 	public void inhablitarCuenta(long cbu) throws ExceptionCbuNoEncontrado{
-		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
+		if(Banco.getPortfolioDeCuentas().containsKey(cbu)){
+			Cuenta cuenta = Banco.getPortfolioDeCuentas().get(cbu);
 			cuenta.setDisable();
 		}else{
 			throw new ExceptionCbuNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas"); 
@@ -45,8 +45,8 @@ public class GestorDeCuentas {
 	}
 	 
 	public void hablitarCuenta(long cbu)throws ExceptionCbuNoEncontrado{
-		if(Banco.portfolioDeCuentas.containsKey(cbu)){
-			Cuenta cuenta = Banco.portfolioDeCuentas.get(cbu);
+		if(Banco.getPortfolioDeCuentas().containsKey(cbu)){
+			Cuenta cuenta = Banco.getPortfolioDeCuentas().get(cbu);
 			cuenta.setEnable();
 		}else{
 			throw new ExceptionCbuNoEncontrado("Cuenta no existe o no esta vinculada al portfolio de cuentas");
