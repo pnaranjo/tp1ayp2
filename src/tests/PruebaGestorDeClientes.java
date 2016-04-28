@@ -92,6 +92,19 @@ public class PruebaGestorDeClientes {
 	}
 	
 	
+	/*
+	 *  El cliente es dado de alta en el sistema y luego dado de baja
+	 *  Post: asociacionDeOrtopedia.isEnabled() == false
+	 * 
+	 */
+	@Test
+	public void testActivarYDesactivarPersonaFisica() throws ExceptionCuitNoValido, ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoEncontrado {
+		Cliente pj4 = new PersonaJuridica(nombre, 30228833229L, domicilio, telefono, habilitado, fechaContratoSocial, otrosDatos);
+		gestorClientes.alta(pj4);
+		Assert.assertTrue(pj4.isEnabled());
+		gestorClientes.baja(pj4);
+		Assert.assertFalse(pj4.isEnabled());
+	}
 	
 	/*
 	 *  Test buscarConCuit() un cliente existente, devuelve ese cliente.
@@ -113,18 +126,6 @@ public class PruebaGestorDeClientes {
 		Long cuit3 = 20228883449L;
 		gestorClientes.buscarConCuit(cuit3);
 	}
-
-	/*
-	 * test: Activar y desactivar cliente. 
-	 */
-	@Test
-	public void testActivarYDesactivarPersonaFisica() throws ExceptionCuitNoValido, ExceptionNumeroDeDocumentoNoValido, ExceptionCuitNoEncontrado {
-		Cliente pj4 = new PersonaJuridica(nombre, 30228833229L, domicilio, telefono, habilitado, fechaContratoSocial, otrosDatos);
-		gestorClientes.alta(pj4);
-		Assert.assertTrue(pj4.isEnabled());
-		gestorClientes.baja(pj4);
-		Assert.assertFalse(pj4.isEnabled());
-		}
 	
 	/*
 	 * testear activar()
