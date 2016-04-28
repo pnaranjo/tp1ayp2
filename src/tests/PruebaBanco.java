@@ -29,7 +29,7 @@ public class PruebaBanco {
 	
 	@Test
 	public void bancoCreadoSinParametrosTieneCostoDeMantenimientoDolares2() throws MontoException {
-		Assert.assertEquals(3.5, banco.getCostoDeMantenimientoDolares(), 0.1);		
+		Assert.assertEquals(3.5, Banco.getCostoDeMantenimientoDolares(), 0.1);		
 	}
 	
 	@Test
