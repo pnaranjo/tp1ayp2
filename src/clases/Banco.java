@@ -137,5 +137,4 @@ public class Banco{
     public double getSaldoRetenciones(){
     	return retenciones.saldo;
     }
-    
 }

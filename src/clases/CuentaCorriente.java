@@ -17,7 +17,10 @@ public class CuentaCorriente extends Cuenta{
 
 	public CuentaCorriente(double montoDeposito,ArrayList<Cliente> titulares,double montoSobreGiro)throws MontoDepositoException,MontoException,ArrayTitularesException {
 		super(setMontoDeposito(montoDeposito));
-		titulares = setTitulares(titulares);                
+		if(titulares.isEmpty()){
+			throw new ArrayTitularesException();
+			}
+ 	   	titulares = new ArrayList<Cliente>(titulares);                
 		setMontoSobreGiro(montoSobreGiro);                 
 		setTipoCuenta("CuentaCorriente");
 		setTipoMoneda("Pesos");
@@ -60,12 +63,9 @@ public class CuentaCorriente extends Cuenta{
 		return montoDeposito;
 	    }
 	
-	public ArrayList<Cliente> setTitulares(ArrayList<Cliente> titulares) throws ArrayTitularesException{
- 	   if(titulares.isEmpty()){
-			throw new ArrayTitularesException();
-			}
- 	   return titulares; 
-    }
+	/*private void setTitulares(ArrayList<Cliente> titulares1) throws ArrayTitularesException{
+ 	   
+    }*/
 	public String acreditar(double monto, String motivo) throws TransaccionException, MontoException{		
 		if(monto <= 0)
 			throw new MontoException();

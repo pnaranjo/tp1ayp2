@@ -49,7 +49,7 @@ public class PruebaGestorDeCuentas {
 		
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
-		Assert.assertEquals(caPesos, Banco.portfolioDeCuentas.get(caPesos.getCbu()));
+		Assert.assertEquals(caPesos, Banco.getPortfolioDeCuentas().get(caPesos.getCbu()));
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ public class PruebaGestorDeCuentas {
 		
 		CajaDeAhorroEnDolares caDolares = new CajaDeAhorroEnDolares(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnDolares(caDolares);
-		Assert.assertEquals(caDolares, Banco.portfolioDeCuentas.get(caDolares.getCbu()));
+		Assert.assertEquals(caDolares, Banco.getPortfolioDeCuentas().get(caDolares.getCbu()));
 	}
 	
 	@Test
@@ -71,7 +71,7 @@ public class PruebaGestorDeCuentas {
 		
 		CuentaCorriente cCorriente = new CuentaCorriente(10000,titulares,1000);
 		gestorCuentas.abrirCuentaCorriente(cCorriente);
-		Assert.assertEquals(cCorriente, Banco.portfolioDeCuentas.get(cCorriente.getCbu()));
+		Assert.assertEquals(cCorriente, Banco.getPortfolioDeCuentas().get(cCorriente.getCbu()));
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class PruebaGestorDeCuentas {
 		
 		CuentaCorriente cCorriente = new CuentaCorriente(10000,titulares,1000);
 		gestorCuentas.abrirCuentaCorriente(cCorriente);
-		Assert.assertEquals(cCorriente, Banco.portfolioDeCuentas.get(cCorriente.getCbu()));
+		Assert.assertEquals(cCorriente, Banco.getPortfolioDeCuentas().get(cCorriente.getCbu()));
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class PruebaGestorDeCuentas {
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		gestorCuentas.inhablitarCuenta(caPesos.getCbu());
-		CajaDeAhorroEnPesos ca = (CajaDeAhorroEnPesos) Banco.portfolioDeCuentas.get(caPesos.getCbu());
+		CajaDeAhorroEnPesos ca = (CajaDeAhorroEnPesos) Banco.getPortfolioDeCuentas().get(caPesos.getCbu());
 		Assert.assertEquals(false, ca.isEnabled());
 	}
 	
@@ -111,7 +111,7 @@ public class PruebaGestorDeCuentas {
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		gestorCuentas.inhablitarCuenta(caPesos.getCbu());
 		gestorCuentas.hablitarCuenta(caPesos.getCbu());
-		CajaDeAhorroEnPesos ca = (CajaDeAhorroEnPesos) Banco.portfolioDeCuentas.get(caPesos.getCbu());
+		CajaDeAhorroEnPesos ca = (CajaDeAhorroEnPesos) Banco.getPortfolioDeCuentas().get(caPesos.getCbu());
 		Assert.assertEquals(true, ca.isEnabled());
 	}
 	
@@ -124,7 +124,7 @@ public class PruebaGestorDeCuentas {
 		CajaDeAhorroEnPesos caPesos = new CajaDeAhorroEnPesos(100, titular, 0.5);
 		gestorCuentas.abrirCajaDeAhorroEnPesos(caPesos);
 		long cbu = 22222;
-		Assert.assertEquals(false, Banco.portfolioDeCuentas.containsKey(cbu));
+		Assert.assertEquals(false, Banco.getPortfolioDeCuentas().containsKey(cbu));
 	}
 	
 	@Test (expected = ExceptionCbuNoEncontrado.class)

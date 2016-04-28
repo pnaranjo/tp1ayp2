@@ -64,8 +64,8 @@ public class GestorDeClientes {
 		
 		while(it.hasNext()){
 			  Long key = (Long) it.next();
-			  boolean esCliente = Banco.portfolioDeCuentas.get(key).tieneComoCliente(cliente.getCuit());
-			  boolean esCuentaActiva = Banco.portfolioDeCuentas.get(key).isEnabled();
+			  boolean esCliente = Banco.getPortfolioDeCuentas().get(key).tieneComoCliente(cliente.getCuit());
+			  boolean esCuentaActiva = Banco.getPortfolioDeCuentas().get(key).isEnabled();
 			  hayCuentaActiva = esCliente & esCuentaActiva;
 			  if(hayCuentaActiva) {
 				  return true;

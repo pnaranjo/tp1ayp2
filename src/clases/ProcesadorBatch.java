@@ -16,7 +16,7 @@ import excepciones.TransaccionException;
 
 public class ProcesadorBatch {
 	
-	Iterator<Entry<Long, Cuenta>> it = Banco.portfolioDeCuentas.entrySet().iterator();
+	Iterator<Entry<Long, Cuenta>> it = Banco.getPortfolioDeCuentas().entrySet().iterator();
 	Cuenta cuenta;
 	
 	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
@@ -61,7 +61,7 @@ public class ProcesadorBatch {
 	}
 	 
 	public void pagarInteres(long cbu) throws TransaccionException, MontoException {
-		CajaDeAhorro cajaAhorro = (CajaDeAhorro)Banco.portfolioDeCuentas.get(cbu);
+		CajaDeAhorro cajaAhorro = (CajaDeAhorro)Banco.getPortfolioDeCuentas().get(cbu);
 		cajaAhorro.acreditar(cajaAhorro.getTasaDeInteres(), "Intereses mensuales");
 	}
 	
