@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import excepciones.ExceptionCuitNoEncontrado;
@@ -20,6 +21,12 @@ public class ProcesadorBatch {
 	Iterator<Entry<Long, Cuenta>> it = Banco.getPortfolioDeCuentas().entrySet().iterator();
 	Cuenta cuenta;
 	Date date = new Date();
+	CuentaEspecial cuentaEspecialCobroMantenimiento ;
+	
+	public ProcesadorBatch() throws MontoException, TransaccionException {
+		cuentaEspecialCobroMantenimiento = new CuentaEspecial();
+	}
+	
 	
 	public void correBatch(){
 		try {
@@ -34,13 +41,19 @@ public class ProcesadorBatch {
 		}
 	}
 	
+
+	public void correBatchParaTest() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
+		cobrarCosto();
+	}
+	
 	
 	private void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
 		
 		while(it.hasNext()){
-			cuenta = (Cuenta) it.next();
+			Map.Entry e = (Map.Entry)it.next();
+			cuenta = Banco.portfolioDeCuentas.get(e.getKey());
 			
-			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnPesos")){ 
+			if(cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnPesos")){ 
 				CajaDeAhorroEnPesos cajaAhorroPesos = (CajaDeAhorroEnPesos) cuenta;
 				
 				if (!cajaAhorroPesos.isEnabled()){
@@ -51,13 +64,14 @@ public class ProcesadorBatch {
 				}else{
 					pagarInteres(cajaAhorroPesos.getCbu());
 					cajaAhorroPesos.cobroDeMantenimiento();
-					Banco.acreditarRetenciones(cajaAhorroPesos.getCbu(), cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");
+					Banco.acreditarMantenimientos(cajaAhorroPesos.getCbu(), cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");
+					cuentaEspecialCobroMantenimiento.acreditar(cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");   
 					//TODO ver tipoDeCambio que pide mantenimientosCobrados
 					mantenimientosCobrados(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Pesos", "tipoDeCambio"); 
-				}
+				} 
 			}	
 			 
-			if(!cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnDolares")){ 
+			if(cuenta.getTipoCuenta().equalsIgnoreCase("CajaDeAhorroEnDolares")){ 
 				CajaDeAhorroEnDolares cajaAhorroDolares = (CajaDeAhorroEnDolares) cuenta;
 	
 				if (!cajaAhorroDolares.isEnabled()){
@@ -68,7 +82,8 @@ public class ProcesadorBatch {
 				}else{
 					pagarInteres(cajaAhorroDolares.getCbu());
 					cajaAhorroDolares.cobroDeMantenimiento();
-					Banco.acreditarRetenciones(cajaAhorroDolares.getCbu(), cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
+					Banco.acreditarMantenimientos(cajaAhorroDolares.getCbu(), cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
+					cuentaEspecialCobroMantenimiento.acreditar(cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
 					//TODO ver tipoDeCambio que pide mantenimientosCobrados
 					mantenimientosCobrados(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Dolares", "tipoDeCambio"); 
 				}
