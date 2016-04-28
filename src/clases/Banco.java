@@ -43,13 +43,15 @@ public class Banco{
         
         mantenimiento = new CuentaEspecial();
         retenciones = new CuentaEspecial();
-        mantenimiento.saldo=0.0;
-        retenciones.saldo=0.0;
+
+        mantenimiento.saldo=0;
+        retenciones.saldo=0;
         
         this.setTipoDeCambioVigente(tipoDeCambioVigente);
         this.setCostoDeMantenimientoPesos(costoDeMantemientoPesos);
         this.setCostoDeMantenimientoDolares(costoDeMantemientoPesos/tipoDeCambioVigente);
         generadorCbu = 0;
+
     }
     
     
