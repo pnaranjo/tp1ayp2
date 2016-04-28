@@ -21,7 +21,7 @@ import clases.Ventanilla;
 import excepciones.ExceptionCbuNoEncontrado;
 
 public class PruebaGestorDeCuentas {
-	
+	  
 	static Banco banco;
 	static Ventanilla ventanilla;
 	static GestorDeClientes gestorClientes;
