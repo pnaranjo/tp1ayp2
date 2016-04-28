@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import excepciones.ArrayTitularesException;
 import excepciones.MontoException;
+import excepciones.MontoTasaDeInteresException;
 import excepciones.SaldoNegativoException;
 import excepciones.TransaccionException;
 
@@ -12,7 +13,7 @@ public abstract class CajaDeAhorro extends Cuenta{
     private double tasaDeInteres;
     public double costoMantenimiento;
 	
-    public CajaDeAhorro(double monto, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException{
+    public CajaDeAhorro(double monto, ArrayList<PersonaFisica> titulares, double tasaDeInteres) throws MontoException, ArrayTitularesException, MontoTasaDeInteresException{
         super(validarMontoCuentaNoEspecial(monto));
         setTasaDeInteres(tasaDeInteres);
         titulares = setTitularesPersonaFisica(titulares);   
@@ -33,8 +34,8 @@ public abstract class CajaDeAhorro extends Cuenta{
 		if (saldo < costoMantenimiento) throw new SaldoNegativoException();
 		saldo -= costoMantenimiento;
 	}
-	public void setTasaDeInteres(double monto) throws MontoException{
-    	if (tasaDeInteres < 0) throw new MontoException("La tasa de interes no puede ser negativa");
+	public void setTasaDeInteres(double monto) throws MontoTasaDeInteresException{
+    	if (monto < 0) throw new MontoTasaDeInteresException("La tasa de interes no puede ser negativa");
     	tasaDeInteres = monto;
 	}
 	public ArrayList<PersonaFisica> setTitularesPersonaFisica(ArrayList<PersonaFisica> titulares) throws ArrayTitularesException{

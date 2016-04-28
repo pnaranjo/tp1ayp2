@@ -16,6 +16,7 @@ import excepciones.ExceptionCuitNoValido;
 import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
+import excepciones.MontoTasaDeInteresException;
 import excepciones.TransaccionException;
 
 public class PruebaCajaDeAhorroEnPesos {
@@ -38,21 +39,21 @@ public class PruebaCajaDeAhorroEnPesos {
 		//completar
 		}
 	@Test (expected = MontoException.class)
-	public void testMontoDeposito() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+	public void testMontoDeposito() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido, MontoTasaDeInteresException {
 		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<PersonaFisica> titulares = new ArrayList<PersonaFisica>();
 		titulares.add(cl1);
 		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(0, titulares, 200);
 	}
-	@Test (expected = MontoException.class)
-	public void testTasaDeInteres() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+	@Test (expected = MontoTasaDeInteresException.class)
+	public void testTasaDeInteres() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido, MontoTasaDeInteresException {
 		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<PersonaFisica> titulares = new ArrayList<PersonaFisica>();
 		titulares.add(cl1);
-		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(100, titulares,-5);
+		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(100, titulares,-20);
 	}
 	@Test (expected = ArrayTitularesException.class)
-	public void testTitulares() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+	public void testTitulares() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido, MontoTasaDeInteresException {
 		ArrayList<PersonaFisica> titulares = new ArrayList<PersonaFisica>();
 		CajaDeAhorroEnPesos c1 = new CajaDeAhorroEnPesos(10001, titulares, 234);
 	}
