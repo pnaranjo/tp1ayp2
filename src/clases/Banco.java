@@ -40,10 +40,17 @@ public class Banco{
     public Banco(double tipoDeCambioVigente, double costoDeMantemientoPesos) throws MontoException{
         portfolioDeCuentas = new HashMap<Long, Cuenta>();
         portfolioDeClientes = new HashMap<Long, Cliente>();
+        
+        mantenimiento = new CuentaEspecial();
+        retenciones = new CuentaEspecial();
+        mantenimiento.saldo=0;
+        retenciones.saldo=0;
+        
         this.setTipoDeCambioVigente(tipoDeCambioVigente);
         this.setCostoDeMantenimientoPesos(costoDeMantemientoPesos);
         this.setCostoDeMantenimientoDolares(costoDeMantemientoPesos/tipoDeCambioVigente);
         generadorCbu = 0;
+
     }
     
     
