@@ -43,30 +43,38 @@ class Transaccion {
         String segundos = Integer.toString(c.get(Calendar.SECOND));
         return fechaYHora = dia+"/"+mes+"/"+annio+"   "+hora+":"+minutos+";"+segundos;
     }
+    
     public String getTipoMovimiento() {
         return tipoMovimiento;
     }
+    
     public double getMonto() {
         return monto;
     }
+    
     public String getMotivo() {
         return motivo;
     }
+    
     public String getObservaciones() {
         return observaciones;
     }
+    
     public void setTipoMovimiento(String tipoMovimiento) throws TransaccionException{
-		if(tipoMovimiento == null || tipoMovimiento != "debitar" || tipoMovimiento != "acreditar"){
+		String tipoMov =  tipoMovimiento;
+    	if(tipoMovimiento == null && !tipoMov.equalsIgnoreCase("debitar")  && !tipoMov.equalsIgnoreCase("acreditar")){
         	throw new TransaccionException("El tipo de movimiento ingresado es incorrecto");
-        }
+        } 
 		this.tipoMovimiento = tipoMovimiento;
 	}
+    
     public void setMotivo(String motivo) throws TransaccionException{
 		if(motivo == null){
         	throw new TransaccionException("Debe ingresar un motivo para generar la transaccion");
         }
 		this.motivo = motivo;
 	}
+    
     public void setMonto(double monto) throws MontoException{
 		if( monto < 0){
         	throw new MontoException();
