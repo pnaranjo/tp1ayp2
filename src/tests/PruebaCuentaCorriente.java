@@ -11,11 +11,7 @@ import excepciones.ExceptionCuitNoValido;
 import excepciones.ExceptionNumeroDeDocumentoNoValido;
 import excepciones.MontoDepositoException;
 import excepciones.MontoException;
-import clases.Cliente;
-import clases.CuentaCorriente;
-import clases.Domicilio;
-import clases.Banco;
-import clases.PersonaFisica;
+import clases.*;
 
 public class PruebaCuentaCorriente  {
 	String codigoPostal1 = "1426";
@@ -32,28 +28,37 @@ public class PruebaCuentaCorriente  {
 	String profesion = "Horticultor";
 
 
-
-	@Test
-	public void testCrearCuentaCorriente() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+ 
+	@Test (expected = MontoException.class)
+	public void testCrearCuentaCorrienteConMontoDeSobregiroNegativoDaErrorLPMQLRMP() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
 		PersonaFisica cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, -3);
-		Banco op1 = new Banco();
-		op1.portfolioDeCuentas.put(c1.getCbu(),c1);
-		Assert.assertEquals(1,op1.portfolioDeCuentas.size());	
+		new CuentaCorriente(10000, titulares, -3.0);
 		}
 	
-	@Test (expected = MontoDepositoException.class)
-	public void testMontoDeposito() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+	@Test //(expected = MontoDepositoException.class)
+	public void testMontoDeposito() throws Exception {
+		Banco banco = new Banco();
+		Ventanilla ventanilla = new Ventanilla();
+		GestorDeCuentas gestorDeCuentas = new GestorDeCuentas();
 		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
-		CuentaCorriente c1 = new CuentaCorriente(2000, titulares, -3);
+		CuentaCorriente cuenta2;
+		cuenta2 = new CuentaCorriente(20000.0, titulares, 3.0);
+		gestorDeCuentas.abrirCuentaCorriente(cuenta2);
+		
+		//TODO hacer un assert de algo ¿no?
+
 	}
 	
 	@Test (expected = MontoException.class)
 	public void testMonto() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+		Banco banco = new Banco();
+		Ventanilla ventanilla = new Ventanilla();
+		GestorDeCuentas gestorDeCuentas = new GestorDeCuentas();
+		
 		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 		titulares.add(cl1);
