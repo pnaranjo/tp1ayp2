@@ -29,7 +29,7 @@ public class PruebaGestorDeCuentas {
 	static ArrayList<PersonaFisica> titular; 
 	static ArrayList<Cliente> titulares; 
 	static Domicilio domicilio;
-		
+	 	
 	@BeforeClass
 	public static void initialize() throws Exception{
 		banco = new Banco();	

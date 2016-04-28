@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -18,8 +19,23 @@ public class ProcesadorBatch {
 	
 	Iterator<Entry<Long, Cuenta>> it = Banco.portfolioDeCuentas.entrySet().iterator();
 	Cuenta cuenta;
+	Date date = new Date();
 	
-	public void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
+	public void correBatch(){
+		try {
+			if(date == getUltimoDiaDelMes()){
+				cobrarCosto();
+				return;
+			}
+			System.out.println("Se cobran los costos el ultimo dia del mes");
+		} catch (TransaccionException | MontoException
+				| ExceptionCuitNoEncontrado | SaldoNegativoException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
 		
 		while(it.hasNext()){
 			cuenta = (Cuenta) it.next();
@@ -111,5 +127,13 @@ public class ProcesadorBatch {
 		}
 	}
 	
+	public static Date getUltimoDiaDelMes() {
+		Calendar calendario = Calendar.getInstance();
+		calendario.set(calendario.get(Calendar.YEAR),
+				calendario.get(Calendar.MONTH),
+				calendario.getActualMaximum(Calendar.DAY_OF_MONTH));
 
+		return calendario.getTime();
+	}
+	
 }

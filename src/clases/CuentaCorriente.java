@@ -21,7 +21,7 @@ public class CuentaCorriente extends Cuenta{
 		setMontoSobreGiro(montoSobreGiro);                 
 		setTipoCuenta("CuentaCorriente");
 		setTipoMoneda("Pesos");
-	}
+	} 
 
 	public double cobrarComision(double monto) throws MontoException{
 		if (monto < 0) throw new MontoException("El depósito inicial debe ser mayor a 0");
