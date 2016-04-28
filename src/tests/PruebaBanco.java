@@ -13,7 +13,7 @@ public class PruebaBanco {
 
 	@BeforeClass
 	public static void initialize() throws Exception{
-		banco = new Banco();	
+		banco = new Banco();
 	}
 	
 
@@ -28,17 +28,8 @@ public class PruebaBanco {
 	}
 	
 	@Test
-	public void bancoCreadoSinParametrosTieneCostoDeMantenimientoDolares2() throws MontoException {
-		Assert.assertEquals(3.5, Banco.getCostoDeMantenimientoDolares(), 0.1);		
-	}
-	
-	@Test
 	public void bancoCreadoSinParametrosTieneCostoDeMantenimientoPesos30() throws MontoException {
 		Assert.assertEquals(30, Banco.getCostoDeMantenimientoPesos(), 0.01);		
-	}
-	
-	public void bancoCreadoSinParametrosTieneTipoDeCambioVigente15() throws MontoException {
-		Assert.assertEquals(15, Banco.getTipoDeCambioVigente(), 0.01);		
 	}
 	
 	@Test (expected = MontoException.class)
