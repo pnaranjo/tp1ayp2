@@ -65,11 +65,15 @@ public class PruebaCuentaCorriente  {
 		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
 	}
 	
-	@Test (expected = MontoException.class)
+	@Test 
 	public void testTitulares() throws ExceptionCuitNoValido, MontoDepositoException, MontoException, ArrayTitularesException, ExceptionNumeroDeDocumentoNoValido {
+		Banco banco = new Banco();
+		Ventanilla ventanilla = new Ventanilla();
+		GestorDeCuentas gestorDeCuentas = new GestorDeCuentas();
+		
 		Cliente cl1 = new PersonaFisica(nombre, cuit, domicilio1, telefono, habilitado, tipoDeDocumento, numeroDeDocumento, profesion, "casado", "conyugue");
 		ArrayList<Cliente> titulares = new ArrayList<Cliente>();
-		
+		titulares.add(cl1);
 		CuentaCorriente c1 = new CuentaCorriente(10000, titulares, 234);
 	}
 	
