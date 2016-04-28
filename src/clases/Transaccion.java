@@ -6,7 +6,7 @@ import java.util.Calendar;
 import excepciones.MontoException;
 import excepciones.TransaccionException;
 
-class Transaccion {
+public class Transaccion {
     private String fechaYHora;
     private String tipoMovimiento;
     private double monto;
