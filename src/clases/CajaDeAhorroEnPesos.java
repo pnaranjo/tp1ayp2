@@ -15,4 +15,5 @@ public class CajaDeAhorroEnPesos extends CajaDeAhorro {
 		setTipoCuenta("CajaDeAhorroEnPesos");
 		setTipoMoneda("Pesos");
 	}
+	
 }

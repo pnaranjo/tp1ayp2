@@ -3,6 +3,7 @@ package clases;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,6 +24,8 @@ public class ProcesadorBatch {
 	Date date = new Date();
 	CuentaEspecial cuentaEspecialCobroMantenimiento ;
 	
+	
+	
 	public ProcesadorBatch() throws MontoException, TransaccionException {
 		cuentaEspecialCobroMantenimiento = new CuentaEspecial();
 	}
@@ -38,16 +41,25 @@ public class ProcesadorBatch {
 		} catch (TransaccionException | MontoException
 				| ExceptionCuitNoEncontrado | SaldoNegativoException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 
 	public void correBatchParaTest() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
-		cobrarCosto();
+		try {
+			cobrarCosto();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
-	private void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException{
+	private void cobrarCosto() throws TransaccionException, MontoException, ExceptionCuitNoEncontrado, SaldoNegativoException, IOException{
+		
+		
 		
 		while(it.hasNext()){
 			Map.Entry e = (Map.Entry)it.next();
@@ -64,10 +76,8 @@ public class ProcesadorBatch {
 				}else{
 					pagarInteres(cajaAhorroPesos.getCbu());
 					cajaAhorroPesos.cobroDeMantenimiento();
-					Banco.acreditarMantenimientos(cajaAhorroPesos.getCbu(), cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");
-					cuentaEspecialCobroMantenimiento.acreditar(cajaAhorroPesos.costoMantenimiento, "Cobro retenciones en pesos");   
-					//TODO ver tipoDeCambio que pide mantenimientosCobrados
-					mantenimientosCobrados(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Pesos", "tipoDeCambio"); 
+					cuentaEspecialCobroMantenimiento.acreditar(cajaAhorroPesos.getCostoMantenimiento(), "Cobro retenciones en pesos", "de cuenta: " + cajaAhorroPesos.getCbu());
+					mantenimientosCobrados(cajaAhorroPesos.getCbu(), cajaAhorroPesos.getTipoCuenta(), cajaAhorroPesos.getCostoMantenimiento(), "Pesos", "Pesos"); 
 				} 
 			}	
 			 
@@ -82,9 +92,7 @@ public class ProcesadorBatch {
 				}else{
 					pagarInteres(cajaAhorroDolares.getCbu());
 					cajaAhorroDolares.cobroDeMantenimiento();
-					Banco.acreditarMantenimientos(cajaAhorroDolares.getCbu(), cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
-					cuentaEspecialCobroMantenimiento.acreditar(cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", ("valor de cambio " + Banco.getTipoDeCambioVigente()).toString());
-					//TODO ver tipoDeCambio que pide mantenimientosCobrados
+					cuentaEspecialCobroMantenimiento.acreditar(cajaAhorroDolares.costoMantenimiento, "Cobro retenciones en dolares", "de cuenta: " + cajaAhorroDolares.getCbu());
 					mantenimientosCobrados(cajaAhorroDolares.getCbu(), cajaAhorroDolares.getTipoCuenta(), cajaAhorroDolares.getCostoMantenimiento(), "Dolares", "tipoDeCambio"); 
 				}
 			}
@@ -96,50 +104,40 @@ public class ProcesadorBatch {
 		cajaAhorro.acreditar(cajaAhorro.getTasaDeInteres(), "Intereses mensuales");
 	}
 	
-	
+	//Pre: tener creada en C: la carpeta Banco
 	public void mantenimientosCobrados(long cbu, String tipoCuenta, double monto, String tipoMoneda, String tipoCambio){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String ruta = File.separator + "mantenimeintosCobrados_"+ dateFormat.format(date) +".txt";
-		
+		String ruta = "c:\\Banco\\" + "MantenimientoCobrados_"+ dateFormat.format(date) +".txt";
 		try{
-			File archivo = new File(ruta);
-	        BufferedWriter bw;
-	        if(archivo.exists()) {
-	            bw = new BufferedWriter(new FileWriter(archivo));
-	            bw.write(cbu +", "+ "Tipo de Cuenta: " + tipoCuenta +", "+ "$"+monto +", "+ tipoMoneda + ", "+ tipoCambio + "/n");
-	        } else {
-	            archivo.createNewFile();
-	        	bw = new BufferedWriter(new FileWriter(archivo));
-	            bw.write(cbu +", "+ "Tipo de Cuenta: " + tipoCuenta +", "+ "$"+monto +", "+ tipoMoneda + ", "+ tipoCambio + "/n");
-	        }
-	        bw.close();	
-		}catch(Exception e){
-			e.printStackTrace();
+			File archivo = new File(ruta);		
+			FileWriter escribirArchivo = new FileWriter(archivo, true); 
+			BufferedWriter buffer = new BufferedWriter(escribirArchivo); 
+			buffer.write("cbu: "+cbu +", "+ "Tipo de Cuenta: " + tipoCuenta +", "+ tipoMoneda+" "+ monto +", "+ tipoCambio ); 
+			buffer.newLine(); 
+			buffer.close();
+		}catch (IOException e){
+			
 		}
 		
 	}
 	
-	public void erroresMatenenimiento(long cbu, String tipoCuenta, double monto, String motivo){
+	//Pre: tener creada en C: la carpeta Banco
+	public static void erroresMatenenimiento(long cbu, String tipoCuenta, double monto, String motivo) throws IOException{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String ruta = File.separator + "mantenimeintosCobrados_"+ dateFormat.format(date) +".txt";
-		
+		String ruta = "c:\\Banco\\" + "ErroresMantenimientoCobrados_"+ dateFormat.format(date) +".txt";
 		try{
-			File archivo = new File(ruta);
-	        BufferedWriter bw;
-	        if(archivo.exists()) {
-	            bw = new BufferedWriter(new FileWriter(archivo));
-	            bw.write(cbu +", "+ "Tipo de Cuenta: " + tipoCuenta +", "+ "$"+monto +", "+ motivo + "/n");
-	        } else {
-	        	archivo.createNewFile();
-	            bw = new BufferedWriter(new FileWriter(archivo));
-	            bw.write(cbu +", "+ "Tipo de Cuenta: " + tipoCuenta +", "+ "$"+monto +", "+ motivo + "/n");
-	        }
-	        bw.close();	
-		}catch(Exception e){
-			e.printStackTrace();
+			File archivo = new File(ruta);		
+			FileWriter escribirArchivo = new FileWriter(archivo, true); 
+			BufferedWriter buffer = new BufferedWriter(escribirArchivo); 
+			buffer.write("cbu: "+cbu +", "+ "Tipo de Cuenta: " + tipoCuenta +", "+ "$"+monto +", "+ motivo); 
+			buffer.newLine();  
+			buffer.close();	
+		}catch (IOException e){
+			
 		}
+		  
 	}
 	
 	public static Date getUltimoDiaDelMes() {

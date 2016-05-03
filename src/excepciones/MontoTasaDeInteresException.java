@@ -1,7 +1,11 @@
 package excepciones;
 
 public class MontoTasaDeInteresException extends Exception {
- public MontoTasaDeInteresException(String s){
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8936026794402857509L;
+public MontoTasaDeInteresException(String s){
 	 super(s);
  }
  public MontoTasaDeInteresException(){

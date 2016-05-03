@@ -5,7 +5,7 @@ import excepciones.MontoException;
 import excepciones.TransaccionException;
 
 public class CuentaEspecial extends Cuenta {
-		
+			
 		public CuentaEspecial() throws MontoException, TransaccionException{
 			super(0.0);
 			setTipoCuenta("CuentaEspecial");
@@ -32,6 +32,7 @@ public class CuentaEspecial extends Cuenta {
 			historial.add(transaccion);
 			return transaccion.toString();
 		}
+		
 		public String debitar(double monto, String motivo) throws TransaccionException, MontoException, DebitarException{		
 			if(monto <= 0)
 				throw new MontoException();
@@ -54,5 +55,8 @@ public class CuentaEspecial extends Cuenta {
 			historial.add(transaccion);
 			return transaccion.toString();
 		}
+		
+		
+		
 }
 
